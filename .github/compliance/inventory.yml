@@ -1,0 +1,5 @@
+inventory:
+- source: DirectOwners
+  items:
+  - id: jameslen@microsoft.com
+  isProduction: false

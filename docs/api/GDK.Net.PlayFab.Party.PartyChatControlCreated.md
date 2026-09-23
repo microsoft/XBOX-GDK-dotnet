@@ -1,0 +1,62 @@
+# <a id="GDK_Net_PlayFab_Party_PartyChatControlCreated"></a> Class PartyChatControlCreated
+
+Namespace: [GDK.Net.PlayFab.Party](GDK.Net.PlayFab.Party.md)  
+Assembly: GDK.Net.dll  
+
+A chat control became known to the local device.
+
+```csharp
+public sealed record PartyChatControlCreated : PartyStateChange, IEquatable<PartyStateChange>, IEquatable<PartyChatControlCreated>
+```
+
+#### Inheritance
+
+[object](https://learn.microsoft.com/dotnet/api/system.object) ← 
+[PartyStateChange](GDK.Net.PlayFab.Party.PartyStateChange.md) ← 
+[PartyChatControlCreated](GDK.Net.PlayFab.Party.PartyChatControlCreated.md)
+
+#### Implements
+
+[IEquatable<PartyStateChange\>](https://learn.microsoft.com/dotnet/api/system.iequatable\-1), 
+[IEquatable<PartyChatControlCreated\>](https://learn.microsoft.com/dotnet/api/system.iequatable\-1)
+
+#### Inherited Members
+
+[PartyStateChange.Kind](GDK.Net.PlayFab.Party.PartyStateChange.md\#GDK\_Net\_PlayFab\_Party\_PartyStateChange\_Kind), 
+[object.Equals\(object?\)](https://learn.microsoft.com/dotnet/api/system.object.equals\#system\-object\-equals\(system\-object\)), 
+[object.Equals\(object?, object?\)](https://learn.microsoft.com/dotnet/api/system.object.equals\#system\-object\-equals\(system\-object\-system\-object\)), 
+[object.GetHashCode\(\)](https://learn.microsoft.com/dotnet/api/system.object.gethashcode), 
+[object.GetType\(\)](https://learn.microsoft.com/dotnet/api/system.object.gettype), 
+[object.ReferenceEquals\(object?, object?\)](https://learn.microsoft.com/dotnet/api/system.object.referenceequals), 
+[object.ToString\(\)](https://learn.microsoft.com/dotnet/api/system.object.tostring)
+
+## Constructors
+
+### <a id="GDK_Net_PlayFab_Party_PartyChatControlCreated__ctor_GDK_Net_PlayFab_Party_PartyChatControl_"></a> PartyChatControlCreated\(PartyChatControl?\)
+
+A chat control became known to the local device.
+
+```csharp
+public PartyChatControlCreated(PartyChatControl? ChatControl)
+```
+
+#### Parameters
+
+`ChatControl` [PartyChatControl](GDK.Net.PlayFab.Party.PartyChatControl.md)?
+
+The chat control.
+
+## Properties
+
+### <a id="GDK_Net_PlayFab_Party_PartyChatControlCreated_ChatControl"></a> ChatControl
+
+The chat control.
+
+```csharp
+public PartyChatControl? ChatControl { get; init; }
+```
+
+#### Property Value
+
+ [PartyChatControl](GDK.Net.PlayFab.Party.PartyChatControl.md)?
+

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      # Hosted runners have no GDK and no signed-in account, so CI builds and runs the unit tests
+      # only. The XUser pilot is validated live in a packaged title by eng/run-package-tests.ps1,
+      # which must be run manually on a dev-unlocked machine.
+      - name: Test
+        run: dotnet test -c Release --no-build
+
+      # Xbox consoles require NativeAOT. The analyzers above already fail the build on any
+      # AOT-hostile construct, but they only see what is annotated -- ILC sees the whole closure.
+      # windows-latest ships the MSVC linker ILC shells out to, so the real ahead-of-time
+      # compilation runs here and is the authoritative check.
+      #
+      # This publishes the live harness, which transitively AOT-compiles GDK.Net. It cannot *run* the
+      # result (no GDK, no signed-in account); executing an AOT build inside a real package is
+      # done by `eng/run-package-tests.ps1 -Tier Layout,Register -Aot` on a dev-unlocked machine.
+      - name: Verify NativeAOT compilation
+        shell: pwsh
+        run: |
+          # ILC locates link.exe by shelling out to vswhere.exe *from PATH* and using the command's
+          # combined output as the path. If vswhere is not on PATH the error text becomes the
+          # "linker" and the build fails with an opaque MSB3073, so put it there explicitly.
+          $installer = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer"
+          if (Test-Path (Join-Path $installer 'vswhere.exe')) { $env:PATH = "$installer;$env:PATH" }
+
+          dotnet publish tests/GDK.Net.LiveHarness/GDK.Net.LiveHarness.csproj `
+            -c Release -f net10.0 -r win-x64 --self-contained true -p:PublishAot=true `
+            -o "${{ runner.temp }}/aot"
+          if ($LASTEXITCODE -ne 0) { throw "NativeAOT publish failed with exit code $LASTEXITCODE." }
+
+      - name: Assert the AOT publish produced a native executable
+        shell: pwsh
+        run: |
+          $out = "${{ runner.temp }}/aot"
+          $exe = Join-Path $out 'GDK.Net.LiveHarness.exe'
+          if (-not (Test-Path $exe)) { throw "NativeAOT publish produced no executable in $out." }
+
+          # A silent fallback to an IL publish would still emit an .exe, but it would be an apphost
+          # next to managed assemblies. A genuine NativeAOT publish leaves neither.
+          $managed = Get-ChildItem $out -Filter '*.dll' -File
+          if ($managed) { throw "The publish left managed assemblies ($($managed.Name -join ', ')), so it was not NativeAOT." }
+
+          Write-Host "NativeAOT executable: $([math]::Round((Get-Item $exe).Length / 1MB, 2)) MB"

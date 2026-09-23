@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <AssemblyName>GDK.Net.MultiplayerHarness</AssemblyName>
+    <RootNamespace>GDK.Net.MultiplayerHarness</RootNamespace>
+    <IsPackable>false</IsPackable>
+
+    <!-- Driven by eng/run-local.ps1, not by `dotnet test`. -->
+    <IsTestProject>false</IsTestProject>
+
+    <Platforms>x64</Platforms>
+    <PublishTrimmed Condition="'$(PublishAot)' != 'true'">false</PublishTrimmed>
+    <PublishSingleFile>false</PublishSingleFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+
+    <!-- See tests/GDK.Net.LiveHarness for why these are on. The same reasoning applies: the
+         multiplayer surface has to be AOT-clean because an Xbox title has no JIT. -->
+    <EnableAotAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableAotAnalyzer>
+    <EnableTrimAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableTrimAnalyzer>
+    <EnableSingleFileAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableSingleFileAnalyzer>
+
+    <!-- The wire protocol is serialised through a source-generated context, and leaving reflection
+         off is what proves it. -->
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <EventSourceSupport>false</EventSourceSupport>
+
+    <!-- Lobby, matchmaking and Party. No Xbox Live: participants authenticate with
+         LoginWithCustomID precisely so the harness needs no signed-in account per process. -->
+    <GdkNetIncludePlayFab>true</GdkNetIncludePlayFab>
+    <GdkNetIncludePlayFabMultiplayer>true</GdkNetIncludePlayFabMultiplayer>
+    <GdkNetIncludePlayFabParty>true</GdkNetIncludePlayFabParty>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GDK.Net\GDK.Net.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MicrosoftGame.config" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\eng\packaging\ShellVisuals\*.png"
+          Link="%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Import Project="..\..\eng\packaging\GdkRedist.targets" />
+</Project>

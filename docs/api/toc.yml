@@ -1,0 +1,2412 @@
+### YamlMime:TableOfContent
+- name: GDK.Net
+  href: GDK.Net.md
+  items:
+  - name: Classes
+  - name: GameRuntime
+    href: GDK.Net.GameRuntime.md
+  - name: GameRuntimeException
+    href: GDK.Net.GameRuntimeException.md
+  - name: GameRuntimeOptions
+    href: GDK.Net.GameRuntimeOptions.md
+  - name: HResult
+    href: GDK.Net.HResult.md
+  - name: Hr
+    href: GDK.Net.Hr.md
+  - name: UserException
+    href: GDK.Net.UserException.md
+  - name: Enums
+  - name: GameRuntimeFeature
+    href: GDK.Net.GameRuntimeFeature.md
+  - name: GameRuntimeGameConfigSource
+    href: GDK.Net.GameRuntimeGameConfigSource.md
+- name: GDK.Net.Accessibility
+  href: GDK.Net.Accessibility.md
+  items:
+  - name: Classes
+  - name: AccessibilityManager
+    href: GDK.Net.Accessibility.AccessibilityManager.md
+  - name: SpeechSynthesizer
+    href: GDK.Net.Accessibility.SpeechSynthesizer.md
+  - name: SpeechSynthesizerVoiceInfo
+    href: GDK.Net.Accessibility.SpeechSynthesizerVoiceInfo.md
+  - name: Structs
+  - name: ClosedCaptionProperties
+    href: GDK.Net.Accessibility.ClosedCaptionProperties.md
+  - name: GameColor
+    href: GDK.Net.Accessibility.GameColor.md
+  - name: Enums
+  - name: ClosedCaptionFontEdgeAttribute
+    href: GDK.Net.Accessibility.ClosedCaptionFontEdgeAttribute.md
+  - name: ClosedCaptionFontStyle
+    href: GDK.Net.Accessibility.ClosedCaptionFontStyle.md
+  - name: HighContrastMode
+    href: GDK.Net.Accessibility.HighContrastMode.md
+  - name: SpeechSynthesizerVoiceGender
+    href: GDK.Net.Accessibility.SpeechSynthesizerVoiceGender.md
+  - name: SpeechToTextPositionHint
+    href: GDK.Net.Accessibility.SpeechToTextPositionHint.md
+  - name: SpeechToTextType
+    href: GDK.Net.Accessibility.SpeechToTextType.md
+- name: GDK.Net.Activation
+  href: GDK.Net.Activation.md
+  items:
+  - name: Classes
+  - name: GameActivationEventArgs
+    href: GDK.Net.Activation.GameActivationEventArgs.md
+  - name: GameActivationManager
+    href: GDK.Net.Activation.GameActivationManager.md
+  - name: Enums
+  - name: GameActivationType
+    href: GDK.Net.Activation.GameActivationType.md
+- name: GDK.Net.Capture
+  href: GDK.Net.Capture.md
+  items:
+  - name: Classes
+  - name: AppCaptureManager
+    href: GDK.Net.Capture.AppCaptureManager.md
+  - name: BroadcastStatus
+    href: GDK.Net.Capture.BroadcastStatus.md
+  - name: DiagnosticClipResult
+    href: GDK.Net.Capture.DiagnosticClipResult.md
+  - name: DiagnosticScreenshotFile
+    href: GDK.Net.Capture.DiagnosticScreenshotFile.md
+  - name: DiagnosticScreenshotResult
+    href: GDK.Net.Capture.DiagnosticScreenshotResult.md
+  - name: LocalClipStream
+    href: GDK.Net.Capture.LocalClipStream.md
+  - name: ScreenshotStream
+    href: GDK.Net.Capture.ScreenshotStream.md
+  - name: TakeScreenshotResult
+    href: GDK.Net.Capture.TakeScreenshotResult.md
+  - name: UserRecordingResult
+    href: GDK.Net.Capture.UserRecordingResult.md
+  - name: VideoCaptureSettings
+    href: GDK.Net.Capture.VideoCaptureSettings.md
+  - name: Enums
+  - name: AppCaptureMetadataPriority
+    href: GDK.Net.Capture.AppCaptureMetadataPriority.md
+  - name: AppCaptureScreenshotFormatFlag
+    href: GDK.Net.Capture.AppCaptureScreenshotFormatFlag.md
+  - name: AppCaptureVideoColorFormat
+    href: GDK.Net.Capture.AppCaptureVideoColorFormat.md
+  - name: AppCaptureVideoEncoding
+    href: GDK.Net.Capture.AppCaptureVideoEncoding.md
+- name: GDK.Net.Events
+  href: GDK.Net.Events.md
+  items:
+  - name: Classes
+  - name: GameEvents
+    href: GDK.Net.Events.GameEvents.md
+- name: GDK.Net.GameSave
+  href: GDK.Net.GameSave.md
+  items:
+  - name: Classes
+  - name: GameSaveBlob
+    href: GDK.Net.GameSave.GameSaveBlob.md
+  - name: GameSaveBlobInfo
+    href: GDK.Net.GameSave.GameSaveBlobInfo.md
+  - name: GameSaveContainer
+    href: GDK.Net.GameSave.GameSaveContainer.md
+  - name: GameSaveContainerInfo
+    href: GDK.Net.GameSave.GameSaveContainerInfo.md
+  - name: GameSaveFiles
+    href: GDK.Net.GameSave.GameSaveFiles.md
+  - name: GameSaveProvider
+    href: GDK.Net.GameSave.GameSaveProvider.md
+  - name: GameSaveUpdate
+    href: GDK.Net.GameSave.GameSaveUpdate.md
+  - name: Enums
+  - name: GameSaveSyncState
+    href: GDK.Net.GameSave.GameSaveSyncState.md
+- name: GDK.Net.GameUI
+  href: GDK.Net.GameUI.md
+  items:
+  - name: Classes
+  - name: AchievementsUiRequest
+    href: GDK.Net.GameUI.AchievementsUiRequest.md
+  - name: CustomGameUi
+    href: GDK.Net.GameUI.CustomGameUi.md
+  - name: CustomGameUiHandlers
+    href: GDK.Net.GameUI.CustomGameUiHandlers.md
+  - name: ErrorDialogUiRequest
+    href: GDK.Net.GameUI.ErrorDialogUiRequest.md
+  - name: GameTextEntry
+    href: GDK.Net.GameUI.GameTextEntry.md
+  - name: GameUiManager
+    href: GDK.Net.GameUI.GameUiManager.md
+  - name: GameUiRequest
+    href: GDK.Net.GameUI.GameUiRequest.md
+  - name: MessageDialogUiRequest
+    href: GDK.Net.GameUI.MessageDialogUiRequest.md
+  - name: MultiplayerActivityGameInviteUiRequest
+    href: GDK.Net.GameUI.MultiplayerActivityGameInviteUiRequest.md
+  - name: PlayerPickerUiRequest
+    href: GDK.Net.GameUI.PlayerPickerUiRequest.md
+  - name: PlayerProfileCardUiRequest
+    href: GDK.Net.GameUI.PlayerProfileCardUiRequest.md
+  - name: SendGameInviteUiRequest
+    href: GDK.Net.GameUI.SendGameInviteUiRequest.md
+  - name: TextEntryState
+    href: GDK.Net.GameUI.TextEntryState.md
+  - name: TextEntryUiRequest
+    href: GDK.Net.GameUI.TextEntryUiRequest.md
+  - name: WebAuthenticationResult
+    href: GDK.Net.GameUI.WebAuthenticationResult.md
+  - name: Structs
+  - name: TextEntryExtents
+    href: GDK.Net.GameUI.TextEntryExtents.md
+  - name: TextEntryOptions
+    href: GDK.Net.GameUI.TextEntryOptions.md
+  - name: Enums
+  - name: MessageDialogButton
+    href: GDK.Net.GameUI.MessageDialogButton.md
+  - name: NotificationPositionHint
+    href: GDK.Net.GameUI.NotificationPositionHint.md
+  - name: TextEntryChangeTypeFlags
+    href: GDK.Net.GameUI.TextEntryChangeTypeFlags.md
+  - name: TextEntryInputScope
+    href: GDK.Net.GameUI.TextEntryInputScope.md
+  - name: TextEntryPositionHint
+    href: GDK.Net.GameUI.TextEntryPositionHint.md
+  - name: TextEntryVisibilityFlags
+    href: GDK.Net.GameUI.TextEntryVisibilityFlags.md
+  - name: WebAuthenticationOptions
+    href: GDK.Net.GameUI.WebAuthenticationOptions.md
+- name: GDK.Net.Networking
+  href: GDK.Net.Networking.md
+  items:
+  - name: Classes
+  - name: ConnectivityHintChangedEventArgs
+    href: GDK.Net.Networking.ConnectivityHintChangedEventArgs.md
+  - name: NetworkingManager
+    href: GDK.Net.Networking.NetworkingManager.md
+  - name: NetworkingSecurityInformation
+    href: GDK.Net.Networking.NetworkingSecurityInformation.md
+  - name: NetworkingThumbprint
+    href: GDK.Net.Networking.NetworkingThumbprint.md
+  - name: PreferredLocalUdpMultiplayerPortChangedEventArgs
+    href: GDK.Net.Networking.PreferredLocalUdpMultiplayerPortChangedEventArgs.md
+  - name: Structs
+  - name: NetworkingConnectivityHint
+    href: GDK.Net.Networking.NetworkingConnectivityHint.md
+  - name: NetworkingTcpStatistics
+    href: GDK.Net.Networking.NetworkingTcpStatistics.md
+  - name: Enums
+  - name: NetworkingConfigurationSetting
+    href: GDK.Net.Networking.NetworkingConfigurationSetting.md
+  - name: NetworkingConnectivityCostHint
+    href: GDK.Net.Networking.NetworkingConnectivityCostHint.md
+  - name: NetworkingConnectivityLevelHint
+    href: GDK.Net.Networking.NetworkingConnectivityLevelHint.md
+  - name: NetworkingStatisticsType
+    href: GDK.Net.Networking.NetworkingStatisticsType.md
+  - name: NetworkingThumbprintType
+    href: GDK.Net.Networking.NetworkingThumbprintType.md
+- name: GDK.Net.Package
+  href: GDK.Net.Package.md
+  items:
+  - name: Classes
+  - name: GamePackage
+    href: GDK.Net.Package.GamePackage.md
+  - name: PackageChunkAvailabilityInfo
+    href: GDK.Net.Package.PackageChunkAvailabilityInfo.md
+  - name: PackageFeature
+    href: GDK.Net.Package.PackageFeature.md
+  - name: PackageInfo
+    href: GDK.Net.Package.PackageInfo.md
+  - name: PackageInstallationMonitor
+    href: GDK.Net.Package.PackageInstallationMonitor.md
+  - name: PackageInstalledEventArgs
+    href: GDK.Net.Package.PackageInstalledEventArgs.md
+  - name: PackageMount
+    href: GDK.Net.Package.PackageMount.md
+  - name: PackageProgressChangedEventArgs
+    href: GDK.Net.Package.PackageProgressChangedEventArgs.md
+  - name: Structs
+  - name: PackageChunkSelector
+    href: GDK.Net.Package.PackageChunkSelector.md
+  - name: PackageInstallationProgress
+    href: GDK.Net.Package.PackageInstallationProgress.md
+  - name: PackageVersion
+    href: GDK.Net.Package.PackageVersion.md
+  - name: PackageWriteStats
+    href: GDK.Net.Package.PackageWriteStats.md
+  - name: Enums
+  - name: PackageChunkAvailability
+    href: GDK.Net.Package.PackageChunkAvailability.md
+  - name: PackageChunkSelectorType
+    href: GDK.Net.Package.PackageChunkSelectorType.md
+  - name: PackageEnumerationScope
+    href: GDK.Net.Package.PackageEnumerationScope.md
+  - name: PackageKind
+    href: GDK.Net.Package.PackageKind.md
+- name: GDK.Net.PlayFab
+  href: GDK.Net.PlayFab.md
+  items:
+  - name: Classes
+  - name: AccountManagement
+    href: GDK.Net.PlayFab.AccountManagement.md
+  - name: AccountManagementAddOrUpdateContactEmailRequest
+    href: GDK.Net.PlayFab.AccountManagementAddOrUpdateContactEmailRequest.md
+  - name: AccountManagementBanInfo
+    href: GDK.Net.PlayFab.AccountManagementBanInfo.md
+  - name: AccountManagementBanRequest
+    href: GDK.Net.PlayFab.AccountManagementBanRequest.md
+  - name: AccountManagementBanUsersRequest
+    href: GDK.Net.PlayFab.AccountManagementBanUsersRequest.md
+  - name: AccountManagementBanUsersResult
+    href: GDK.Net.PlayFab.AccountManagementBanUsersResult.md
+  - name: AccountManagementBattleNetAccountPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementBattleNetAccountPlayFabIdPair.md
+  - name: AccountManagementClientLinkBattleNetAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementClientLinkBattleNetAccountRequest.md
+  - name: AccountManagementClientLinkXboxAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementClientLinkXboxAccountRequest.md
+  - name: AccountManagementClientUnlinkBattleNetAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementClientUnlinkBattleNetAccountRequest.md
+  - name: AccountManagementClientUnlinkXboxAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementClientUnlinkXboxAccountRequest.md
+  - name: AccountManagementClientUpdateAvatarUrlRequest
+    href: GDK.Net.PlayFab.AccountManagementClientUpdateAvatarUrlRequest.md
+  - name: AccountManagementDeletePlayerRequest
+    href: GDK.Net.PlayFab.AccountManagementDeletePlayerRequest.md
+  - name: AccountManagementFacebookInstantGamesPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementFacebookInstantGamesPlayFabIdPair.md
+  - name: AccountManagementFacebookPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementFacebookPlayFabIdPair.md
+  - name: AccountManagementGameCenterPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementGameCenterPlayFabIdPair.md
+  - name: AccountManagementGetAccountInfoRequest
+    href: GDK.Net.PlayFab.AccountManagementGetAccountInfoRequest.md
+  - name: AccountManagementGetAccountInfoResult
+    href: GDK.Net.PlayFab.AccountManagementGetAccountInfoResult.md
+  - name: AccountManagementGetPlayFabIDsFromBattleNetAccountIdsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromBattleNetAccountIdsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromBattleNetAccountIdsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromBattleNetAccountIdsResult.md
+  - name: AccountManagementGetPlayFabIDsFromFacebookIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromFacebookIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromFacebookIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromFacebookIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromFacebookInstantGamesIdsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromFacebookInstantGamesIdsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromFacebookInstantGamesIdsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromFacebookInstantGamesIdsResult.md
+  - name: AccountManagementGetPlayFabIDsFromGameCenterIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromGameCenterIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromGameCenterIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromGameCenterIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromGoogleIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromGoogleIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromGoogleIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromGoogleIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromGooglePlayGamesPlayerIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromGooglePlayGamesPlayerIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromGooglePlayGamesPlayerIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromGooglePlayGamesPlayerIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromKongregateIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromKongregateIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromKongregateIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromKongregateIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromNintendoServiceAccountIdsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromNintendoServiceAccountIdsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromNintendoServiceAccountIdsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromNintendoServiceAccountIdsResult.md
+  - name: AccountManagementGetPlayFabIDsFromNintendoSwitchDeviceIdsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromNintendoSwitchDeviceIdsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromNintendoSwitchDeviceIdsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromNintendoSwitchDeviceIdsResult.md
+  - name: AccountManagementGetPlayFabIDsFromPSNAccountIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromPSNAccountIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromPSNAccountIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromPSNAccountIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromPSNOnlineIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromPSNOnlineIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromPSNOnlineIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromPSNOnlineIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromSteamIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromSteamIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromSteamIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromSteamIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromSteamNamesRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromSteamNamesRequest.md
+  - name: AccountManagementGetPlayFabIDsFromSteamNamesResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromSteamNamesResult.md
+  - name: AccountManagementGetPlayFabIDsFromTwitchIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromTwitchIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromTwitchIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromTwitchIDsResult.md
+  - name: AccountManagementGetPlayFabIDsFromXboxLiveIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromXboxLiveIDsRequest.md
+  - name: AccountManagementGetPlayFabIDsFromXboxLiveIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayFabIDsFromXboxLiveIDsResult.md
+  - name: AccountManagementGetPlayerCombinedInfoRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayerCombinedInfoRequest.md
+  - name: AccountManagementGetPlayerCombinedInfoResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayerCombinedInfoResult.md
+  - name: AccountManagementGetPlayerProfileRequest
+    href: GDK.Net.PlayFab.AccountManagementGetPlayerProfileRequest.md
+  - name: AccountManagementGetPlayerProfileResult
+    href: GDK.Net.PlayFab.AccountManagementGetPlayerProfileResult.md
+  - name: AccountManagementGetServerCustomIDsFromPlayFabIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetServerCustomIDsFromPlayFabIDsRequest.md
+  - name: AccountManagementGetServerCustomIDsFromPlayFabIDsResult
+    href: GDK.Net.PlayFab.AccountManagementGetServerCustomIDsFromPlayFabIDsResult.md
+  - name: AccountManagementGetTitlePlayersFromProviderIDsResponse
+    href: GDK.Net.PlayFab.AccountManagementGetTitlePlayersFromProviderIDsResponse.md
+  - name: AccountManagementGetTitlePlayersFromXboxLiveIDsRequest
+    href: GDK.Net.PlayFab.AccountManagementGetTitlePlayersFromXboxLiveIDsRequest.md
+  - name: AccountManagementGetUserAccountInfoRequest
+    href: GDK.Net.PlayFab.AccountManagementGetUserAccountInfoRequest.md
+  - name: AccountManagementGetUserAccountInfoResult
+    href: GDK.Net.PlayFab.AccountManagementGetUserAccountInfoResult.md
+  - name: AccountManagementGetUserBansRequest
+    href: GDK.Net.PlayFab.AccountManagementGetUserBansRequest.md
+  - name: AccountManagementGetUserBansResult
+    href: GDK.Net.PlayFab.AccountManagementGetUserBansResult.md
+  - name: AccountManagementGooglePlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementGooglePlayFabIdPair.md
+  - name: AccountManagementGooglePlayGamesPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementGooglePlayGamesPlayFabIdPair.md
+  - name: AccountManagementKongregatePlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementKongregatePlayFabIdPair.md
+  - name: AccountManagementLinkCustomIDRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkCustomIDRequest.md
+  - name: AccountManagementLinkNintendoServiceAccountSubjectRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkNintendoServiceAccountSubjectRequest.md
+  - name: AccountManagementLinkOpenIdConnectRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkOpenIdConnectRequest.md
+  - name: AccountManagementLinkPSNIdRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkPSNIdRequest.md
+  - name: AccountManagementLinkServerCustomIdRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkServerCustomIdRequest.md
+  - name: AccountManagementLinkSteamAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkSteamAccountRequest.md
+  - name: AccountManagementLinkSteamIdRequest
+    href: GDK.Net.PlayFab.AccountManagementLinkSteamIdRequest.md
+  - name: AccountManagementNintendoServiceAccountPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementNintendoServiceAccountPlayFabIdPair.md
+  - name: AccountManagementNintendoSwitchPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementNintendoSwitchPlayFabIdPair.md
+  - name: AccountManagementPSNAccountPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementPSNAccountPlayFabIdPair.md
+  - name: AccountManagementPSNOnlinePlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementPSNOnlinePlayFabIdPair.md
+  - name: AccountManagementRemoveContactEmailRequest
+    href: GDK.Net.PlayFab.AccountManagementRemoveContactEmailRequest.md
+  - name: AccountManagementReportPlayerClientRequest
+    href: GDK.Net.PlayFab.AccountManagementReportPlayerClientRequest.md
+  - name: AccountManagementReportPlayerClientResult
+    href: GDK.Net.PlayFab.AccountManagementReportPlayerClientResult.md
+  - name: AccountManagementRevokeAllBansForUserRequest
+    href: GDK.Net.PlayFab.AccountManagementRevokeAllBansForUserRequest.md
+  - name: AccountManagementRevokeAllBansForUserResult
+    href: GDK.Net.PlayFab.AccountManagementRevokeAllBansForUserResult.md
+  - name: AccountManagementRevokeBansRequest
+    href: GDK.Net.PlayFab.AccountManagementRevokeBansRequest.md
+  - name: AccountManagementRevokeBansResult
+    href: GDK.Net.PlayFab.AccountManagementRevokeBansResult.md
+  - name: AccountManagementSendCustomAccountRecoveryEmailRequest
+    href: GDK.Net.PlayFab.AccountManagementSendCustomAccountRecoveryEmailRequest.md
+  - name: AccountManagementSendEmailFromTemplateRequest
+    href: GDK.Net.PlayFab.AccountManagementSendEmailFromTemplateRequest.md
+  - name: AccountManagementServerCustomIDPlayFabIDPair
+    href: GDK.Net.PlayFab.AccountManagementServerCustomIDPlayFabIDPair.md
+  - name: AccountManagementServerLinkBattleNetAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerLinkBattleNetAccountRequest.md
+  - name: AccountManagementServerLinkNintendoServiceAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerLinkNintendoServiceAccountRequest.md
+  - name: AccountManagementServerLinkNintendoSwitchDeviceIdRequest
+    href: GDK.Net.PlayFab.AccountManagementServerLinkNintendoSwitchDeviceIdRequest.md
+  - name: AccountManagementServerLinkPSNAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerLinkPSNAccountRequest.md
+  - name: AccountManagementServerLinkXboxAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerLinkXboxAccountRequest.md
+  - name: AccountManagementServerUnlinkBattleNetAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerUnlinkBattleNetAccountRequest.md
+  - name: AccountManagementServerUnlinkNintendoServiceAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerUnlinkNintendoServiceAccountRequest.md
+  - name: AccountManagementServerUnlinkNintendoSwitchDeviceIdRequest
+    href: GDK.Net.PlayFab.AccountManagementServerUnlinkNintendoSwitchDeviceIdRequest.md
+  - name: AccountManagementServerUnlinkPSNAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerUnlinkPSNAccountRequest.md
+  - name: AccountManagementServerUnlinkXboxAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementServerUnlinkXboxAccountRequest.md
+  - name: AccountManagementServerUpdateAvatarUrlRequest
+    href: GDK.Net.PlayFab.AccountManagementServerUpdateAvatarUrlRequest.md
+  - name: AccountManagementSetDisplayNameRequest
+    href: GDK.Net.PlayFab.AccountManagementSetDisplayNameRequest.md
+  - name: AccountManagementSetDisplayNameResponse
+    href: GDK.Net.PlayFab.AccountManagementSetDisplayNameResponse.md
+  - name: AccountManagementSteamNamePlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementSteamNamePlayFabIdPair.md
+  - name: AccountManagementSteamPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementSteamPlayFabIdPair.md
+  - name: AccountManagementTwitchPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementTwitchPlayFabIdPair.md
+  - name: AccountManagementUnlinkCustomIDRequest
+    href: GDK.Net.PlayFab.AccountManagementUnlinkCustomIDRequest.md
+  - name: AccountManagementUnlinkOpenIdConnectRequest
+    href: GDK.Net.PlayFab.AccountManagementUnlinkOpenIdConnectRequest.md
+  - name: AccountManagementUnlinkServerCustomIdRequest
+    href: GDK.Net.PlayFab.AccountManagementUnlinkServerCustomIdRequest.md
+  - name: AccountManagementUnlinkSteamAccountRequest
+    href: GDK.Net.PlayFab.AccountManagementUnlinkSteamAccountRequest.md
+  - name: AccountManagementUnlinkSteamIdRequest
+    href: GDK.Net.PlayFab.AccountManagementUnlinkSteamIdRequest.md
+  - name: AccountManagementUpdateBanRequest
+    href: GDK.Net.PlayFab.AccountManagementUpdateBanRequest.md
+  - name: AccountManagementUpdateBansRequest
+    href: GDK.Net.PlayFab.AccountManagementUpdateBansRequest.md
+  - name: AccountManagementUpdateBansResult
+    href: GDK.Net.PlayFab.AccountManagementUpdateBansResult.md
+  - name: AccountManagementUpdateUserTitleDisplayNameRequest
+    href: GDK.Net.PlayFab.AccountManagementUpdateUserTitleDisplayNameRequest.md
+  - name: AccountManagementUpdateUserTitleDisplayNameResult
+    href: GDK.Net.PlayFab.AccountManagementUpdateUserTitleDisplayNameResult.md
+  - name: AccountManagementXboxLiveAccountPlayFabIdPair
+    href: GDK.Net.PlayFab.AccountManagementXboxLiveAccountPlayFabIdPair.md
+  - name: AdCampaignAttributionModel
+    href: GDK.Net.PlayFab.AdCampaignAttributionModel.md
+  - name: Authentication
+    href: GDK.Net.PlayFab.Authentication.md
+  - name: AuthenticationAuthenticateCustomIdRequest
+    href: GDK.Net.PlayFab.AuthenticationAuthenticateCustomIdRequest.md
+  - name: AuthenticationDeleteRequest
+    href: GDK.Net.PlayFab.AuthenticationDeleteRequest.md
+  - name: AuthenticationEntityTokenResponse
+    href: GDK.Net.PlayFab.AuthenticationEntityTokenResponse.md
+  - name: AuthenticationGetEntityRequest
+    href: GDK.Net.PlayFab.AuthenticationGetEntityRequest.md
+  - name: AuthenticationLoginResult
+    href: GDK.Net.PlayFab.AuthenticationLoginResult.md
+  - name: AuthenticationLoginWithBattleNetRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithBattleNetRequest.md
+  - name: AuthenticationLoginWithCustomIDRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithCustomIDRequest.md
+  - name: AuthenticationLoginWithOpenIdConnectRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithOpenIdConnectRequest.md
+  - name: AuthenticationLoginWithServerCustomIdRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithServerCustomIdRequest.md
+  - name: AuthenticationLoginWithSteamIdRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithSteamIdRequest.md
+  - name: AuthenticationLoginWithSteamRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithSteamRequest.md
+  - name: AuthenticationLoginWithXUserRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithXUserRequest.md
+  - name: AuthenticationLoginWithXboxIdRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithXboxIdRequest.md
+  - name: AuthenticationLoginWithXboxRequest
+    href: GDK.Net.PlayFab.AuthenticationLoginWithXboxRequest.md
+  - name: AuthenticationServerLoginWithAndroidDeviceIDRequest
+    href: GDK.Net.PlayFab.AuthenticationServerLoginWithAndroidDeviceIDRequest.md
+  - name: AuthenticationServerLoginWithBattleNetRequest
+    href: GDK.Net.PlayFab.AuthenticationServerLoginWithBattleNetRequest.md
+  - name: AuthenticationServerLoginWithCustomIDRequest
+    href: GDK.Net.PlayFab.AuthenticationServerLoginWithCustomIDRequest.md
+  - name: AuthenticationServerLoginWithIOSDeviceIDRequest
+    href: GDK.Net.PlayFab.AuthenticationServerLoginWithIOSDeviceIDRequest.md
+  - name: AuthenticationServerLoginWithPSNRequest
+    href: GDK.Net.PlayFab.AuthenticationServerLoginWithPSNRequest.md
+  - name: AuthenticationServerLoginWithXboxRequest
+    href: GDK.Net.PlayFab.AuthenticationServerLoginWithXboxRequest.md
+  - name: AuthenticationUserSettings
+    href: GDK.Net.PlayFab.AuthenticationUserSettings.md
+  - name: AuthenticationValidateEntityTokenRequest
+    href: GDK.Net.PlayFab.AuthenticationValidateEntityTokenRequest.md
+  - name: AuthenticationValidateEntityTokenResponse
+    href: GDK.Net.PlayFab.AuthenticationValidateEntityTokenResponse.md
+  - name: Catalog
+    href: GDK.Net.PlayFab.Catalog.md
+  - name: CatalogCatalogAlternateId
+    href: GDK.Net.PlayFab.CatalogCatalogAlternateId.md
+  - name: CatalogCatalogConfig
+    href: GDK.Net.PlayFab.CatalogCatalogConfig.md
+  - name: CatalogCatalogItem
+    href: GDK.Net.PlayFab.CatalogCatalogItem.md
+  - name: CatalogCatalogItemReference
+    href: GDK.Net.PlayFab.CatalogCatalogItemReference.md
+  - name: CatalogCatalogPrice
+    href: GDK.Net.PlayFab.CatalogCatalogPrice.md
+  - name: CatalogCatalogPriceAmount
+    href: GDK.Net.PlayFab.CatalogCatalogPriceAmount.md
+  - name: CatalogCatalogPriceAmountOverride
+    href: GDK.Net.PlayFab.CatalogCatalogPriceAmountOverride.md
+  - name: CatalogCatalogPriceOptions
+    href: GDK.Net.PlayFab.CatalogCatalogPriceOptions.md
+  - name: CatalogCatalogPriceOptionsOverride
+    href: GDK.Net.PlayFab.CatalogCatalogPriceOptionsOverride.md
+  - name: CatalogCatalogPriceOverride
+    href: GDK.Net.PlayFab.CatalogCatalogPriceOverride.md
+  - name: CatalogCatalogSpecificConfig
+    href: GDK.Net.PlayFab.CatalogCatalogSpecificConfig.md
+  - name: CatalogCategoryRatingConfig
+    href: GDK.Net.PlayFab.CatalogCategoryRatingConfig.md
+  - name: CatalogContent
+    href: GDK.Net.PlayFab.CatalogContent.md
+  - name: CatalogCreateDraftItemRequest
+    href: GDK.Net.PlayFab.CatalogCreateDraftItemRequest.md
+  - name: CatalogCreateDraftItemResponse
+    href: GDK.Net.PlayFab.CatalogCreateDraftItemResponse.md
+  - name: CatalogCreateUploadUrlsRequest
+    href: GDK.Net.PlayFab.CatalogCreateUploadUrlsRequest.md
+  - name: CatalogCreateUploadUrlsResponse
+    href: GDK.Net.PlayFab.CatalogCreateUploadUrlsResponse.md
+  - name: CatalogDeepLink
+    href: GDK.Net.PlayFab.CatalogDeepLink.md
+  - name: CatalogDeepLinkFormat
+    href: GDK.Net.PlayFab.CatalogDeepLinkFormat.md
+  - name: CatalogDeleteEntityItemReviewsRequest
+    href: GDK.Net.PlayFab.CatalogDeleteEntityItemReviewsRequest.md
+  - name: CatalogDeleteItemRequest
+    href: GDK.Net.PlayFab.CatalogDeleteItemRequest.md
+  - name: CatalogDisplayPropertyIndexInfo
+    href: GDK.Net.PlayFab.CatalogDisplayPropertyIndexInfo.md
+  - name: CatalogFileConfig
+    href: GDK.Net.PlayFab.CatalogFileConfig.md
+  - name: CatalogFilterOptions
+    href: GDK.Net.PlayFab.CatalogFilterOptions.md
+  - name: CatalogGetCatalogConfigRequest
+    href: GDK.Net.PlayFab.CatalogGetCatalogConfigRequest.md
+  - name: CatalogGetCatalogConfigResponse
+    href: GDK.Net.PlayFab.CatalogGetCatalogConfigResponse.md
+  - name: CatalogGetDraftItemRequest
+    href: GDK.Net.PlayFab.CatalogGetDraftItemRequest.md
+  - name: CatalogGetDraftItemResponse
+    href: GDK.Net.PlayFab.CatalogGetDraftItemResponse.md
+  - name: CatalogGetDraftItemsRequest
+    href: GDK.Net.PlayFab.CatalogGetDraftItemsRequest.md
+  - name: CatalogGetDraftItemsResponse
+    href: GDK.Net.PlayFab.CatalogGetDraftItemsResponse.md
+  - name: CatalogGetEntityDraftItemsRequest
+    href: GDK.Net.PlayFab.CatalogGetEntityDraftItemsRequest.md
+  - name: CatalogGetEntityDraftItemsResponse
+    href: GDK.Net.PlayFab.CatalogGetEntityDraftItemsResponse.md
+  - name: CatalogGetEntityItemReviewRequest
+    href: GDK.Net.PlayFab.CatalogGetEntityItemReviewRequest.md
+  - name: CatalogGetEntityItemReviewResponse
+    href: GDK.Net.PlayFab.CatalogGetEntityItemReviewResponse.md
+  - name: CatalogGetItemContainersRequest
+    href: GDK.Net.PlayFab.CatalogGetItemContainersRequest.md
+  - name: CatalogGetItemContainersResponse
+    href: GDK.Net.PlayFab.CatalogGetItemContainersResponse.md
+  - name: CatalogGetItemModerationStateRequest
+    href: GDK.Net.PlayFab.CatalogGetItemModerationStateRequest.md
+  - name: CatalogGetItemModerationStateResponse
+    href: GDK.Net.PlayFab.CatalogGetItemModerationStateResponse.md
+  - name: CatalogGetItemPublishStatusRequest
+    href: GDK.Net.PlayFab.CatalogGetItemPublishStatusRequest.md
+  - name: CatalogGetItemPublishStatusResponse
+    href: GDK.Net.PlayFab.CatalogGetItemPublishStatusResponse.md
+  - name: CatalogGetItemRequest
+    href: GDK.Net.PlayFab.CatalogGetItemRequest.md
+  - name: CatalogGetItemResponse
+    href: GDK.Net.PlayFab.CatalogGetItemResponse.md
+  - name: CatalogGetItemReviewSummaryRequest
+    href: GDK.Net.PlayFab.CatalogGetItemReviewSummaryRequest.md
+  - name: CatalogGetItemReviewSummaryResponse
+    href: GDK.Net.PlayFab.CatalogGetItemReviewSummaryResponse.md
+  - name: CatalogGetItemReviewsRequest
+    href: GDK.Net.PlayFab.CatalogGetItemReviewsRequest.md
+  - name: CatalogGetItemReviewsResponse
+    href: GDK.Net.PlayFab.CatalogGetItemReviewsResponse.md
+  - name: CatalogGetItemsRequest
+    href: GDK.Net.PlayFab.CatalogGetItemsRequest.md
+  - name: CatalogGetItemsResponse
+    href: GDK.Net.PlayFab.CatalogGetItemsResponse.md
+  - name: CatalogImage
+    href: GDK.Net.PlayFab.CatalogImage.md
+  - name: CatalogImageConfig
+    href: GDK.Net.PlayFab.CatalogImageConfig.md
+  - name: CatalogKeywordSet
+    href: GDK.Net.PlayFab.CatalogKeywordSet.md
+  - name: CatalogModerationState
+    href: GDK.Net.PlayFab.CatalogModerationState.md
+  - name: CatalogPermissions
+    href: GDK.Net.PlayFab.CatalogPermissions.md
+  - name: CatalogPublishDraftItemRequest
+    href: GDK.Net.PlayFab.CatalogPublishDraftItemRequest.md
+  - name: CatalogRating
+    href: GDK.Net.PlayFab.CatalogRating.md
+  - name: CatalogRealMoneyPriceDetails
+    href: GDK.Net.PlayFab.CatalogRealMoneyPriceDetails.md
+  - name: CatalogReportItemRequest
+    href: GDK.Net.PlayFab.CatalogReportItemRequest.md
+  - name: CatalogReportItemReviewRequest
+    href: GDK.Net.PlayFab.CatalogReportItemReviewRequest.md
+  - name: CatalogReview
+    href: GDK.Net.PlayFab.CatalogReview.md
+  - name: CatalogReviewConfig
+    href: GDK.Net.PlayFab.CatalogReviewConfig.md
+  - name: CatalogReviewItemRequest
+    href: GDK.Net.PlayFab.CatalogReviewItemRequest.md
+  - name: CatalogReviewTakedown
+    href: GDK.Net.PlayFab.CatalogReviewTakedown.md
+  - name: CatalogSearchItemsRequest
+    href: GDK.Net.PlayFab.CatalogSearchItemsRequest.md
+  - name: CatalogSearchItemsResponse
+    href: GDK.Net.PlayFab.CatalogSearchItemsResponse.md
+  - name: CatalogSetItemModerationStateRequest
+    href: GDK.Net.PlayFab.CatalogSetItemModerationStateRequest.md
+  - name: CatalogStoreDetails
+    href: GDK.Net.PlayFab.CatalogStoreDetails.md
+  - name: CatalogStoreReference
+    href: GDK.Net.PlayFab.CatalogStoreReference.md
+  - name: CatalogSubmitItemReviewVoteRequest
+    href: GDK.Net.PlayFab.CatalogSubmitItemReviewVoteRequest.md
+  - name: CatalogTakedownItemReviewsRequest
+    href: GDK.Net.PlayFab.CatalogTakedownItemReviewsRequest.md
+  - name: CatalogUpdateCatalogConfigRequest
+    href: GDK.Net.PlayFab.CatalogUpdateCatalogConfigRequest.md
+  - name: CatalogUpdateDraftItemRequest
+    href: GDK.Net.PlayFab.CatalogUpdateDraftItemRequest.md
+  - name: CatalogUpdateDraftItemResponse
+    href: GDK.Net.PlayFab.CatalogUpdateDraftItemResponse.md
+  - name: CatalogUploadInfo
+    href: GDK.Net.PlayFab.CatalogUploadInfo.md
+  - name: CatalogUploadUrlMetadata
+    href: GDK.Net.PlayFab.CatalogUploadUrlMetadata.md
+  - name: CatalogUserGeneratedContentSpecificConfig
+    href: GDK.Net.PlayFab.CatalogUserGeneratedContentSpecificConfig.md
+  - name: CharacterInventory
+    href: GDK.Net.PlayFab.CharacterInventory.md
+  - name: CharacterResult
+    href: GDK.Net.PlayFab.CharacterResult.md
+  - name: CloudScript
+    href: GDK.Net.PlayFab.CloudScript.md
+  - name: CloudScriptExecuteCloudScriptRequest
+    href: GDK.Net.PlayFab.CloudScriptExecuteCloudScriptRequest.md
+  - name: CloudScriptExecuteCloudScriptResult
+    href: GDK.Net.PlayFab.CloudScriptExecuteCloudScriptResult.md
+  - name: CloudScriptExecuteCloudScriptServerRequest
+    href: GDK.Net.PlayFab.CloudScriptExecuteCloudScriptServerRequest.md
+  - name: CloudScriptExecuteEntityCloudScriptRequest
+    href: GDK.Net.PlayFab.CloudScriptExecuteEntityCloudScriptRequest.md
+  - name: CloudScriptExecuteFunctionRequest
+    href: GDK.Net.PlayFab.CloudScriptExecuteFunctionRequest.md
+  - name: CloudScriptExecuteFunctionResult
+    href: GDK.Net.PlayFab.CloudScriptExecuteFunctionResult.md
+  - name: CloudScriptFunctionExecutionError
+    href: GDK.Net.PlayFab.CloudScriptFunctionExecutionError.md
+  - name: CloudScriptLogStatement
+    href: GDK.Net.PlayFab.CloudScriptLogStatement.md
+  - name: CloudScriptScriptExecutionError
+    href: GDK.Net.PlayFab.CloudScriptScriptExecutionError.md
+  - name: ContactEmailInfoModel
+    href: GDK.Net.PlayFab.ContactEmailInfoModel.md
+  - name: Data
+    href: GDK.Net.PlayFab.Data.md
+  - name: DataAbortFileUploadsRequest
+    href: GDK.Net.PlayFab.DataAbortFileUploadsRequest.md
+  - name: DataAbortFileUploadsResponse
+    href: GDK.Net.PlayFab.DataAbortFileUploadsResponse.md
+  - name: DataDeleteFilesRequest
+    href: GDK.Net.PlayFab.DataDeleteFilesRequest.md
+  - name: DataDeleteFilesResponse
+    href: GDK.Net.PlayFab.DataDeleteFilesResponse.md
+  - name: DataFinalizeFileUploadsRequest
+    href: GDK.Net.PlayFab.DataFinalizeFileUploadsRequest.md
+  - name: DataFinalizeFileUploadsResponse
+    href: GDK.Net.PlayFab.DataFinalizeFileUploadsResponse.md
+  - name: DataGetFileMetadata
+    href: GDK.Net.PlayFab.DataGetFileMetadata.md
+  - name: DataGetFilesRequest
+    href: GDK.Net.PlayFab.DataGetFilesRequest.md
+  - name: DataGetFilesResponse
+    href: GDK.Net.PlayFab.DataGetFilesResponse.md
+  - name: DataGetObjectsRequest
+    href: GDK.Net.PlayFab.DataGetObjectsRequest.md
+  - name: DataGetObjectsResponse
+    href: GDK.Net.PlayFab.DataGetObjectsResponse.md
+  - name: DataInitiateFileUploadMetadata
+    href: GDK.Net.PlayFab.DataInitiateFileUploadMetadata.md
+  - name: DataInitiateFileUploadsRequest
+    href: GDK.Net.PlayFab.DataInitiateFileUploadsRequest.md
+  - name: DataInitiateFileUploadsResponse
+    href: GDK.Net.PlayFab.DataInitiateFileUploadsResponse.md
+  - name: DataObjectResult
+    href: GDK.Net.PlayFab.DataObjectResult.md
+  - name: DataSetObject
+    href: GDK.Net.PlayFab.DataSetObject.md
+  - name: DataSetObjectInfo
+    href: GDK.Net.PlayFab.DataSetObjectInfo.md
+  - name: DataSetObjectsRequest
+    href: GDK.Net.PlayFab.DataSetObjectsRequest.md
+  - name: DataSetObjectsResponse
+    href: GDK.Net.PlayFab.DataSetObjectsResponse.md
+  - name: EntityKey
+    href: GDK.Net.PlayFab.EntityKey.md
+  - name: EntityLineage
+    href: GDK.Net.PlayFab.EntityLineage.md
+  - name: EntityStatisticValue
+    href: GDK.Net.PlayFab.EntityStatisticValue.md
+  - name: EntityToken
+    href: GDK.Net.PlayFab.EntityToken.md
+  - name: Events
+    href: GDK.Net.PlayFab.Events.md
+  - name: EventsEventContents
+    href: GDK.Net.PlayFab.EventsEventContents.md
+  - name: EventsWriteEventsRequest
+    href: GDK.Net.PlayFab.EventsWriteEventsRequest.md
+  - name: EventsWriteEventsResponse
+    href: GDK.Net.PlayFab.EventsWriteEventsResponse.md
+  - name: Experimentation
+    href: GDK.Net.PlayFab.Experimentation.md
+  - name: ExperimentationGetTreatmentAssignmentRequest
+    href: GDK.Net.PlayFab.ExperimentationGetTreatmentAssignmentRequest.md
+  - name: ExperimentationGetTreatmentAssignmentResult
+    href: GDK.Net.PlayFab.ExperimentationGetTreatmentAssignmentResult.md
+  - name: Friends
+    href: GDK.Net.PlayFab.Friends.md
+  - name: FriendsAddFriendResult
+    href: GDK.Net.PlayFab.FriendsAddFriendResult.md
+  - name: FriendsClientAddFriendRequest
+    href: GDK.Net.PlayFab.FriendsClientAddFriendRequest.md
+  - name: FriendsClientGetFriendsListRequest
+    href: GDK.Net.PlayFab.FriendsClientGetFriendsListRequest.md
+  - name: FriendsClientRemoveFriendRequest
+    href: GDK.Net.PlayFab.FriendsClientRemoveFriendRequest.md
+  - name: FriendsClientSetFriendTagsRequest
+    href: GDK.Net.PlayFab.FriendsClientSetFriendTagsRequest.md
+  - name: FriendsFriendInfo
+    href: GDK.Net.PlayFab.FriendsFriendInfo.md
+  - name: FriendsGetFriendsListResult
+    href: GDK.Net.PlayFab.FriendsGetFriendsListResult.md
+  - name: FriendsServerAddFriendRequest
+    href: GDK.Net.PlayFab.FriendsServerAddFriendRequest.md
+  - name: FriendsServerGetFriendsListRequest
+    href: GDK.Net.PlayFab.FriendsServerGetFriendsListRequest.md
+  - name: FriendsServerRemoveFriendRequest
+    href: GDK.Net.PlayFab.FriendsServerRemoveFriendRequest.md
+  - name: FriendsServerSetFriendTagsRequest
+    href: GDK.Net.PlayFab.FriendsServerSetFriendTagsRequest.md
+  - name: GameSaveActiveDeviceChangedEventArgs
+    href: GDK.Net.PlayFab.GameSaveActiveDeviceChangedEventArgs.md
+  - name: GameSaveActiveDeviceContentionEventArgs
+    href: GDK.Net.PlayFab.GameSaveActiveDeviceContentionEventArgs.md
+  - name: GameSaveConflictEventArgs
+    href: GDK.Net.PlayFab.GameSaveConflictEventArgs.md
+  - name: GameSaveDescriptor
+    href: GDK.Net.PlayFab.GameSaveDescriptor.md
+  - name: GameSaveEventArgs
+    href: GDK.Net.PlayFab.GameSaveEventArgs.md
+  - name: GameSaveOutOfStorageEventArgs
+    href: GDK.Net.PlayFab.GameSaveOutOfStorageEventArgs.md
+  - name: GameSaveSyncFailedEventArgs
+    href: GDK.Net.PlayFab.GameSaveSyncFailedEventArgs.md
+  - name: GameSaveSyncProgressEventArgs
+    href: GDK.Net.PlayFab.GameSaveSyncProgressEventArgs.md
+  - name: GameSaveUserActionEventArgs
+    href: GDK.Net.PlayFab.GameSaveUserActionEventArgs.md
+  - name: GetPlayerCombinedInfoRequestParams
+    href: GDK.Net.PlayFab.GetPlayerCombinedInfoRequestParams.md
+  - name: GetPlayerCombinedInfoResultPayload
+    href: GDK.Net.PlayFab.GetPlayerCombinedInfoResultPayload.md
+  - name: Groups
+    href: GDK.Net.PlayFab.Groups.md
+  - name: GroupsAcceptGroupApplicationRequest
+    href: GDK.Net.PlayFab.GroupsAcceptGroupApplicationRequest.md
+  - name: GroupsAcceptGroupInvitationRequest
+    href: GDK.Net.PlayFab.GroupsAcceptGroupInvitationRequest.md
+  - name: GroupsAddMembersRequest
+    href: GDK.Net.PlayFab.GroupsAddMembersRequest.md
+  - name: GroupsApplyToGroupRequest
+    href: GDK.Net.PlayFab.GroupsApplyToGroupRequest.md
+  - name: GroupsApplyToGroupResponse
+    href: GDK.Net.PlayFab.GroupsApplyToGroupResponse.md
+  - name: GroupsBlockEntityRequest
+    href: GDK.Net.PlayFab.GroupsBlockEntityRequest.md
+  - name: GroupsChangeMemberRoleRequest
+    href: GDK.Net.PlayFab.GroupsChangeMemberRoleRequest.md
+  - name: GroupsCreateGroupRequest
+    href: GDK.Net.PlayFab.GroupsCreateGroupRequest.md
+  - name: GroupsCreateGroupResponse
+    href: GDK.Net.PlayFab.GroupsCreateGroupResponse.md
+  - name: GroupsCreateGroupRoleRequest
+    href: GDK.Net.PlayFab.GroupsCreateGroupRoleRequest.md
+  - name: GroupsCreateGroupRoleResponse
+    href: GDK.Net.PlayFab.GroupsCreateGroupRoleResponse.md
+  - name: GroupsDeleteGroupRequest
+    href: GDK.Net.PlayFab.GroupsDeleteGroupRequest.md
+  - name: GroupsDeleteRoleRequest
+    href: GDK.Net.PlayFab.GroupsDeleteRoleRequest.md
+  - name: GroupsEntityMemberRole
+    href: GDK.Net.PlayFab.GroupsEntityMemberRole.md
+  - name: GroupsEntityWithLineage
+    href: GDK.Net.PlayFab.GroupsEntityWithLineage.md
+  - name: GroupsGetGroupRequest
+    href: GDK.Net.PlayFab.GroupsGetGroupRequest.md
+  - name: GroupsGetGroupResponse
+    href: GDK.Net.PlayFab.GroupsGetGroupResponse.md
+  - name: GroupsGroupApplication
+    href: GDK.Net.PlayFab.GroupsGroupApplication.md
+  - name: GroupsGroupBlock
+    href: GDK.Net.PlayFab.GroupsGroupBlock.md
+  - name: GroupsGroupInvitation
+    href: GDK.Net.PlayFab.GroupsGroupInvitation.md
+  - name: GroupsGroupRole
+    href: GDK.Net.PlayFab.GroupsGroupRole.md
+  - name: GroupsGroupWithRoles
+    href: GDK.Net.PlayFab.GroupsGroupWithRoles.md
+  - name: GroupsInviteToGroupRequest
+    href: GDK.Net.PlayFab.GroupsInviteToGroupRequest.md
+  - name: GroupsInviteToGroupResponse
+    href: GDK.Net.PlayFab.GroupsInviteToGroupResponse.md
+  - name: GroupsIsMemberRequest
+    href: GDK.Net.PlayFab.GroupsIsMemberRequest.md
+  - name: GroupsIsMemberResponse
+    href: GDK.Net.PlayFab.GroupsIsMemberResponse.md
+  - name: GroupsListGroupApplicationsRequest
+    href: GDK.Net.PlayFab.GroupsListGroupApplicationsRequest.md
+  - name: GroupsListGroupApplicationsResponse
+    href: GDK.Net.PlayFab.GroupsListGroupApplicationsResponse.md
+  - name: GroupsListGroupBlocksRequest
+    href: GDK.Net.PlayFab.GroupsListGroupBlocksRequest.md
+  - name: GroupsListGroupBlocksResponse
+    href: GDK.Net.PlayFab.GroupsListGroupBlocksResponse.md
+  - name: GroupsListGroupInvitationsRequest
+    href: GDK.Net.PlayFab.GroupsListGroupInvitationsRequest.md
+  - name: GroupsListGroupInvitationsResponse
+    href: GDK.Net.PlayFab.GroupsListGroupInvitationsResponse.md
+  - name: GroupsListGroupMembersRequest
+    href: GDK.Net.PlayFab.GroupsListGroupMembersRequest.md
+  - name: GroupsListGroupMembersResponse
+    href: GDK.Net.PlayFab.GroupsListGroupMembersResponse.md
+  - name: GroupsListMembershipOpportunitiesRequest
+    href: GDK.Net.PlayFab.GroupsListMembershipOpportunitiesRequest.md
+  - name: GroupsListMembershipOpportunitiesResponse
+    href: GDK.Net.PlayFab.GroupsListMembershipOpportunitiesResponse.md
+  - name: GroupsListMembershipRequest
+    href: GDK.Net.PlayFab.GroupsListMembershipRequest.md
+  - name: GroupsListMembershipResponse
+    href: GDK.Net.PlayFab.GroupsListMembershipResponse.md
+  - name: GroupsRemoveGroupApplicationRequest
+    href: GDK.Net.PlayFab.GroupsRemoveGroupApplicationRequest.md
+  - name: GroupsRemoveGroupInvitationRequest
+    href: GDK.Net.PlayFab.GroupsRemoveGroupInvitationRequest.md
+  - name: GroupsRemoveMembersRequest
+    href: GDK.Net.PlayFab.GroupsRemoveMembersRequest.md
+  - name: GroupsUnblockEntityRequest
+    href: GDK.Net.PlayFab.GroupsUnblockEntityRequest.md
+  - name: GroupsUpdateGroupRequest
+    href: GDK.Net.PlayFab.GroupsUpdateGroupRequest.md
+  - name: GroupsUpdateGroupResponse
+    href: GDK.Net.PlayFab.GroupsUpdateGroupResponse.md
+  - name: GroupsUpdateGroupRoleRequest
+    href: GDK.Net.PlayFab.GroupsUpdateGroupRoleRequest.md
+  - name: GroupsUpdateGroupRoleResponse
+    href: GDK.Net.PlayFab.GroupsUpdateGroupRoleResponse.md
+  - name: Inventory
+    href: GDK.Net.PlayFab.Inventory.md
+  - name: InventoryAddInventoryItemsOperation
+    href: GDK.Net.PlayFab.InventoryAddInventoryItemsOperation.md
+  - name: InventoryAddInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryAddInventoryItemsRequest.md
+  - name: InventoryAddInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryAddInventoryItemsResponse.md
+  - name: InventoryAlternateId
+    href: GDK.Net.PlayFab.InventoryAlternateId.md
+  - name: InventoryDeleteInventoryCollectionRequest
+    href: GDK.Net.PlayFab.InventoryDeleteInventoryCollectionRequest.md
+  - name: InventoryDeleteInventoryItemsOperation
+    href: GDK.Net.PlayFab.InventoryDeleteInventoryItemsOperation.md
+  - name: InventoryDeleteInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryDeleteInventoryItemsRequest.md
+  - name: InventoryDeleteInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryDeleteInventoryItemsResponse.md
+  - name: InventoryExecuteInventoryOperationsRequest
+    href: GDK.Net.PlayFab.InventoryExecuteInventoryOperationsRequest.md
+  - name: InventoryExecuteInventoryOperationsResponse
+    href: GDK.Net.PlayFab.InventoryExecuteInventoryOperationsResponse.md
+  - name: InventoryExecuteTransferOperationsRequest
+    href: GDK.Net.PlayFab.InventoryExecuteTransferOperationsRequest.md
+  - name: InventoryExecuteTransferOperationsResponse
+    href: GDK.Net.PlayFab.InventoryExecuteTransferOperationsResponse.md
+  - name: InventoryGetInventoryCollectionIdsRequest
+    href: GDK.Net.PlayFab.InventoryGetInventoryCollectionIdsRequest.md
+  - name: InventoryGetInventoryCollectionIdsResponse
+    href: GDK.Net.PlayFab.InventoryGetInventoryCollectionIdsResponse.md
+  - name: InventoryGetInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryGetInventoryItemsRequest.md
+  - name: InventoryGetInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryGetInventoryItemsResponse.md
+  - name: InventoryGetInventoryOperationStatusRequest
+    href: GDK.Net.PlayFab.InventoryGetInventoryOperationStatusRequest.md
+  - name: InventoryGetInventoryOperationStatusResponse
+    href: GDK.Net.PlayFab.InventoryGetInventoryOperationStatusResponse.md
+  - name: InventoryGetTransactionHistoryRequest
+    href: GDK.Net.PlayFab.InventoryGetTransactionHistoryRequest.md
+  - name: InventoryGetTransactionHistoryResponse
+    href: GDK.Net.PlayFab.InventoryGetTransactionHistoryResponse.md
+  - name: InventoryGooglePlayProductPurchase
+    href: GDK.Net.PlayFab.InventoryGooglePlayProductPurchase.md
+  - name: InventoryInitialValues
+    href: GDK.Net.PlayFab.InventoryInitialValues.md
+  - name: InventoryInventoryItem
+    href: GDK.Net.PlayFab.InventoryInventoryItem.md
+  - name: InventoryInventoryItemReference
+    href: GDK.Net.PlayFab.InventoryInventoryItemReference.md
+  - name: InventoryInventoryOperation
+    href: GDK.Net.PlayFab.InventoryInventoryOperation.md
+  - name: InventoryPurchaseInventoryItemsOperation
+    href: GDK.Net.PlayFab.InventoryPurchaseInventoryItemsOperation.md
+  - name: InventoryPurchaseInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryPurchaseInventoryItemsRequest.md
+  - name: InventoryPurchaseInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryPurchaseInventoryItemsResponse.md
+  - name: InventoryPurchasePriceAmount
+    href: GDK.Net.PlayFab.InventoryPurchasePriceAmount.md
+  - name: InventoryRedeemAppleAppStoreInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryRedeemAppleAppStoreInventoryItemsRequest.md
+  - name: InventoryRedeemAppleAppStoreInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryRedeemAppleAppStoreInventoryItemsResponse.md
+  - name: InventoryRedeemGooglePlayInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryRedeemGooglePlayInventoryItemsRequest.md
+  - name: InventoryRedeemGooglePlayInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryRedeemGooglePlayInventoryItemsResponse.md
+  - name: InventoryRedeemMicrosoftStoreInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryRedeemMicrosoftStoreInventoryItemsRequest.md
+  - name: InventoryRedeemMicrosoftStoreInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryRedeemMicrosoftStoreInventoryItemsResponse.md
+  - name: InventoryRedeemNintendoEShopInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryRedeemNintendoEShopInventoryItemsRequest.md
+  - name: InventoryRedeemNintendoEShopInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryRedeemNintendoEShopInventoryItemsResponse.md
+  - name: InventoryRedeemPlayStationStoreInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryRedeemPlayStationStoreInventoryItemsRequest.md
+  - name: InventoryRedeemPlayStationStoreInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryRedeemPlayStationStoreInventoryItemsResponse.md
+  - name: InventoryRedeemSteamInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryRedeemSteamInventoryItemsRequest.md
+  - name: InventoryRedeemSteamInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryRedeemSteamInventoryItemsResponse.md
+  - name: InventoryRedemptionFailure
+    href: GDK.Net.PlayFab.InventoryRedemptionFailure.md
+  - name: InventoryRedemptionSuccess
+    href: GDK.Net.PlayFab.InventoryRedemptionSuccess.md
+  - name: InventorySubtractInventoryItemsOperation
+    href: GDK.Net.PlayFab.InventorySubtractInventoryItemsOperation.md
+  - name: InventorySubtractInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventorySubtractInventoryItemsRequest.md
+  - name: InventorySubtractInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventorySubtractInventoryItemsResponse.md
+  - name: InventoryTransaction
+    href: GDK.Net.PlayFab.InventoryTransaction.md
+  - name: InventoryTransactionClawbackDetails
+    href: GDK.Net.PlayFab.InventoryTransactionClawbackDetails.md
+  - name: InventoryTransactionOperation
+    href: GDK.Net.PlayFab.InventoryTransactionOperation.md
+  - name: InventoryTransactionPurchaseDetails
+    href: GDK.Net.PlayFab.InventoryTransactionPurchaseDetails.md
+  - name: InventoryTransactionRedeemDetails
+    href: GDK.Net.PlayFab.InventoryTransactionRedeemDetails.md
+  - name: InventoryTransactionTransferDetails
+    href: GDK.Net.PlayFab.InventoryTransactionTransferDetails.md
+  - name: InventoryTransferInventoryItemsOperation
+    href: GDK.Net.PlayFab.InventoryTransferInventoryItemsOperation.md
+  - name: InventoryTransferInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryTransferInventoryItemsRequest.md
+  - name: InventoryTransferInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryTransferInventoryItemsResponse.md
+  - name: InventoryUpdateInventoryItemsOperation
+    href: GDK.Net.PlayFab.InventoryUpdateInventoryItemsOperation.md
+  - name: InventoryUpdateInventoryItemsRequest
+    href: GDK.Net.PlayFab.InventoryUpdateInventoryItemsRequest.md
+  - name: InventoryUpdateInventoryItemsResponse
+    href: GDK.Net.PlayFab.InventoryUpdateInventoryItemsResponse.md
+  - name: ItemInstance
+    href: GDK.Net.PlayFab.ItemInstance.md
+  - name: Leaderboards
+    href: GDK.Net.PlayFab.Leaderboards.md
+  - name: LeaderboardsCreateLeaderboardDefinitionRequest
+    href: GDK.Net.PlayFab.LeaderboardsCreateLeaderboardDefinitionRequest.md
+  - name: LeaderboardsDeleteLeaderboardDefinitionRequest
+    href: GDK.Net.PlayFab.LeaderboardsDeleteLeaderboardDefinitionRequest.md
+  - name: LeaderboardsDeleteLeaderboardEntriesRequest
+    href: GDK.Net.PlayFab.LeaderboardsDeleteLeaderboardEntriesRequest.md
+  - name: LeaderboardsEntityLeaderboardEntry
+    href: GDK.Net.PlayFab.LeaderboardsEntityLeaderboardEntry.md
+  - name: LeaderboardsGetEntityLeaderboardRequest
+    href: GDK.Net.PlayFab.LeaderboardsGetEntityLeaderboardRequest.md
+  - name: LeaderboardsGetEntityLeaderboardResponse
+    href: GDK.Net.PlayFab.LeaderboardsGetEntityLeaderboardResponse.md
+  - name: LeaderboardsGetFriendLeaderboardForEntityRequest
+    href: GDK.Net.PlayFab.LeaderboardsGetFriendLeaderboardForEntityRequest.md
+  - name: LeaderboardsGetLeaderboardAroundEntityRequest
+    href: GDK.Net.PlayFab.LeaderboardsGetLeaderboardAroundEntityRequest.md
+  - name: LeaderboardsGetLeaderboardDefinitionRequest
+    href: GDK.Net.PlayFab.LeaderboardsGetLeaderboardDefinitionRequest.md
+  - name: LeaderboardsGetLeaderboardDefinitionResponse
+    href: GDK.Net.PlayFab.LeaderboardsGetLeaderboardDefinitionResponse.md
+  - name: LeaderboardsGetLeaderboardForEntitiesRequest
+    href: GDK.Net.PlayFab.LeaderboardsGetLeaderboardForEntitiesRequest.md
+  - name: LeaderboardsIncrementLeaderboardVersionRequest
+    href: GDK.Net.PlayFab.LeaderboardsIncrementLeaderboardVersionRequest.md
+  - name: LeaderboardsIncrementLeaderboardVersionResponse
+    href: GDK.Net.PlayFab.LeaderboardsIncrementLeaderboardVersionResponse.md
+  - name: LeaderboardsLeaderboardColumn
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardColumn.md
+  - name: LeaderboardsLeaderboardDefinition
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardDefinition.md
+  - name: LeaderboardsLeaderboardEntityRankOnVersionEndConfig
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardEntityRankOnVersionEndConfig.md
+  - name: LeaderboardsLeaderboardEntryUpdate
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardEntryUpdate.md
+  - name: LeaderboardsLeaderboardEventEmissionConfig
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardEventEmissionConfig.md
+  - name: LeaderboardsLeaderboardVersionEndConfig
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardVersionEndConfig.md
+  - name: LeaderboardsLinkedStatisticColumn
+    href: GDK.Net.PlayFab.LeaderboardsLinkedStatisticColumn.md
+  - name: LeaderboardsListLeaderboardDefinitionsRequest
+    href: GDK.Net.PlayFab.LeaderboardsListLeaderboardDefinitionsRequest.md
+  - name: LeaderboardsListLeaderboardDefinitionsResponse
+    href: GDK.Net.PlayFab.LeaderboardsListLeaderboardDefinitionsResponse.md
+  - name: LeaderboardsUnlinkLeaderboardFromStatisticRequest
+    href: GDK.Net.PlayFab.LeaderboardsUnlinkLeaderboardFromStatisticRequest.md
+  - name: LeaderboardsUpdateLeaderboardDefinitionRequest
+    href: GDK.Net.PlayFab.LeaderboardsUpdateLeaderboardDefinitionRequest.md
+  - name: LeaderboardsUpdateLeaderboardEntriesRequest
+    href: GDK.Net.PlayFab.LeaderboardsUpdateLeaderboardEntriesRequest.md
+  - name: LinkedPlatformAccountModel
+    href: GDK.Net.PlayFab.LinkedPlatformAccountModel.md
+  - name: LobbyArrangedJoinConfiguration
+    href: GDK.Net.PlayFab.LobbyArrangedJoinConfiguration.md
+  - name: LobbyCreateConfiguration
+    href: GDK.Net.PlayFab.LobbyCreateConfiguration.md
+  - name: LobbyDataUpdate
+    href: GDK.Net.PlayFab.LobbyDataUpdate.md
+  - name: LobbyJoinConfiguration
+    href: GDK.Net.PlayFab.LobbyJoinConfiguration.md
+  - name: LobbyMemberDataUpdate
+    href: GDK.Net.PlayFab.LobbyMemberDataUpdate.md
+  - name: LobbyMemberUpdateSummary
+    href: GDK.Net.PlayFab.LobbyMemberUpdateSummary.md
+  - name: LobbySearchConfiguration
+    href: GDK.Net.PlayFab.LobbySearchConfiguration.md
+  - name: LobbySearchFriendsFilter
+    href: GDK.Net.PlayFab.LobbySearchFriendsFilter.md
+  - name: LobbySearchResult
+    href: GDK.Net.PlayFab.LobbySearchResult.md
+  - name: LobbyServerDataUpdate
+    href: GDK.Net.PlayFab.LobbyServerDataUpdate.md
+  - name: LobbyServerJoinConfiguration
+    href: GDK.Net.PlayFab.LobbyServerJoinConfiguration.md
+  - name: Localization
+    href: GDK.Net.PlayFab.Localization.md
+  - name: LocalizationGetLanguageListRequest
+    href: GDK.Net.PlayFab.LocalizationGetLanguageListRequest.md
+  - name: LocalizationGetLanguageListResponse
+    href: GDK.Net.PlayFab.LocalizationGetLanguageListResponse.md
+  - name: LocationModel
+    href: GDK.Net.PlayFab.LocationModel.md
+  - name: MatchmakingMatchDetails
+    href: GDK.Net.PlayFab.MatchmakingMatchDetails.md
+  - name: MatchmakingMatchMember
+    href: GDK.Net.PlayFab.MatchmakingMatchMember.md
+  - name: MatchmakingServerBackfillTicketConfiguration
+    href: GDK.Net.PlayFab.MatchmakingServerBackfillTicketConfiguration.md
+  - name: MatchmakingTicketConfiguration
+    href: GDK.Net.PlayFab.MatchmakingTicketConfiguration.md
+  - name: MembershipModel
+    href: GDK.Net.PlayFab.MembershipModel.md
+  - name: MultiplayerPort
+    href: GDK.Net.PlayFab.MultiplayerPort.md
+  - name: MultiplayerServer
+    href: GDK.Net.PlayFab.MultiplayerServer.md
+  - name: MultiplayerServerBuildAliasDetailsResponse
+    href: GDK.Net.PlayFab.MultiplayerServerBuildAliasDetailsResponse.md
+  - name: MultiplayerServerBuildAliasParams
+    href: GDK.Net.PlayFab.MultiplayerServerBuildAliasParams.md
+  - name: MultiplayerServerBuildRegion
+    href: GDK.Net.PlayFab.MultiplayerServerBuildRegion.md
+  - name: MultiplayerServerBuildSelectionCriterion
+    href: GDK.Net.PlayFab.MultiplayerServerBuildSelectionCriterion.md
+  - name: MultiplayerServerBuildSummary
+    href: GDK.Net.PlayFab.MultiplayerServerBuildSummary.md
+  - name: MultiplayerServerConnectedPlayer
+    href: GDK.Net.PlayFab.MultiplayerServerConnectedPlayer.md
+  - name: MultiplayerServerCurrentServerStats
+    href: GDK.Net.PlayFab.MultiplayerServerCurrentServerStats.md
+  - name: MultiplayerServerDetails
+    href: GDK.Net.PlayFab.MultiplayerServerDetails.md
+  - name: MultiplayerServerDynamicStandbySettings
+    href: GDK.Net.PlayFab.MultiplayerServerDynamicStandbySettings.md
+  - name: MultiplayerServerDynamicStandbyThreshold
+    href: GDK.Net.PlayFab.MultiplayerServerDynamicStandbyThreshold.md
+  - name: MultiplayerServerListBuildAliasesRequest
+    href: GDK.Net.PlayFab.MultiplayerServerListBuildAliasesRequest.md
+  - name: MultiplayerServerListBuildAliasesResponse
+    href: GDK.Net.PlayFab.MultiplayerServerListBuildAliasesResponse.md
+  - name: MultiplayerServerListBuildSummariesRequest
+    href: GDK.Net.PlayFab.MultiplayerServerListBuildSummariesRequest.md
+  - name: MultiplayerServerListBuildSummariesResponse
+    href: GDK.Net.PlayFab.MultiplayerServerListBuildSummariesResponse.md
+  - name: MultiplayerServerListQosServersForTitleRequest
+    href: GDK.Net.PlayFab.MultiplayerServerListQosServersForTitleRequest.md
+  - name: MultiplayerServerListQosServersForTitleResponse
+    href: GDK.Net.PlayFab.MultiplayerServerListQosServersForTitleResponse.md
+  - name: MultiplayerServerPort
+    href: GDK.Net.PlayFab.MultiplayerServerPort.md
+  - name: MultiplayerServerPublicIpAddress
+    href: GDK.Net.PlayFab.MultiplayerServerPublicIpAddress.md
+  - name: MultiplayerServerQosServer
+    href: GDK.Net.PlayFab.MultiplayerServerQosServer.md
+  - name: MultiplayerServerRequestMultiplayerServerRequest
+    href: GDK.Net.PlayFab.MultiplayerServerRequestMultiplayerServerRequest.md
+  - name: MultiplayerServerRequestMultiplayerServerResponse
+    href: GDK.Net.PlayFab.MultiplayerServerRequestMultiplayerServerResponse.md
+  - name: MultiplayerServerSchedule
+    href: GDK.Net.PlayFab.MultiplayerServerSchedule.md
+  - name: MultiplayerServerScheduledStandbySettings
+    href: GDK.Net.PlayFab.MultiplayerServerScheduledStandbySettings.md
+  - name: PlatformSpecific
+    href: GDK.Net.PlayFab.PlatformSpecific.md
+  - name: PlatformSpecificAwardSteamAchievementItem
+    href: GDK.Net.PlayFab.PlatformSpecificAwardSteamAchievementItem.md
+  - name: PlatformSpecificAwardSteamAchievementRequest
+    href: GDK.Net.PlayFab.PlatformSpecificAwardSteamAchievementRequest.md
+  - name: PlatformSpecificAwardSteamAchievementResult
+    href: GDK.Net.PlayFab.PlatformSpecificAwardSteamAchievementResult.md
+  - name: PlayFabEntity
+    href: GDK.Net.PlayFab.PlayFabEntity.md
+  - name: PlayFabErrors
+    href: GDK.Net.PlayFab.PlayFabErrors.md
+  - name: PlayFabException
+    href: GDK.Net.PlayFab.PlayFabException.md
+  - name: PlayFabGameSaveFiles
+    href: GDK.Net.PlayFab.PlayFabGameSaveFiles.md
+  - name: PlayFabGameServerLoginResult
+    href: GDK.Net.PlayFab.PlayFabGameServerLoginResult.md
+  - name: PlayFabHttpSettings
+    href: GDK.Net.PlayFab.PlayFabHttpSettings.md
+  - name: PlayFabLocalUser
+    href: GDK.Net.PlayFab.PlayFabLocalUser.md
+  - name: PlayFabLoginResult
+    href: GDK.Net.PlayFab.PlayFabLoginResult.md
+  - name: PlayFabRuntime
+    href: GDK.Net.PlayFab.PlayFabRuntime.md
+  - name: PlayFabServerLoginResult
+    href: GDK.Net.PlayFab.PlayFabServerLoginResult.md
+  - name: PlayFabServiceConfig
+    href: GDK.Net.PlayFab.PlayFabServiceConfig.md
+  - name: PlayerDataManagement
+    href: GDK.Net.PlayFab.PlayerDataManagement.md
+  - name: PlayerDataManagementClientDeletePlayerCustomPropertiesRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementClientDeletePlayerCustomPropertiesRequest.md
+  - name: PlayerDataManagementClientDeletePlayerCustomPropertiesResult
+    href: GDK.Net.PlayFab.PlayerDataManagementClientDeletePlayerCustomPropertiesResult.md
+  - name: PlayerDataManagementClientGetPlayerCustomPropertyRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementClientGetPlayerCustomPropertyRequest.md
+  - name: PlayerDataManagementClientGetPlayerCustomPropertyResult
+    href: GDK.Net.PlayFab.PlayerDataManagementClientGetPlayerCustomPropertyResult.md
+  - name: PlayerDataManagementClientGetUserDataResult
+    href: GDK.Net.PlayFab.PlayerDataManagementClientGetUserDataResult.md
+  - name: PlayerDataManagementClientListPlayerCustomPropertiesResult
+    href: GDK.Net.PlayFab.PlayerDataManagementClientListPlayerCustomPropertiesResult.md
+  - name: PlayerDataManagementClientUpdatePlayerCustomPropertiesRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementClientUpdatePlayerCustomPropertiesRequest.md
+  - name: PlayerDataManagementClientUpdatePlayerCustomPropertiesResult
+    href: GDK.Net.PlayFab.PlayerDataManagementClientUpdatePlayerCustomPropertiesResult.md
+  - name: PlayerDataManagementClientUpdateUserDataRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementClientUpdateUserDataRequest.md
+  - name: PlayerDataManagementCustomPropertyDetails
+    href: GDK.Net.PlayFab.PlayerDataManagementCustomPropertyDetails.md
+  - name: PlayerDataManagementDeletedPropertyDetails
+    href: GDK.Net.PlayFab.PlayerDataManagementDeletedPropertyDetails.md
+  - name: PlayerDataManagementGetUserDataRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementGetUserDataRequest.md
+  - name: PlayerDataManagementListPlayerCustomPropertiesRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementListPlayerCustomPropertiesRequest.md
+  - name: PlayerDataManagementServerDeletePlayerCustomPropertiesRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementServerDeletePlayerCustomPropertiesRequest.md
+  - name: PlayerDataManagementServerDeletePlayerCustomPropertiesResult
+    href: GDK.Net.PlayFab.PlayerDataManagementServerDeletePlayerCustomPropertiesResult.md
+  - name: PlayerDataManagementServerGetPlayerCustomPropertyRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementServerGetPlayerCustomPropertyRequest.md
+  - name: PlayerDataManagementServerGetPlayerCustomPropertyResult
+    href: GDK.Net.PlayFab.PlayerDataManagementServerGetPlayerCustomPropertyResult.md
+  - name: PlayerDataManagementServerGetUserDataResult
+    href: GDK.Net.PlayFab.PlayerDataManagementServerGetUserDataResult.md
+  - name: PlayerDataManagementServerListPlayerCustomPropertiesResult
+    href: GDK.Net.PlayFab.PlayerDataManagementServerListPlayerCustomPropertiesResult.md
+  - name: PlayerDataManagementServerUpdatePlayerCustomPropertiesRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementServerUpdatePlayerCustomPropertiesRequest.md
+  - name: PlayerDataManagementServerUpdatePlayerCustomPropertiesResult
+    href: GDK.Net.PlayFab.PlayerDataManagementServerUpdatePlayerCustomPropertiesResult.md
+  - name: PlayerDataManagementServerUpdateUserDataRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementServerUpdateUserDataRequest.md
+  - name: PlayerDataManagementUpdateProperty
+    href: GDK.Net.PlayFab.PlayerDataManagementUpdateProperty.md
+  - name: PlayerDataManagementUpdateUserDataResult
+    href: GDK.Net.PlayFab.PlayerDataManagementUpdateUserDataResult.md
+  - name: PlayerDataManagementUpdateUserInternalDataRequest
+    href: GDK.Net.PlayFab.PlayerDataManagementUpdateUserInternalDataRequest.md
+  - name: PlayerProfileModel
+    href: GDK.Net.PlayFab.PlayerProfileModel.md
+  - name: PlayerProfileViewConstraints
+    href: GDK.Net.PlayFab.PlayerProfileViewConstraints.md
+  - name: Profiles
+    href: GDK.Net.PlayFab.Profiles.md
+  - name: ProfilesEntityDataObject
+    href: GDK.Net.PlayFab.ProfilesEntityDataObject.md
+  - name: ProfilesEntityPermissionStatement
+    href: GDK.Net.PlayFab.ProfilesEntityPermissionStatement.md
+  - name: ProfilesEntityProfileBody
+    href: GDK.Net.PlayFab.ProfilesEntityProfileBody.md
+  - name: ProfilesEntityProfileFileMetadata
+    href: GDK.Net.PlayFab.ProfilesEntityProfileFileMetadata.md
+  - name: ProfilesGetEntityProfileRequest
+    href: GDK.Net.PlayFab.ProfilesGetEntityProfileRequest.md
+  - name: ProfilesGetEntityProfileResponse
+    href: GDK.Net.PlayFab.ProfilesGetEntityProfileResponse.md
+  - name: ProfilesGetEntityProfilesRequest
+    href: GDK.Net.PlayFab.ProfilesGetEntityProfilesRequest.md
+  - name: ProfilesGetEntityProfilesResponse
+    href: GDK.Net.PlayFab.ProfilesGetEntityProfilesResponse.md
+  - name: ProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequest
+    href: GDK.Net.PlayFab.ProfilesGetTitlePlayersFromMasterPlayerAccountIdsRequest.md
+  - name: ProfilesGetTitlePlayersFromMasterPlayerAccountIdsResponse
+    href: GDK.Net.PlayFab.ProfilesGetTitlePlayersFromMasterPlayerAccountIdsResponse.md
+  - name: ProfilesSetEntityProfilePolicyRequest
+    href: GDK.Net.PlayFab.ProfilesSetEntityProfilePolicyRequest.md
+  - name: ProfilesSetEntityProfilePolicyResponse
+    href: GDK.Net.PlayFab.ProfilesSetEntityProfilePolicyResponse.md
+  - name: ProfilesSetProfileLanguageRequest
+    href: GDK.Net.PlayFab.ProfilesSetProfileLanguageRequest.md
+  - name: ProfilesSetProfileLanguageResponse
+    href: GDK.Net.PlayFab.ProfilesSetProfileLanguageResponse.md
+  - name: PushNotificationRegistrationModel
+    href: GDK.Net.PlayFab.PushNotificationRegistrationModel.md
+  - name: PushNotifications
+    href: GDK.Net.PlayFab.PushNotifications.md
+  - name: PushNotificationsAdvancedPushPlatformMsg
+    href: GDK.Net.PlayFab.PushNotificationsAdvancedPushPlatformMsg.md
+  - name: PushNotificationsPushNotificationPackage
+    href: GDK.Net.PlayFab.PushNotificationsPushNotificationPackage.md
+  - name: PushNotificationsSendPushNotificationFromTemplateRequest
+    href: GDK.Net.PlayFab.PushNotificationsSendPushNotificationFromTemplateRequest.md
+  - name: PushNotificationsSendPushNotificationRequest
+    href: GDK.Net.PlayFab.PushNotificationsSendPushNotificationRequest.md
+  - name: Segments
+    href: GDK.Net.PlayFab.Segments.md
+  - name: SegmentsAdCampaignAttribution
+    href: GDK.Net.PlayFab.SegmentsAdCampaignAttribution.md
+  - name: SegmentsAddPlayerTagRequest
+    href: GDK.Net.PlayFab.SegmentsAddPlayerTagRequest.md
+  - name: SegmentsContactEmailInfo
+    href: GDK.Net.PlayFab.SegmentsContactEmailInfo.md
+  - name: SegmentsGetAllSegmentsResult
+    href: GDK.Net.PlayFab.SegmentsGetAllSegmentsResult.md
+  - name: SegmentsGetPlayerSegmentsResult
+    href: GDK.Net.PlayFab.SegmentsGetPlayerSegmentsResult.md
+  - name: SegmentsGetPlayerTagsRequest
+    href: GDK.Net.PlayFab.SegmentsGetPlayerTagsRequest.md
+  - name: SegmentsGetPlayerTagsResult
+    href: GDK.Net.PlayFab.SegmentsGetPlayerTagsResult.md
+  - name: SegmentsGetPlayersInSegmentRequest
+    href: GDK.Net.PlayFab.SegmentsGetPlayersInSegmentRequest.md
+  - name: SegmentsGetPlayersInSegmentResult
+    href: GDK.Net.PlayFab.SegmentsGetPlayersInSegmentResult.md
+  - name: SegmentsGetPlayersSegmentsRequest
+    href: GDK.Net.PlayFab.SegmentsGetPlayersSegmentsRequest.md
+  - name: SegmentsGetSegmentResult
+    href: GDK.Net.PlayFab.SegmentsGetSegmentResult.md
+  - name: SegmentsPlayerLinkedAccount
+    href: GDK.Net.PlayFab.SegmentsPlayerLinkedAccount.md
+  - name: SegmentsPlayerLocation
+    href: GDK.Net.PlayFab.SegmentsPlayerLocation.md
+  - name: SegmentsPlayerProfile
+    href: GDK.Net.PlayFab.SegmentsPlayerProfile.md
+  - name: SegmentsPlayerStatistic
+    href: GDK.Net.PlayFab.SegmentsPlayerStatistic.md
+  - name: SegmentsPushNotificationRegistration
+    href: GDK.Net.PlayFab.SegmentsPushNotificationRegistration.md
+  - name: SegmentsRemovePlayerTagRequest
+    href: GDK.Net.PlayFab.SegmentsRemovePlayerTagRequest.md
+  - name: StatisticModel
+    href: GDK.Net.PlayFab.StatisticModel.md
+  - name: StatisticValue
+    href: GDK.Net.PlayFab.StatisticValue.md
+  - name: Statistics
+    href: GDK.Net.PlayFab.Statistics.md
+  - name: StatisticsCreateStatisticDefinitionRequest
+    href: GDK.Net.PlayFab.StatisticsCreateStatisticDefinitionRequest.md
+  - name: StatisticsDeleteStatisticDefinitionRequest
+    href: GDK.Net.PlayFab.StatisticsDeleteStatisticDefinitionRequest.md
+  - name: StatisticsDeleteStatisticsRequest
+    href: GDK.Net.PlayFab.StatisticsDeleteStatisticsRequest.md
+  - name: StatisticsDeleteStatisticsResponse
+    href: GDK.Net.PlayFab.StatisticsDeleteStatisticsResponse.md
+  - name: StatisticsEntityStatisticValue
+    href: GDK.Net.PlayFab.StatisticsEntityStatisticValue.md
+  - name: StatisticsEntityStatistics
+    href: GDK.Net.PlayFab.StatisticsEntityStatistics.md
+  - name: StatisticsGetStatisticDefinitionRequest
+    href: GDK.Net.PlayFab.StatisticsGetStatisticDefinitionRequest.md
+  - name: StatisticsGetStatisticDefinitionResponse
+    href: GDK.Net.PlayFab.StatisticsGetStatisticDefinitionResponse.md
+  - name: StatisticsGetStatisticsForEntitiesRequest
+    href: GDK.Net.PlayFab.StatisticsGetStatisticsForEntitiesRequest.md
+  - name: StatisticsGetStatisticsForEntitiesResponse
+    href: GDK.Net.PlayFab.StatisticsGetStatisticsForEntitiesResponse.md
+  - name: StatisticsGetStatisticsRequest
+    href: GDK.Net.PlayFab.StatisticsGetStatisticsRequest.md
+  - name: StatisticsGetStatisticsResponse
+    href: GDK.Net.PlayFab.StatisticsGetStatisticsResponse.md
+  - name: StatisticsIncrementStatisticVersionRequest
+    href: GDK.Net.PlayFab.StatisticsIncrementStatisticVersionRequest.md
+  - name: StatisticsIncrementStatisticVersionResponse
+    href: GDK.Net.PlayFab.StatisticsIncrementStatisticVersionResponse.md
+  - name: StatisticsListStatisticDefinitionsRequest
+    href: GDK.Net.PlayFab.StatisticsListStatisticDefinitionsRequest.md
+  - name: StatisticsListStatisticDefinitionsResponse
+    href: GDK.Net.PlayFab.StatisticsListStatisticDefinitionsResponse.md
+  - name: StatisticsStatisticColumn
+    href: GDK.Net.PlayFab.StatisticsStatisticColumn.md
+  - name: StatisticsStatisticColumnCollection
+    href: GDK.Net.PlayFab.StatisticsStatisticColumnCollection.md
+  - name: StatisticsStatisticDefinition
+    href: GDK.Net.PlayFab.StatisticsStatisticDefinition.md
+  - name: StatisticsStatisticDelete
+    href: GDK.Net.PlayFab.StatisticsStatisticDelete.md
+  - name: StatisticsStatisticUpdate
+    href: GDK.Net.PlayFab.StatisticsStatisticUpdate.md
+  - name: StatisticsStatisticsEventEmissionConfig
+    href: GDK.Net.PlayFab.StatisticsStatisticsEventEmissionConfig.md
+  - name: StatisticsStatisticsUpdateEventConfig
+    href: GDK.Net.PlayFab.StatisticsStatisticsUpdateEventConfig.md
+  - name: StatisticsUpdateStatisticDefinitionRequest
+    href: GDK.Net.PlayFab.StatisticsUpdateStatisticDefinitionRequest.md
+  - name: StatisticsUpdateStatisticsRequest
+    href: GDK.Net.PlayFab.StatisticsUpdateStatisticsRequest.md
+  - name: StatisticsUpdateStatisticsResponse
+    href: GDK.Net.PlayFab.StatisticsUpdateStatisticsResponse.md
+  - name: SubscriptionModel
+    href: GDK.Net.PlayFab.SubscriptionModel.md
+  - name: TagModel
+    href: GDK.Net.PlayFab.TagModel.md
+  - name: TitleDataManagement
+    href: GDK.Net.PlayFab.TitleDataManagement.md
+  - name: TitleDataManagementGetPublisherDataRequest
+    href: GDK.Net.PlayFab.TitleDataManagementGetPublisherDataRequest.md
+  - name: TitleDataManagementGetPublisherDataResult
+    href: GDK.Net.PlayFab.TitleDataManagementGetPublisherDataResult.md
+  - name: TitleDataManagementGetTimeResult
+    href: GDK.Net.PlayFab.TitleDataManagementGetTimeResult.md
+  - name: TitleDataManagementGetTitleDataRequest
+    href: GDK.Net.PlayFab.TitleDataManagementGetTitleDataRequest.md
+  - name: TitleDataManagementGetTitleDataResult
+    href: GDK.Net.PlayFab.TitleDataManagementGetTitleDataResult.md
+  - name: TitleDataManagementGetTitleNewsRequest
+    href: GDK.Net.PlayFab.TitleDataManagementGetTitleNewsRequest.md
+  - name: TitleDataManagementGetTitleNewsResult
+    href: GDK.Net.PlayFab.TitleDataManagementGetTitleNewsResult.md
+  - name: TitleDataManagementSetPublisherDataRequest
+    href: GDK.Net.PlayFab.TitleDataManagementSetPublisherDataRequest.md
+  - name: TitleDataManagementSetTitleDataRequest
+    href: GDK.Net.PlayFab.TitleDataManagementSetTitleDataRequest.md
+  - name: TitleDataManagementTitleNewsItem
+    href: GDK.Net.PlayFab.TitleDataManagementTitleNewsItem.md
+  - name: TreatmentAssignment
+    href: GDK.Net.PlayFab.TreatmentAssignment.md
+  - name: UserAccountInfo
+    href: GDK.Net.PlayFab.UserAccountInfo.md
+  - name: UserAndroidDeviceInfo
+    href: GDK.Net.PlayFab.UserAndroidDeviceInfo.md
+  - name: UserAppleIdInfo
+    href: GDK.Net.PlayFab.UserAppleIdInfo.md
+  - name: UserBattleNetInfo
+    href: GDK.Net.PlayFab.UserBattleNetInfo.md
+  - name: UserCustomIdInfo
+    href: GDK.Net.PlayFab.UserCustomIdInfo.md
+  - name: UserDataRecord
+    href: GDK.Net.PlayFab.UserDataRecord.md
+  - name: UserFacebookInfo
+    href: GDK.Net.PlayFab.UserFacebookInfo.md
+  - name: UserFacebookInstantGamesIdInfo
+    href: GDK.Net.PlayFab.UserFacebookInstantGamesIdInfo.md
+  - name: UserGameCenterInfo
+    href: GDK.Net.PlayFab.UserGameCenterInfo.md
+  - name: UserGoogleInfo
+    href: GDK.Net.PlayFab.UserGoogleInfo.md
+  - name: UserGooglePlayGamesInfo
+    href: GDK.Net.PlayFab.UserGooglePlayGamesInfo.md
+  - name: UserIosDeviceInfo
+    href: GDK.Net.PlayFab.UserIosDeviceInfo.md
+  - name: UserKongregateInfo
+    href: GDK.Net.PlayFab.UserKongregateInfo.md
+  - name: UserNintendoSwitchAccountIdInfo
+    href: GDK.Net.PlayFab.UserNintendoSwitchAccountIdInfo.md
+  - name: UserNintendoSwitchDeviceIdInfo
+    href: GDK.Net.PlayFab.UserNintendoSwitchDeviceIdInfo.md
+  - name: UserOpenIdInfo
+    href: GDK.Net.PlayFab.UserOpenIdInfo.md
+  - name: UserPrivateAccountInfo
+    href: GDK.Net.PlayFab.UserPrivateAccountInfo.md
+  - name: UserPsnInfo
+    href: GDK.Net.PlayFab.UserPsnInfo.md
+  - name: UserServerCustomIdInfo
+    href: GDK.Net.PlayFab.UserServerCustomIdInfo.md
+  - name: UserSteamInfo
+    href: GDK.Net.PlayFab.UserSteamInfo.md
+  - name: UserTitleInfo
+    href: GDK.Net.PlayFab.UserTitleInfo.md
+  - name: UserTwitchInfo
+    href: GDK.Net.PlayFab.UserTwitchInfo.md
+  - name: UserXboxInfo
+    href: GDK.Net.PlayFab.UserXboxInfo.md
+  - name: ValueToDateModel
+    href: GDK.Net.PlayFab.ValueToDateModel.md
+  - name: Variable
+    href: GDK.Net.PlayFab.Variable.md
+  - name: VersionConfiguration
+    href: GDK.Net.PlayFab.VersionConfiguration.md
+  - name: VirtualCurrencyRechargeTime
+    href: GDK.Net.PlayFab.VirtualCurrencyRechargeTime.md
+  - name: Structs
+  - name: GameSaveSyncProgress
+    href: GDK.Net.PlayFab.GameSaveSyncProgress.md
+  - name: Enums
+  - name: AccountManagementUserFamilyType
+    href: GDK.Net.PlayFab.AccountManagementUserFamilyType.md
+  - name: AuthenticationIdentifiedDeviceType
+    href: GDK.Net.PlayFab.AuthenticationIdentifiedDeviceType.md
+  - name: CatalogConcernCategory
+    href: GDK.Net.PlayFab.CatalogConcernCategory.md
+  - name: CatalogDisplayPropertyType
+    href: GDK.Net.PlayFab.CatalogDisplayPropertyType.md
+  - name: CatalogHelpfulnessVote
+    href: GDK.Net.PlayFab.CatalogHelpfulnessVote.md
+  - name: CatalogModerationStatus
+    href: GDK.Net.PlayFab.CatalogModerationStatus.md
+  - name: CatalogPublishResult
+    href: GDK.Net.PlayFab.CatalogPublishResult.md
+  - name: CloudScriptCloudScriptRevisionOption
+    href: GDK.Net.PlayFab.CloudScriptCloudScriptRevisionOption.md
+  - name: ContinentCode
+    href: GDK.Net.PlayFab.ContinentCode.md
+  - name: CountryCode
+    href: GDK.Net.PlayFab.CountryCode.md
+  - name: Currency
+    href: GDK.Net.PlayFab.Currency.md
+  - name: EmailVerificationStatus
+    href: GDK.Net.PlayFab.EmailVerificationStatus.md
+  - name: EventType
+    href: GDK.Net.PlayFab.EventType.md
+  - name: ExternalFriendSources
+    href: GDK.Net.PlayFab.ExternalFriendSources.md
+  - name: FriendsExternalFriendSources
+    href: GDK.Net.PlayFab.FriendsExternalFriendSources.md
+  - name: GameSaveFilesAddUserOptions
+    href: GDK.Net.PlayFab.GameSaveFilesAddUserOptions.md
+  - name: GameSaveFilesSyncState
+    href: GDK.Net.PlayFab.GameSaveFilesSyncState.md
+  - name: GameSaveFilesUiActiveDeviceContentionUserAction
+    href: GDK.Net.PlayFab.GameSaveFilesUiActiveDeviceContentionUserAction.md
+  - name: GameSaveFilesUiConflictUserAction
+    href: GDK.Net.PlayFab.GameSaveFilesUiConflictUserAction.md
+  - name: GameSaveFilesUiOutOfStorageUserAction
+    href: GDK.Net.PlayFab.GameSaveFilesUiOutOfStorageUserAction.md
+  - name: GameSaveFilesUiProgressUserAction
+    href: GDK.Net.PlayFab.GameSaveFilesUiProgressUserAction.md
+  - name: GameSaveFilesUiSyncFailedUserAction
+    href: GDK.Net.PlayFab.GameSaveFilesUiSyncFailedUserAction.md
+  - name: GameSaveFilesUploadOption
+    href: GDK.Net.PlayFab.GameSaveFilesUploadOption.md
+  - name: GameSaveInitOptions
+    href: GDK.Net.PlayFab.GameSaveInitOptions.md
+  - name: LeaderboardsLeaderboardSortDirection
+    href: GDK.Net.PlayFab.LeaderboardsLeaderboardSortDirection.md
+  - name: LobbyAccessPolicy
+    href: GDK.Net.PlayFab.LobbyAccessPolicy.md
+  - name: LobbyDisconnectingReason
+    href: GDK.Net.PlayFab.LobbyDisconnectingReason.md
+  - name: LobbyInviteListenerStatus
+    href: GDK.Net.PlayFab.LobbyInviteListenerStatus.md
+  - name: LobbyMemberConnectionStatus
+    href: GDK.Net.PlayFab.LobbyMemberConnectionStatus.md
+  - name: LobbyMemberRemovedReason
+    href: GDK.Net.PlayFab.LobbyMemberRemovedReason.md
+  - name: LobbyMembershipLock
+    href: GDK.Net.PlayFab.LobbyMembershipLock.md
+  - name: LobbyOwnerMigrationPolicy
+    href: GDK.Net.PlayFab.LobbyOwnerMigrationPolicy.md
+  - name: LobbyServerConnectionStatus
+    href: GDK.Net.PlayFab.LobbyServerConnectionStatus.md
+  - name: LobbyStateChangeType
+    href: GDK.Net.PlayFab.LobbyStateChangeType.md
+  - name: LoginIdentityProvider
+    href: GDK.Net.PlayFab.LoginIdentityProvider.md
+  - name: MatchmakingStateChangeType
+    href: GDK.Net.PlayFab.MatchmakingStateChangeType.md
+  - name: MatchmakingTicketStatus
+    href: GDK.Net.PlayFab.MatchmakingTicketStatus.md
+  - name: MultiplayerProtocolType
+    href: GDK.Net.PlayFab.MultiplayerProtocolType.md
+  - name: MultiplayerServerAzureVmSize
+    href: GDK.Net.PlayFab.MultiplayerServerAzureVmSize.md
+  - name: MultiplayerServerProtocolType
+    href: GDK.Net.PlayFab.MultiplayerServerProtocolType.md
+  - name: MultiplayerThreadId
+    href: GDK.Net.PlayFab.MultiplayerThreadId.md
+  - name: OperationTypes
+    href: GDK.Net.PlayFab.OperationTypes.md
+  - name: ProfilesEffectType
+    href: GDK.Net.PlayFab.ProfilesEffectType.md
+  - name: PushNotificationPlatform
+    href: GDK.Net.PlayFab.PushNotificationPlatform.md
+  - name: ResetInterval
+    href: GDK.Net.PlayFab.ResetInterval.md
+  - name: SegmentsChurnRiskLevel
+    href: GDK.Net.PlayFab.SegmentsChurnRiskLevel.md
+  - name: StatisticsStatisticAggregationMethod
+    href: GDK.Net.PlayFab.StatisticsStatisticAggregationMethod.md
+  - name: SubscriptionProviderStatus
+    href: GDK.Net.PlayFab.SubscriptionProviderStatus.md
+  - name: TitleActivationStatus
+    href: GDK.Net.PlayFab.TitleActivationStatus.md
+  - name: UserDataPermission
+    href: GDK.Net.PlayFab.UserDataPermission.md
+  - name: UserOrigination
+    href: GDK.Net.PlayFab.UserOrigination.md
+- name: GDK.Net.PlayFab.Multiplayer
+  href: GDK.Net.PlayFab.Multiplayer.md
+  items:
+  - name: Classes
+  - name: AddMemberCompleted
+    href: GDK.Net.PlayFab.Multiplayer.AddMemberCompleted.md
+  - name: ClaimServerLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ClaimServerLobbyCompleted.md
+  - name: ConnectToLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ConnectToLobbyCompleted.md
+  - name: CreateAndClaimServerLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.CreateAndClaimServerLobbyCompleted.md
+  - name: CreateAndJoinLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.CreateAndJoinLobbyCompleted.md
+  - name: FindLobbiesCompleted
+    href: GDK.Net.PlayFab.Multiplayer.FindLobbiesCompleted.md
+  - name: ForceRemoveMemberCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ForceRemoveMemberCompleted.md
+  - name: JoinArrangedLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.JoinArrangedLobbyCompleted.md
+  - name: JoinLobbyAsServerCompleted
+    href: GDK.Net.PlayFab.Multiplayer.JoinLobbyAsServerCompleted.md
+  - name: JoinLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.JoinLobbyCompleted.md
+  - name: LeaveLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.LeaveLobbyCompleted.md
+  - name: Lobby
+    href: GDK.Net.PlayFab.Multiplayer.Lobby.md
+  - name: LobbyDisconnected
+    href: GDK.Net.PlayFab.Multiplayer.LobbyDisconnected.md
+  - name: LobbyDisconnecting
+    href: GDK.Net.PlayFab.Multiplayer.LobbyDisconnecting.md
+  - name: LobbyInviteListenerStatusChanged
+    href: GDK.Net.PlayFab.Multiplayer.LobbyInviteListenerStatusChanged.md
+  - name: LobbyInviteReceived
+    href: GDK.Net.PlayFab.Multiplayer.LobbyInviteReceived.md
+  - name: LobbyMemberAdded
+    href: GDK.Net.PlayFab.Multiplayer.LobbyMemberAdded.md
+  - name: LobbyMemberRemoved
+    href: GDK.Net.PlayFab.Multiplayer.LobbyMemberRemoved.md
+  - name: LobbyOperationCompleted
+    href: GDK.Net.PlayFab.Multiplayer.LobbyOperationCompleted.md
+  - name: LobbyStateChange
+    href: GDK.Net.PlayFab.Multiplayer.LobbyStateChange.md
+  - name: LobbyUpdated
+    href: GDK.Net.PlayFab.Multiplayer.LobbyUpdated.md
+  - name: MatchmakingStateChange
+    href: GDK.Net.PlayFab.Multiplayer.MatchmakingStateChange.md
+  - name: MatchmakingTicket
+    href: GDK.Net.PlayFab.Multiplayer.MatchmakingTicket.md
+  - name: MatchmakingTicketCompleted
+    href: GDK.Net.PlayFab.Multiplayer.MatchmakingTicketCompleted.md
+  - name: MatchmakingTicketStatusChanged
+    href: GDK.Net.PlayFab.Multiplayer.MatchmakingTicketStatusChanged.md
+  - name: PlayFabMultiplayer
+    href: GDK.Net.PlayFab.Multiplayer.PlayFabMultiplayer.md
+  - name: PostUpdateCompleted
+    href: GDK.Net.PlayFab.Multiplayer.PostUpdateCompleted.md
+  - name: SendInviteCompleted
+    href: GDK.Net.PlayFab.Multiplayer.SendInviteCompleted.md
+  - name: ServerDeleteLobbyCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ServerDeleteLobbyCompleted.md
+  - name: ServerLeaveLobbyAsServerCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ServerLeaveLobbyAsServerCompleted.md
+  - name: ServerPostUpdateAsServerCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ServerPostUpdateAsServerCompleted.md
+  - name: ServerPostUpdateCompleted
+    href: GDK.Net.PlayFab.Multiplayer.ServerPostUpdateCompleted.md
+  - name: Structs
+  - name: LobbyStateChangeCollection
+    href: GDK.Net.PlayFab.Multiplayer.LobbyStateChangeCollection.md
+  - name: LobbyStateChangeCollection.Enumerator
+    href: GDK.Net.PlayFab.Multiplayer.LobbyStateChangeCollection.Enumerator.md
+  - name: MatchmakingStateChangeCollection
+    href: GDK.Net.PlayFab.Multiplayer.MatchmakingStateChangeCollection.md
+  - name: MatchmakingStateChangeCollection.Enumerator
+    href: GDK.Net.PlayFab.Multiplayer.MatchmakingStateChangeCollection.Enumerator.md
+  - name: OperationId
+    href: GDK.Net.PlayFab.Multiplayer.OperationId.md
+- name: GDK.Net.PlayFab.Party
+  href: GDK.Net.PlayFab.Party.md
+  items:
+  - name: Classes
+  - name: PartyAudioFormat
+    href: GDK.Net.PlayFab.Party.PartyAudioFormat.md
+  - name: PartyAudioManipulationSinkStream
+    href: GDK.Net.PlayFab.Party.PartyAudioManipulationSinkStream.md
+  - name: PartyAudioManipulationSinkStreamConfiguration
+    href: GDK.Net.PlayFab.Party.PartyAudioManipulationSinkStreamConfiguration.md
+  - name: PartyAudioManipulationSourceStream
+    href: GDK.Net.PlayFab.Party.PartyAudioManipulationSourceStream.md
+  - name: PartyAudioManipulationSourceStreamConfiguration
+    href: GDK.Net.PlayFab.Party.PartyAudioManipulationSourceStreamConfiguration.md
+  - name: PartyAuthenticateLocalUserCompleted
+    href: GDK.Net.PlayFab.Party.PartyAuthenticateLocalUserCompleted.md
+  - name: PartyChatControl
+    href: GDK.Net.PlayFab.Party.PartyChatControl.md
+  - name: PartyChatControlCreated
+    href: GDK.Net.PlayFab.Party.PartyChatControlCreated.md
+  - name: PartyChatControlDestroyed
+    href: GDK.Net.PlayFab.Party.PartyChatControlDestroyed.md
+  - name: PartyChatControlJoinedNetwork
+    href: GDK.Net.PlayFab.Party.PartyChatControlJoinedNetwork.md
+  - name: PartyChatControlLeftNetwork
+    href: GDK.Net.PlayFab.Party.PartyChatControlLeftNetwork.md
+  - name: PartyChatControlPropertiesChanged
+    href: GDK.Net.PlayFab.Party.PartyChatControlPropertiesChanged.md
+  - name: PartyChatTextReceived
+    href: GDK.Net.PlayFab.Party.PartyChatTextReceived.md
+  - name: PartyConfigureAudioManipulationCaptureStreamCompleted
+    href: GDK.Net.PlayFab.Party.PartyConfigureAudioManipulationCaptureStreamCompleted.md
+  - name: PartyConfigureAudioManipulationRenderStreamCompleted
+    href: GDK.Net.PlayFab.Party.PartyConfigureAudioManipulationRenderStreamCompleted.md
+  - name: PartyConfigureAudioManipulationVoiceStreamCompleted
+    href: GDK.Net.PlayFab.Party.PartyConfigureAudioManipulationVoiceStreamCompleted.md
+  - name: PartyConnectChatControlCompleted
+    href: GDK.Net.PlayFab.Party.PartyConnectChatControlCompleted.md
+  - name: PartyConnectToNetworkCompleted
+    href: GDK.Net.PlayFab.Party.PartyConnectToNetworkCompleted.md
+  - name: PartyCreateChatControlCompleted
+    href: GDK.Net.PlayFab.Party.PartyCreateChatControlCompleted.md
+  - name: PartyCreateEndpointCompleted
+    href: GDK.Net.PlayFab.Party.PartyCreateEndpointCompleted.md
+  - name: PartyCreateInvitationCompleted
+    href: GDK.Net.PlayFab.Party.PartyCreateInvitationCompleted.md
+  - name: PartyCreateNewNetworkCompleted
+    href: GDK.Net.PlayFab.Party.PartyCreateNewNetworkCompleted.md
+  - name: PartyDataBuffersReturned
+    href: GDK.Net.PlayFab.Party.PartyDataBuffersReturned.md
+  - name: PartyDestroyChatControlCompleted
+    href: GDK.Net.PlayFab.Party.PartyDestroyChatControlCompleted.md
+  - name: PartyDestroyEndpointCompleted
+    href: GDK.Net.PlayFab.Party.PartyDestroyEndpointCompleted.md
+  - name: PartyDestroyLocalUserCompleted
+    href: GDK.Net.PlayFab.Party.PartyDestroyLocalUserCompleted.md
+  - name: PartyDevice
+    href: GDK.Net.PlayFab.Party.PartyDevice.md
+  - name: PartyDevicePropertiesChanged
+    href: GDK.Net.PlayFab.Party.PartyDevicePropertiesChanged.md
+  - name: PartyDisconnectChatControlCompleted
+    href: GDK.Net.PlayFab.Party.PartyDisconnectChatControlCompleted.md
+  - name: PartyEndpoint
+    href: GDK.Net.PlayFab.Party.PartyEndpoint.md
+  - name: PartyEndpointCreated
+    href: GDK.Net.PlayFab.Party.PartyEndpointCreated.md
+  - name: PartyEndpointDestroyed
+    href: GDK.Net.PlayFab.Party.PartyEndpointDestroyed.md
+  - name: PartyEndpointMessageReceived
+    href: GDK.Net.PlayFab.Party.PartyEndpointMessageReceived.md
+  - name: PartyEndpointPropertiesChanged
+    href: GDK.Net.PlayFab.Party.PartyEndpointPropertiesChanged.md
+  - name: PartyException
+    href: GDK.Net.PlayFab.Party.PartyException.md
+  - name: PartyInvitation
+    href: GDK.Net.PlayFab.Party.PartyInvitation.md
+  - name: PartyInvitationConfiguration
+    href: GDK.Net.PlayFab.Party.PartyInvitationConfiguration.md
+  - name: PartyInvitationCreated
+    href: GDK.Net.PlayFab.Party.PartyInvitationCreated.md
+  - name: PartyInvitationDestroyed
+    href: GDK.Net.PlayFab.Party.PartyInvitationDestroyed.md
+  - name: PartyKickDeviceCompleted
+    href: GDK.Net.PlayFab.Party.PartyKickDeviceCompleted.md
+  - name: PartyKickUserCompleted
+    href: GDK.Net.PlayFab.Party.PartyKickUserCompleted.md
+  - name: PartyLeaveNetworkCompleted
+    href: GDK.Net.PlayFab.Party.PartyLeaveNetworkCompleted.md
+  - name: PartyLocalChatAudioInputChanged
+    href: GDK.Net.PlayFab.Party.PartyLocalChatAudioInputChanged.md
+  - name: PartyLocalChatAudioOutputChanged
+    href: GDK.Net.PlayFab.Party.PartyLocalChatAudioOutputChanged.md
+  - name: PartyLocalUdpSocketBindAddressConfiguration
+    href: GDK.Net.PlayFab.Party.PartyLocalUdpSocketBindAddressConfiguration.md
+  - name: PartyLocalUser
+    href: GDK.Net.PlayFab.Party.PartyLocalUser.md
+  - name: PartyLocalUserKicked
+    href: GDK.Net.PlayFab.Party.PartyLocalUserKicked.md
+  - name: PartyLocalUserRemoved
+    href: GDK.Net.PlayFab.Party.PartyLocalUserRemoved.md
+  - name: PartyManager
+    href: GDK.Net.PlayFab.Party.PartyManager.md
+  - name: PartyNetwork
+    href: GDK.Net.PlayFab.Party.PartyNetwork.md
+  - name: PartyNetworkConfiguration
+    href: GDK.Net.PlayFab.Party.PartyNetworkConfiguration.md
+  - name: PartyNetworkConfigurationMadeAvailable
+    href: GDK.Net.PlayFab.Party.PartyNetworkConfigurationMadeAvailable.md
+  - name: PartyNetworkDescriptor
+    href: GDK.Net.PlayFab.Party.PartyNetworkDescriptor.md
+  - name: PartyNetworkDescriptorChanged
+    href: GDK.Net.PlayFab.Party.PartyNetworkDescriptorChanged.md
+  - name: PartyNetworkDestroyed
+    href: GDK.Net.PlayFab.Party.PartyNetworkDestroyed.md
+  - name: PartyNetworkPropertiesChanged
+    href: GDK.Net.PlayFab.Party.PartyNetworkPropertiesChanged.md
+  - name: PartyObject
+    href: GDK.Net.PlayFab.Party.PartyObject.md
+  - name: PartyOperationCompleted
+    href: GDK.Net.PlayFab.Party.PartyOperationCompleted.md
+  - name: PartyPopulateAvailableTextToSpeechProfilesCompleted
+    href: GDK.Net.PlayFab.Party.PartyPopulateAvailableTextToSpeechProfilesCompleted.md
+  - name: PartyRegion
+    href: GDK.Net.PlayFab.Party.PartyRegion.md
+  - name: PartyRegionQualityMeasurementConfiguration
+    href: GDK.Net.PlayFab.Party.PartyRegionQualityMeasurementConfiguration.md
+  - name: PartyRegionUpdateConfiguration
+    href: GDK.Net.PlayFab.Party.PartyRegionUpdateConfiguration.md
+  - name: PartyRegionsChanged
+    href: GDK.Net.PlayFab.Party.PartyRegionsChanged.md
+  - name: PartyRemoteDeviceCreated
+    href: GDK.Net.PlayFab.Party.PartyRemoteDeviceCreated.md
+  - name: PartyRemoteDeviceDestroyed
+    href: GDK.Net.PlayFab.Party.PartyRemoteDeviceDestroyed.md
+  - name: PartyRemoteDeviceJoinedNetwork
+    href: GDK.Net.PlayFab.Party.PartyRemoteDeviceJoinedNetwork.md
+  - name: PartyRemoteDeviceLeftNetwork
+    href: GDK.Net.PlayFab.Party.PartyRemoteDeviceLeftNetwork.md
+  - name: PartyRemoveLocalUserCompleted
+    href: GDK.Net.PlayFab.Party.PartyRemoveLocalUserCompleted.md
+  - name: PartyRevokeInvitationCompleted
+    href: GDK.Net.PlayFab.Party.PartyRevokeInvitationCompleted.md
+  - name: PartySendMessageQueuingConfiguration
+    href: GDK.Net.PlayFab.Party.PartySendMessageQueuingConfiguration.md
+  - name: PartySetChatAudioEncoderBitrateCompleted
+    href: GDK.Net.PlayFab.Party.PartySetChatAudioEncoderBitrateCompleted.md
+  - name: PartySetChatAudioInputCompleted
+    href: GDK.Net.PlayFab.Party.PartySetChatAudioInputCompleted.md
+  - name: PartySetChatAudioOutputCompleted
+    href: GDK.Net.PlayFab.Party.PartySetChatAudioOutputCompleted.md
+  - name: PartySetLanguageCompleted
+    href: GDK.Net.PlayFab.Party.PartySetLanguageCompleted.md
+  - name: PartySetTextChatOptionsCompleted
+    href: GDK.Net.PlayFab.Party.PartySetTextChatOptionsCompleted.md
+  - name: PartySetTextToSpeechProfileCompleted
+    href: GDK.Net.PlayFab.Party.PartySetTextToSpeechProfileCompleted.md
+  - name: PartySetTranscriptionOptionsCompleted
+    href: GDK.Net.PlayFab.Party.PartySetTranscriptionOptionsCompleted.md
+  - name: PartyStateChange
+    href: GDK.Net.PlayFab.Party.PartyStateChange.md
+  - name: PartySynchronizeMessagesBetweenEndpointsCompleted
+    href: GDK.Net.PlayFab.Party.PartySynchronizeMessagesBetweenEndpointsCompleted.md
+  - name: PartySynthesizeTextToSpeechCompleted
+    href: GDK.Net.PlayFab.Party.PartySynthesizeTextToSpeechCompleted.md
+  - name: PartyTextToSpeechProfile
+    href: GDK.Net.PlayFab.Party.PartyTextToSpeechProfile.md
+  - name: PartyTranslation
+    href: GDK.Net.PlayFab.Party.PartyTranslation.md
+  - name: PartyVoiceChatTranscriptionReceived
+    href: GDK.Net.PlayFab.Party.PartyVoiceChatTranscriptionReceived.md
+  - name: PartyXblAccessibilitySettings
+    href: GDK.Net.PlayFab.Party.PartyXblAccessibilitySettings.md
+  - name: PartyXblChatUser
+    href: GDK.Net.PlayFab.Party.PartyXblChatUser.md
+  - name: PartyXblCreateLocalChatUserCompleted
+    href: GDK.Net.PlayFab.Party.PartyXblCreateLocalChatUserCompleted.md
+  - name: PartyXblGetEntityIdsFromXboxLiveUserIdsCompleted
+    href: GDK.Net.PlayFab.Party.PartyXblGetEntityIdsFromXboxLiveUserIdsCompleted.md
+  - name: PartyXblLocalChatUserDestroyed
+    href: GDK.Net.PlayFab.Party.PartyXblLocalChatUserDestroyed.md
+  - name: PartyXblLoginToPlayFabCompleted
+    href: GDK.Net.PlayFab.Party.PartyXblLoginToPlayFabCompleted.md
+  - name: PartyXblManager
+    href: GDK.Net.PlayFab.Party.PartyXblManager.md
+  - name: PartyXblOperationCompleted
+    href: GDK.Net.PlayFab.Party.PartyXblOperationCompleted.md
+  - name: PartyXblRequiredChatPermissionInfoChanged
+    href: GDK.Net.PlayFab.Party.PartyXblRequiredChatPermissionInfoChanged.md
+  - name: PartyXblStateChange
+    href: GDK.Net.PlayFab.Party.PartyXblStateChange.md
+  - name: PartyXblTokenAndSignatureRequested
+    href: GDK.Net.PlayFab.Party.PartyXblTokenAndSignatureRequested.md
+  - name: Structs
+  - name: PartyAudioDeviceSelection
+    href: GDK.Net.PlayFab.Party.PartyAudioDeviceSelection.md
+  - name: PartyOperationId
+    href: GDK.Net.PlayFab.Party.PartyOperationId.md
+  - name: PartyStateChangeCollection
+    href: GDK.Net.PlayFab.Party.PartyStateChangeCollection.md
+  - name: PartyStateChangeCollection.Enumerator
+    href: GDK.Net.PlayFab.Party.PartyStateChangeCollection.Enumerator.md
+  - name: PartyXblChatPermissionInfo
+    href: GDK.Net.PlayFab.Party.PartyXblChatPermissionInfo.md
+  - name: PartyXblEntityIdMapping
+    href: GDK.Net.PlayFab.Party.PartyXblEntityIdMapping.md
+  - name: PartyXblHttpHeader
+    href: GDK.Net.PlayFab.Party.PartyXblHttpHeader.md
+  - name: PartyXblStateChangeCollection
+    href: GDK.Net.PlayFab.Party.PartyXblStateChangeCollection.md
+  - name: PartyXblStateChangeCollection.Enumerator
+    href: GDK.Net.PlayFab.Party.PartyXblStateChangeCollection.Enumerator.md
+  - name: Enums
+  - name: PartyAudioDeviceSelectionType
+    href: GDK.Net.PlayFab.Party.PartyAudioDeviceSelectionType.md
+  - name: PartyAudioInputState
+    href: GDK.Net.PlayFab.Party.PartyAudioInputState.md
+  - name: PartyAudioOutputState
+    href: GDK.Net.PlayFab.Party.PartyAudioOutputState.md
+  - name: PartyAudioSampleType
+    href: GDK.Net.PlayFab.Party.PartyAudioSampleType.md
+  - name: PartyAudioSourceType
+    href: GDK.Net.PlayFab.Party.PartyAudioSourceType.md
+  - name: PartyCancelMessagesFilterExpression
+    href: GDK.Net.PlayFab.Party.PartyCancelMessagesFilterExpression.md
+  - name: PartyChatControlChatIndicator
+    href: GDK.Net.PlayFab.Party.PartyChatControlChatIndicator.md
+  - name: PartyChatPermissionOptions
+    href: GDK.Net.PlayFab.Party.PartyChatPermissionOptions.md
+  - name: PartyChatTextReceivedOptions
+    href: GDK.Net.PlayFab.Party.PartyChatTextReceivedOptions.md
+  - name: PartyDestroyedReason
+    href: GDK.Net.PlayFab.Party.PartyDestroyedReason.md
+  - name: PartyDevelopmentConnectivityPreservationMode
+    href: GDK.Net.PlayFab.Party.PartyDevelopmentConnectivityPreservationMode.md
+  - name: PartyDeviceConnectionType
+    href: GDK.Net.PlayFab.Party.PartyDeviceConnectionType.md
+  - name: PartyDirectPeerConnectivityOptions
+    href: GDK.Net.PlayFab.Party.PartyDirectPeerConnectivityOptions.md
+  - name: PartyEndpointLocationFilter
+    href: GDK.Net.PlayFab.Party.PartyEndpointLocationFilter.md
+  - name: PartyEndpointStatistic
+    href: GDK.Net.PlayFab.Party.PartyEndpointStatistic.md
+  - name: PartyEndpointUserTypeFilter
+    href: GDK.Net.PlayFab.Party.PartyEndpointUserTypeFilter.md
+  - name: PartyGender
+    href: GDK.Net.PlayFab.Party.PartyGender.md
+  - name: PartyInvitationRevocability
+    href: GDK.Net.PlayFab.Party.PartyInvitationRevocability.md
+  - name: PartyLocalChatControlChatIndicator
+    href: GDK.Net.PlayFab.Party.PartyLocalChatControlChatIndicator.md
+  - name: PartyLocalUdpSocketBindAddressOptions
+    href: GDK.Net.PlayFab.Party.PartyLocalUdpSocketBindAddressOptions.md
+  - name: PartyLocalUserRemovedReason
+    href: GDK.Net.PlayFab.Party.PartyLocalUserRemovedReason.md
+  - name: PartyMessageReceivedOptions
+    href: GDK.Net.PlayFab.Party.PartyMessageReceivedOptions.md
+  - name: PartyNetworkStatistic
+    href: GDK.Net.PlayFab.Party.PartyNetworkStatistic.md
+  - name: PartyRegionUpdateMode
+    href: GDK.Net.PlayFab.Party.PartyRegionUpdateMode.md
+  - name: PartySendMessageOptions
+    href: GDK.Net.PlayFab.Party.PartySendMessageOptions.md
+  - name: PartyStateChangeResult
+    href: GDK.Net.PlayFab.Party.PartyStateChangeResult.md
+  - name: PartyStateChangeType
+    href: GDK.Net.PlayFab.Party.PartyStateChangeType.md
+  - name: PartySynchronizeMessagesBetweenEndpointsOptions
+    href: GDK.Net.PlayFab.Party.PartySynchronizeMessagesBetweenEndpointsOptions.md
+  - name: PartySynthesizeTextToSpeechType
+    href: GDK.Net.PlayFab.Party.PartySynthesizeTextToSpeechType.md
+  - name: PartyTextChatFilterLevel
+    href: GDK.Net.PlayFab.Party.PartyTextChatFilterLevel.md
+  - name: PartyTextChatOptions
+    href: GDK.Net.PlayFab.Party.PartyTextChatOptions.md
+  - name: PartyThreadId
+    href: GDK.Net.PlayFab.Party.PartyThreadId.md
+  - name: PartyTranslationReceivedOptions
+    href: GDK.Net.PlayFab.Party.PartyTranslationReceivedOptions.md
+  - name: PartyVoiceAudioOptions
+    href: GDK.Net.PlayFab.Party.PartyVoiceAudioOptions.md
+  - name: PartyVoiceChatTranscriptionOptions
+    href: GDK.Net.PlayFab.Party.PartyVoiceChatTranscriptionOptions.md
+  - name: PartyVoiceChatTranscriptionPhraseType
+    href: GDK.Net.PlayFab.Party.PartyVoiceChatTranscriptionPhraseType.md
+  - name: PartyWorkMode
+    href: GDK.Net.PlayFab.Party.PartyWorkMode.md
+  - name: PartyXblChatPermissionMaskReason
+    href: GDK.Net.PlayFab.Party.PartyXblChatPermissionMaskReason.md
+  - name: PartyXblCrossNetworkCommunicationPrivacySetting
+    href: GDK.Net.PlayFab.Party.PartyXblCrossNetworkCommunicationPrivacySetting.md
+  - name: PartyXblLocalChatUserDestroyedReason
+    href: GDK.Net.PlayFab.Party.PartyXblLocalChatUserDestroyedReason.md
+  - name: PartyXblStateChangeResult
+    href: GDK.Net.PlayFab.Party.PartyXblStateChangeResult.md
+  - name: PartyXblStateChangeType
+    href: GDK.Net.PlayFab.Party.PartyXblStateChangeType.md
+  - name: PartyXblThreadId
+    href: GDK.Net.PlayFab.Party.PartyXblThreadId.md
+- name: GDK.Net.Storage
+  href: GDK.Net.Storage.md
+  items:
+  - name: Classes
+  - name: PersistentLocalStorage
+    href: GDK.Net.Storage.PersistentLocalStorage.md
+  - name: Structs
+  - name: PersistentLocalStorageSpaceInfo
+    href: GDK.Net.Storage.PersistentLocalStorageSpaceInfo.md
+- name: GDK.Net.Store
+  href: GDK.Net.Store.md
+  items:
+  - name: Classes
+  - name: StoreAddonLicense
+    href: GDK.Net.Store.StoreAddonLicense.md
+  - name: StoreAvailability
+    href: GDK.Net.Store.StoreAvailability.md
+  - name: StoreCanAcquireLicenseResult
+    href: GDK.Net.Store.StoreCanAcquireLicenseResult.md
+  - name: StoreCollectionData
+    href: GDK.Net.Store.StoreCollectionData.md
+  - name: StoreContext
+    href: GDK.Net.Store.StoreContext.md
+  - name: StoreGameLicense
+    href: GDK.Net.Store.StoreGameLicense.md
+  - name: StoreImage
+    href: GDK.Net.Store.StoreImage.md
+  - name: StoreLicense
+    href: GDK.Net.Store.StoreLicense.md
+  - name: StorePackageUpdate
+    href: GDK.Net.Store.StorePackageUpdate.md
+  - name: StorePrice
+    href: GDK.Net.Store.StorePrice.md
+  - name: StoreProduct
+    href: GDK.Net.Store.StoreProduct.md
+  - name: StoreProductQuery
+    href: GDK.Net.Store.StoreProductQuery.md
+  - name: StoreSku
+    href: GDK.Net.Store.StoreSku.md
+  - name: StoreSubscriptionInfo
+    href: GDK.Net.Store.StoreSubscriptionInfo.md
+  - name: StoreVideo
+    href: GDK.Net.Store.StoreVideo.md
+  - name: Structs
+  - name: StoreConsumableResult
+    href: GDK.Net.Store.StoreConsumableResult.md
+  - name: StoreRateAndReviewResult
+    href: GDK.Net.Store.StoreRateAndReviewResult.md
+  - name: Enums
+  - name: StoreCanLicenseStatus
+    href: GDK.Net.Store.StoreCanLicenseStatus.md
+  - name: StoreDurationUnit
+    href: GDK.Net.Store.StoreDurationUnit.md
+  - name: StoreProductKind
+    href: GDK.Net.Store.StoreProductKind.md
+- name: GDK.Net.Streaming
+  href: GDK.Net.Streaming.md
+  items:
+  - name: Classes
+  - name: StreamingClientPropertiesChangedEventArgs
+    href: GDK.Net.Streaming.StreamingClientPropertiesChangedEventArgs.md
+  - name: StreamingConnectionStateChangedEventArgs
+    href: GDK.Net.Streaming.StreamingConnectionStateChangedEventArgs.md
+  - name: StreamingManager
+    href: GDK.Net.Streaming.StreamingManager.md
+  - name: TouchBundleVersionInfo
+    href: GDK.Net.Streaming.TouchBundleVersionInfo.md
+  - name: TouchControlsStateOperation
+    href: GDK.Net.Streaming.TouchControlsStateOperation.md
+  - name: Structs
+  - name: StreamingClientId
+    href: GDK.Net.Streaming.StreamingClientId.md
+  - name: StreamingDisplayDetails
+    href: GDK.Net.Streaming.StreamingDisplayDetails.md
+  - name: StreamingLatencyStats
+    href: GDK.Net.Streaming.StreamingLatencyStats.md
+  - name: StreamingPhysicalDimensions
+    href: GDK.Net.Streaming.StreamingPhysicalDimensions.md
+  - name: TouchControlsStateValue
+    href: GDK.Net.Streaming.TouchControlsStateValue.md
+  - name: Enums
+  - name: StreamingClientProperty
+    href: GDK.Net.Streaming.StreamingClientProperty.md
+  - name: StreamingConnectionState
+    href: GDK.Net.Streaming.StreamingConnectionState.md
+  - name: StreamingGamepadPhysicality
+    href: GDK.Net.Streaming.StreamingGamepadPhysicality.md
+  - name: StreamingVideoFlags
+    href: GDK.Net.Streaming.StreamingVideoFlags.md
+  - name: TouchControlsStateOperationKind
+    href: GDK.Net.Streaming.TouchControlsStateOperationKind.md
+  - name: TouchControlsStateValueKind
+    href: GDK.Net.Streaming.TouchControlsStateValueKind.md
+- name: GDK.Net.SystemInfo
+  href: GDK.Net.SystemInfo.md
+  items:
+  - name: Classes
+  - name: DisplayTimeoutDeferral
+    href: GDK.Net.SystemInfo.DisplayTimeoutDeferral.md
+  - name: GameDisplay
+    href: GDK.Net.SystemInfo.GameDisplay.md
+  - name: GameErrorHandling
+    href: GDK.Net.SystemInfo.GameErrorHandling.md
+  - name: GameLauncher
+    href: GDK.Net.SystemInfo.GameLauncher.md
+  - name: GameSystem
+    href: GDK.Net.SystemInfo.GameSystem.md
+  - name: GameThread
+    href: GDK.Net.SystemInfo.GameThread.md
+  - name: HdrModeInfo
+    href: GDK.Net.SystemInfo.HdrModeInfo.md
+  - name: SystemAnalyticsInfo
+    href: GDK.Net.SystemInfo.SystemAnalyticsInfo.md
+  - name: SystemRuntimeInfo
+    href: GDK.Net.SystemInfo.SystemRuntimeInfo.md
+  - name: Structs
+  - name: SystemVersion
+    href: GDK.Net.SystemInfo.SystemVersion.md
+  - name: Enums
+  - name: ErrorOptions
+    href: GDK.Net.SystemInfo.ErrorOptions.md
+  - name: HdrModePreference
+    href: GDK.Net.SystemInfo.HdrModePreference.md
+  - name: HdrModeResult
+    href: GDK.Net.SystemInfo.HdrModeResult.md
+  - name: SystemDeviceType
+    href: GDK.Net.SystemInfo.SystemDeviceType.md
+  - name: SystemHandleCallbackReason
+    href: GDK.Net.SystemInfo.SystemHandleCallbackReason.md
+  - name: SystemHandleType
+    href: GDK.Net.SystemInfo.SystemHandleType.md
+  - name: Delegates
+  - name: GdkErrorCallback
+    href: GDK.Net.SystemInfo.GdkErrorCallback.md
+- name: GDK.Net.Users
+  href: GDK.Net.Users.md
+  items:
+  - name: Classes
+  - name: RemoteConnectClosePromptEventArgs
+    href: GDK.Net.Users.RemoteConnectClosePromptEventArgs.md
+  - name: RemoteConnectShowPromptEventArgs
+    href: GDK.Net.Users.RemoteConnectShowPromptEventArgs.md
+  - name: SignOutDeferral
+    href: GDK.Net.Users.SignOutDeferral.md
+  - name: SpopPromptEventArgs
+    href: GDK.Net.Users.SpopPromptEventArgs.md
+  - name: TokenAndSignature
+    href: GDK.Net.Users.TokenAndSignature.md
+  - name: User
+    href: GDK.Net.Users.User.md
+  - name: UserChangedEventArgs
+    href: GDK.Net.Users.UserChangedEventArgs.md
+  - name: UserDefaultAudioEndpointChangedEventArgs
+    href: GDK.Net.Users.UserDefaultAudioEndpointChangedEventArgs.md
+  - name: UserDeviceAssociationChangedEventArgs
+    href: GDK.Net.Users.UserDeviceAssociationChangedEventArgs.md
+  - name: UserManager
+    href: GDK.Net.Users.UserManager.md
+  - name: UserPlatform
+    href: GDK.Net.Users.UserPlatform.md
+  - name: Structs
+  - name: AppLocalDeviceId
+    href: GDK.Net.Users.AppLocalDeviceId.md
+  - name: TokenAndSignatureHttpHeader
+    href: GDK.Net.Users.TokenAndSignatureHttpHeader.md
+  - name: UserLocalId
+    href: GDK.Net.Users.UserLocalId.md
+  - name: Enums
+  - name: GamerPictureSize
+    href: GDK.Net.Users.GamerPictureSize.md
+  - name: GamertagComponent
+    href: GDK.Net.Users.GamertagComponent.md
+  - name: SpopOperationResult
+    href: GDK.Net.Users.SpopOperationResult.md
+  - name: TokenAndSignatureOptions
+    href: GDK.Net.Users.TokenAndSignatureOptions.md
+  - name: UserAddOptions
+    href: GDK.Net.Users.UserAddOptions.md
+  - name: UserAgeGroup
+    href: GDK.Net.Users.UserAgeGroup.md
+  - name: UserChangeEvent
+    href: GDK.Net.Users.UserChangeEvent.md
+  - name: UserDefaultAudioEndpointKind
+    href: GDK.Net.Users.UserDefaultAudioEndpointKind.md
+  - name: UserPrivilege
+    href: GDK.Net.Users.UserPrivilege.md
+  - name: UserPrivilegeDenyReason
+    href: GDK.Net.Users.UserPrivilegeDenyReason.md
+  - name: UserPrivilegeOptions
+    href: GDK.Net.Users.UserPrivilegeOptions.md
+  - name: UserState
+    href: GDK.Net.Users.UserState.md
+- name: GDK.Net.XboxLive
+  href: GDK.Net.XboxLive.md
+  items:
+  - name: Classes
+  - name: Achievement
+    href: GDK.Net.XboxLive.Achievement.md
+  - name: AchievementMediaAsset
+    href: GDK.Net.XboxLive.AchievementMediaAsset.md
+  - name: AchievementProgressChange
+    href: GDK.Net.XboxLive.AchievementProgressChange.md
+  - name: AchievementProgressChangedEventArgs
+    href: GDK.Net.XboxLive.AchievementProgressChangedEventArgs.md
+  - name: AchievementProgression
+    href: GDK.Net.XboxLive.AchievementProgression.md
+  - name: AchievementRequirement
+    href: GDK.Net.XboxLive.AchievementRequirement.md
+  - name: AchievementReward
+    href: GDK.Net.XboxLive.AchievementReward.md
+  - name: AchievementTitleAssociation
+    href: GDK.Net.XboxLive.AchievementTitleAssociation.md
+  - name: AchievementsManager
+    href: GDK.Net.XboxLive.AchievementsManager.md
+  - name: AchievementsManagerAchievementProgressUpdatedEvent
+    href: GDK.Net.XboxLive.AchievementsManagerAchievementProgressUpdatedEvent.md
+  - name: AchievementsManagerAchievementUnlockedEvent
+    href: GDK.Net.XboxLive.AchievementsManagerAchievementUnlockedEvent.md
+  - name: AchievementsManagerEvent
+    href: GDK.Net.XboxLive.AchievementsManagerEvent.md
+  - name: AchievementsManagerLocalUserInitialStateSyncedEvent
+    href: GDK.Net.XboxLive.AchievementsManagerLocalUserInitialStateSyncedEvent.md
+  - name: AchievementsManagerResult
+    href: GDK.Net.XboxLive.AchievementsManagerResult.md
+  - name: AchievementsPage
+    href: GDK.Net.XboxLive.AchievementsPage.md
+  - name: AchievementsService
+    href: GDK.Net.XboxLive.AchievementsService.md
+  - name: DevicePresenceChangedEventArgs
+    href: GDK.Net.XboxLive.DevicePresenceChangedEventArgs.md
+  - name: EventsService
+    href: GDK.Net.XboxLive.EventsService.md
+  - name: LeaderboardColumn
+    href: GDK.Net.XboxLive.LeaderboardColumn.md
+  - name: LeaderboardPage
+    href: GDK.Net.XboxLive.LeaderboardPage.md
+  - name: LeaderboardQuery
+    href: GDK.Net.XboxLive.LeaderboardQuery.md
+  - name: LeaderboardRow
+    href: GDK.Net.XboxLive.LeaderboardRow.md
+  - name: LeaderboardService
+    href: GDK.Net.XboxLive.LeaderboardService.md
+  - name: LocalUserAddedSocialManagerEvent
+    href: GDK.Net.XboxLive.LocalUserAddedSocialManagerEvent.md
+  - name: MultiplayerActivityInfo
+    href: GDK.Net.XboxLive.MultiplayerActivityInfo.md
+  - name: MultiplayerActivityRecentPlayerUpdate
+    href: GDK.Net.XboxLive.MultiplayerActivityRecentPlayerUpdate.md
+  - name: MultiplayerActivityService
+    href: GDK.Net.XboxLive.MultiplayerActivityService.md
+  - name: PresenceBroadcastRecord
+    href: GDK.Net.XboxLive.PresenceBroadcastRecord.md
+  - name: PresenceChangedSocialManagerEvent
+    href: GDK.Net.XboxLive.PresenceChangedSocialManagerEvent.md
+  - name: PresenceDeviceRecord
+    href: GDK.Net.XboxLive.PresenceDeviceRecord.md
+  - name: PresenceQueryFilters
+    href: GDK.Net.XboxLive.PresenceQueryFilters.md
+  - name: PresenceRecord
+    href: GDK.Net.XboxLive.PresenceRecord.md
+  - name: PresenceRichPresenceIds
+    href: GDK.Net.XboxLive.PresenceRichPresenceIds.md
+  - name: PresenceService
+    href: GDK.Net.XboxLive.PresenceService.md
+  - name: PresenceTitleRecord
+    href: GDK.Net.XboxLive.PresenceTitleRecord.md
+  - name: PrivacyPermissionCheckResult
+    href: GDK.Net.XboxLive.PrivacyPermissionCheckResult.md
+  - name: PrivacyPermissionDenyReasonDetail
+    href: GDK.Net.XboxLive.PrivacyPermissionDenyReasonDetail.md
+  - name: PrivacyService
+    href: GDK.Net.XboxLive.PrivacyService.md
+  - name: ProfileService
+    href: GDK.Net.XboxLive.ProfileService.md
+  - name: ProfilesChangedSocialManagerEvent
+    href: GDK.Net.XboxLive.ProfilesChangedSocialManagerEvent.md
+  - name: RealTimeActivityConnectionStateChangedEventArgs
+    href: GDK.Net.XboxLive.RealTimeActivityConnectionStateChangedEventArgs.md
+  - name: RealTimeActivityService
+    href: GDK.Net.XboxLive.RealTimeActivityService.md
+  - name: ReputationFeedbackItem
+    href: GDK.Net.XboxLive.ReputationFeedbackItem.md
+  - name: RequestedStatistics
+    href: GDK.Net.XboxLive.RequestedStatistics.md
+  - name: ServiceConfigurationStatistic
+    href: GDK.Net.XboxLive.ServiceConfigurationStatistic.md
+  - name: SocialManager
+    href: GDK.Net.XboxLive.SocialManager.md
+  - name: SocialManagerEvent
+    href: GDK.Net.XboxLive.SocialManagerEvent.md
+  - name: SocialManagerPreferredColor
+    href: GDK.Net.XboxLive.SocialManagerPreferredColor.md
+  - name: SocialManagerPresenceRecord
+    href: GDK.Net.XboxLive.SocialManagerPresenceRecord.md
+  - name: SocialManagerPresenceTitleRecord
+    href: GDK.Net.XboxLive.SocialManagerPresenceTitleRecord.md
+  - name: SocialManagerTitleHistory
+    href: GDK.Net.XboxLive.SocialManagerTitleHistory.md
+  - name: SocialManagerUser
+    href: GDK.Net.XboxLive.SocialManagerUser.md
+  - name: SocialManagerUserGroup
+    href: GDK.Net.XboxLive.SocialManagerUserGroup.md
+  - name: SocialManagerUserGroupFilters
+    href: GDK.Net.XboxLive.SocialManagerUserGroupFilters.md
+  - name: SocialMultiplayerSessionReference
+    href: GDK.Net.XboxLive.SocialMultiplayerSessionReference.md
+  - name: SocialRelationship
+    href: GDK.Net.XboxLive.SocialRelationship.md
+  - name: SocialRelationshipChangedEventArgs
+    href: GDK.Net.XboxLive.SocialRelationshipChangedEventArgs.md
+  - name: SocialRelationshipsChangedSocialManagerEvent
+    href: GDK.Net.XboxLive.SocialRelationshipsChangedSocialManagerEvent.md
+  - name: SocialRelationshipsPage
+    href: GDK.Net.XboxLive.SocialRelationshipsPage.md
+  - name: SocialService
+    href: GDK.Net.XboxLive.SocialService.md
+  - name: SocialUserGroupLoadedSocialManagerEvent
+    href: GDK.Net.XboxLive.SocialUserGroupLoadedSocialManagerEvent.md
+  - name: SocialUserGroupUpdatedSocialManagerEvent
+    href: GDK.Net.XboxLive.SocialUserGroupUpdatedSocialManagerEvent.md
+  - name: Statistic
+    href: GDK.Net.XboxLive.Statistic.md
+  - name: StatisticChangedEventArgs
+    href: GDK.Net.XboxLive.StatisticChangedEventArgs.md
+  - name: StringVerificationResult
+    href: GDK.Net.XboxLive.StringVerificationResult.md
+  - name: StringVerificationService
+    href: GDK.Net.XboxLive.StringVerificationService.md
+  - name: TitleManagedStatistic
+    href: GDK.Net.XboxLive.TitleManagedStatistic.md
+  - name: TitleManagedStatisticsService
+    href: GDK.Net.XboxLive.TitleManagedStatisticsService.md
+  - name: TitlePresenceChangedEventArgs
+    href: GDK.Net.XboxLive.TitlePresenceChangedEventArgs.md
+  - name: TitleStorageBlobDownloadResult
+    href: GDK.Net.XboxLive.TitleStorageBlobDownloadResult.md
+  - name: TitleStorageBlobMetadata
+    href: GDK.Net.XboxLive.TitleStorageBlobMetadata.md
+  - name: TitleStorageBlobMetadataPage
+    href: GDK.Net.XboxLive.TitleStorageBlobMetadataPage.md
+  - name: TitleStorageService
+    href: GDK.Net.XboxLive.TitleStorageService.md
+  - name: UnknownSocialManagerEvent
+    href: GDK.Net.XboxLive.UnknownSocialManagerEvent.md
+  - name: UserProfile
+    href: GDK.Net.XboxLive.UserProfile.md
+  - name: UserStatisticsResult
+    href: GDK.Net.XboxLive.UserStatisticsResult.md
+  - name: UserStatisticsService
+    href: GDK.Net.XboxLive.UserStatisticsService.md
+  - name: UsersAddedToSocialGraphSocialManagerEvent
+    href: GDK.Net.XboxLive.UsersAddedToSocialGraphSocialManagerEvent.md
+  - name: UsersRemovedFromSocialGraphSocialManagerEvent
+    href: GDK.Net.XboxLive.UsersRemovedFromSocialGraphSocialManagerEvent.md
+  - name: XboxLiveContext
+    href: GDK.Net.XboxLive.XboxLiveContext.md
+  - name: XboxLiveContextSettings
+    href: GDK.Net.XboxLive.XboxLiveContextSettings.md
+  - name: XboxLiveErrors
+    href: GDK.Net.XboxLive.XboxLiveErrors.md
+  - name: XboxLiveOptions
+    href: GDK.Net.XboxLive.XboxLiveOptions.md
+  - name: XboxLiveService
+    href: GDK.Net.XboxLive.XboxLiveService.md
+  - name: Structs
+  - name: AchievementTimeWindow
+    href: GDK.Net.XboxLive.AchievementTimeWindow.md
+  - name: TitleManagedStatisticValue
+    href: GDK.Net.XboxLive.TitleManagedStatisticValue.md
+  - name: TitleStorageQuota
+    href: GDK.Net.XboxLive.TitleStorageQuota.md
+  - name: Enums
+  - name: AchievementMediaAssetType
+    href: GDK.Net.XboxLive.AchievementMediaAssetType.md
+  - name: AchievementOrderBy
+    href: GDK.Net.XboxLive.AchievementOrderBy.md
+  - name: AchievementParticipationType
+    href: GDK.Net.XboxLive.AchievementParticipationType.md
+  - name: AchievementProgressState
+    href: GDK.Net.XboxLive.AchievementProgressState.md
+  - name: AchievementRarityCategory
+    href: GDK.Net.XboxLive.AchievementRarityCategory.md
+  - name: AchievementRewardType
+    href: GDK.Net.XboxLive.AchievementRewardType.md
+  - name: AchievementType
+    href: GDK.Net.XboxLive.AchievementType.md
+  - name: AchievementsManagerEventType
+    href: GDK.Net.XboxLive.AchievementsManagerEventType.md
+  - name: AchievementsManagerSortOrder
+    href: GDK.Net.XboxLive.AchievementsManagerSortOrder.md
+  - name: AnonymousUserType
+    href: GDK.Net.XboxLive.AnonymousUserType.md
+  - name: ErrorCondition
+    href: GDK.Net.XboxLive.ErrorCondition.md
+  - name: LeaderboardQueryType
+    href: GDK.Net.XboxLive.LeaderboardQueryType.md
+  - name: LeaderboardSortOrder
+    href: GDK.Net.XboxLive.LeaderboardSortOrder.md
+  - name: LeaderboardStatType
+    href: GDK.Net.XboxLive.LeaderboardStatType.md
+  - name: MultiplayerActivityEncounterType
+    href: GDK.Net.XboxLive.MultiplayerActivityEncounterType.md
+  - name: MultiplayerActivityJoinRestriction
+    href: GDK.Net.XboxLive.MultiplayerActivityJoinRestriction.md
+  - name: MultiplayerActivityPlatform
+    href: GDK.Net.XboxLive.MultiplayerActivityPlatform.md
+  - name: Permission
+    href: GDK.Net.XboxLive.Permission.md
+  - name: PermissionDenyReason
+    href: GDK.Net.XboxLive.PermissionDenyReason.md
+  - name: PresenceBroadcastProvider
+    href: GDK.Net.XboxLive.PresenceBroadcastProvider.md
+  - name: PresenceDetailLevel
+    href: GDK.Net.XboxLive.PresenceDetailLevel.md
+  - name: PresenceDeviceType
+    href: GDK.Net.XboxLive.PresenceDeviceType.md
+  - name: PresenceFilter
+    href: GDK.Net.XboxLive.PresenceFilter.md
+  - name: PresenceMediaIdType
+    href: GDK.Net.XboxLive.PresenceMediaIdType.md
+  - name: PresenceSocialGroup
+    href: GDK.Net.XboxLive.PresenceSocialGroup.md
+  - name: PresenceTitleState
+    href: GDK.Net.XboxLive.PresenceTitleState.md
+  - name: PresenceTitleViewState
+    href: GDK.Net.XboxLive.PresenceTitleViewState.md
+  - name: PresenceUserState
+    href: GDK.Net.XboxLive.PresenceUserState.md
+  - name: PrivacySetting
+    href: GDK.Net.XboxLive.PrivacySetting.md
+  - name: Privilege
+    href: GDK.Net.XboxLive.Privilege.md
+  - name: RealTimeActivityConnectionState
+    href: GDK.Net.XboxLive.RealTimeActivityConnectionState.md
+  - name: RelationshipFilter
+    href: GDK.Net.XboxLive.RelationshipFilter.md
+  - name: ReputationFeedbackType
+    href: GDK.Net.XboxLive.ReputationFeedbackType.md
+  - name: SocialGroup
+    href: GDK.Net.XboxLive.SocialGroup.md
+  - name: SocialGroupType
+    href: GDK.Net.XboxLive.SocialGroupType.md
+  - name: SocialManagerEventType
+    href: GDK.Net.XboxLive.SocialManagerEventType.md
+  - name: SocialManagerExtraDetailLevel
+    href: GDK.Net.XboxLive.SocialManagerExtraDetailLevel.md
+  - name: SocialNotificationType
+    href: GDK.Net.XboxLive.SocialNotificationType.md
+  - name: SocialRelationshipFilter
+    href: GDK.Net.XboxLive.SocialRelationshipFilter.md
+  - name: SocialUserGroupType
+    href: GDK.Net.XboxLive.SocialUserGroupType.md
+  - name: TitleManagedStatType
+    href: GDK.Net.XboxLive.TitleManagedStatType.md
+  - name: TitleStorageBlobType
+    href: GDK.Net.XboxLive.TitleStorageBlobType.md
+  - name: TitleStorageETagMatchCondition
+    href: GDK.Net.XboxLive.TitleStorageETagMatchCondition.md
+  - name: TitleStorageType
+    href: GDK.Net.XboxLive.TitleStorageType.md
+  - name: VerifyStringResultCode
+    href: GDK.Net.XboxLive.VerifyStringResultCode.md

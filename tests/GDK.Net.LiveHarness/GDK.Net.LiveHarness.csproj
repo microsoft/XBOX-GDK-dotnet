@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <AssemblyName>GDK.Net.LiveHarness</AssemblyName>
+    <RootNamespace>GDK.Net.LiveHarness</RootNamespace>
+    <IsPackable>false</IsPackable>
+
+    <!-- This project is not run by `dotnet test`. It is a packaged GDK title that must be
+         registered and launched on a dev-unlocked machine; eng/run-package-tests.ps1 drives it and
+         reads back the JSON report it writes. Flagged so a plain `dotnet test` on the solution
+         does not try to discover tests in it. -->
+    <IsTestProject>false</IsTestProject>
+
+    <!-- Multi-targeted so both publish paths are first-class. net8.0 is the floor GDK.Net
+         supports and is what an ordinary `dotnet build` and the IL publish use. net10.0 is what
+         the NativeAOT publish uses, because the NativeAOT runtime pack
+         (Microsoft.NETCore.App.Runtime.NativeAOT.win-x64) is only published from 9.0 onward, so a
+         net8.0 AOT publish cannot be restored with a 10.x SDK. Both compile the same source
+         against the same GDK.Net. -->
+
+    <!-- The Gaming Runtime on PC is x64/arm64 only, and a GDK package is architecture-specific.
+         eng/package.ps1 publishes with an explicit self-contained publish so the layout carries its
+         own runtime: a GDK package is installed into WindowsApps and must not depend on a
+         machine-wide shared framework. Ordinary `dotnet build` stays framework-dependent so CI can
+         compile this project without a runtime pack. -->
+    <Platforms>x64</Platforms>
+    <PublishTrimmed Condition="'$(PublishAot)' != 'true'">false</PublishTrimmed>
+    <PublishSingleFile>false</PublishSingleFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+
+    <!-- Xbox consoles require NativeAOT, so the harness must build clean under it. This is the
+         project that proves GDK.Net is AOT-safe end to end: ILC analyses the whole closure, which
+         is strictly stricter than the analyzers alone.
+
+         AOT is opt-in through `eng/package.ps1 -Aot` rather than always-on because ILC needs the
+         MSVC linker, which a GitHub-hosted runner does not have. The analyzers below run on every
+         build regardless, so an AOT-hostile change is caught even without the toolchain. -->
+    <!-- See src/GDK.Net/GDK.Net.csproj for why these are set individually and how to opt out. -->
+    <EnableAotAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableAotAnalyzer>
+    <EnableTrimAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableTrimAnalyzer>
+    <EnableSingleFileAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableSingleFileAnalyzer>
+
+    <!-- Keep an AOT-published binary honest: no reflection fallback silently papering over a
+         missing JsonSerializerContext. -->
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <EventSourceSupport>false</EventSourceSupport>
+
+    <!-- The harness exercises GameRuntime.XboxLive, so it needs the XSAPI redistributables
+         alongside the Gaming Runtime thunks. See eng/packaging/GdkRedist.targets. -->
+    <GdkNetIncludeXboxLive>true</GdkNetIncludeXboxLive>
+
+    <!-- The playfab.* family covers all three PlayFab extension libraries, so the harness carries
+         all three redist groups. They are x64-only, which the harness already is. -->
+    <GdkNetIncludePlayFab>true</GdkNetIncludePlayFab>
+    <GdkNetIncludePlayFabMultiplayer>true</GdkNetIncludePlayFabMultiplayer>
+    <GdkNetIncludePlayFabParty>true</GdkNetIncludePlayFabParty>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GDK.Net\GDK.Net.csproj" />
+  </ItemGroup>
+
+  <!-- Packaging inputs. MicrosoftGame.config is per-project because it names the executable; the
+       ShellVisuals are shared with samples/GDK.Net.UserSample and live in eng/packaging so neither
+       project owns the only copy. eng/package.ps1 copies both into the layout root. -->
+  <ItemGroup>
+    <None Update="MicrosoftGame.config" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\eng\packaging\ShellVisuals\*.png"
+          Link="%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Copies xgameruntime.thunks.dll next to the output, so the
+       harness runs unpackaged straight from `dotnet run` or a self-contained publish. -->
+  <Import Project="..\..\eng\packaging\GdkRedist.targets" />
+</Project>

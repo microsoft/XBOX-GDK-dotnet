@@ -1,0 +1,174 @@
+<!--
+  Copies the Gaming Runtime redistributables next to the output executable so a GDK.Net app can be
+  built and run *without* being packaged and registered.
+
+  A GDK title normally has to be packaged, but only for one reason: XGameRuntime resolves the
+  title's identity (TitleId, StoreId, sandbox) from package identity. When MicrosoftGame.config sits
+  next to the executable the runtime reads the identity from that file instead, so an ordinary
+  `dotnet run` or a self-contained publish works on a dev-unlocked machine with a signed-in account.
+  Without it, XGameRuntimeInitialize still succeeds but the first XUser call fails with
+  0x89245110 "the process has no package identity".
+
+  One core native module is involved:
+
+    xgameruntime.thunks.dll   Required. Every P/Invoke binds to it. It is not installed
+                              system-wide (only XGameRuntime.dll is in System32, and that exports
+                              nothing usable), so it must be redistributed.
+
+  Xbox Live Services (GameRuntime.XboxLive) needs two more, which together add roughly 2.2 MB:
+
+    Microsoft.Xbox.Services.C.Thunks.dll   XSAPI's flat C entry points (Xbl*).
+    libHttpClient.dll                      XSAPI's hard runtime dependency; it will not load
+                                           without it.
+
+  Those two are opt-in, because a title that never touches Xbox Live should not pay for them. Set
+  <GdkNetIncludeXboxLive>true</GdkNetIncludeXboxLive> in the app project to copy them.
+
+  PlayFab (GDK.Net.PlayFab) needs its own modules too. The GDK installs *two* PlayFab stacks that
+  are not ABI compatible with each other:
+
+    %GameDKCoreLatest%windows\bin\<arch>   The stack the GDK installs beside XSAPI and the Gaming
+                                           Runtime, described by the windows\include\playfab
+                                           headers. Its Party.dll links against PlayFabCore.dll
+                                           and takes a PFEntityHandle.
+    %GameDKCoreLatest%GRDK\ExtensionLibraries
+                                           The standalone PlayFab SDKs (*.GDK.dll, plus a
+                                           Party.dll that takes an entity id and token string
+                                           pair) with their own copies of the headers.
+
+  The projection is generated from windows\include\playfab, so it binds the windows\bin stack -
+  the same folder the Xbox Live group takes Microsoft.Xbox.Services.C.Thunks.dll from. Mixing the
+  two stacks is not a build error; it is an access violation on the first Party call.
+
+  The modules are split into three opt-in groups so a title pays only for what it calls:
+
+    <GdkNetIncludePlayFab>              PlayFabCore.dll, PlayFabServices.dll, PlayFabGameSave.dll
+                                        and their shared dependency libHttpClient.dll (~9 MB).
+                                        Needed by PlayFabRuntime, the generated Services layer and
+                                        PlayFab GameSave.
+    <GdkNetIncludePlayFabMultiplayer>   PlayFabMultiplayer.dll (~2 MB). Needed by
+                                        GDK.Net.PlayFab.Multiplayer (lobbies and matchmaking).
+    <GdkNetIncludePlayFabParty>         Party.dll and PartyXboxLive.dll (~5 MB). Needed by
+                                        GDK.Net.PlayFab.Party.
+
+  Both of those import PlayFabCore.dll, so they also turn on the first group's files.
+
+  Everything here is conditional on the GDK being installed, so a hosted CI runner (which has no
+  GDK and only needs to compile) is unaffected.
+-->
+<Project>
+
+  <PropertyGroup>
+    <!-- A GDK package is architecture-specific. Follow the RID when one is given, otherwise follow
+         the platform, and fall back to x64 (the Gaming Runtime on PC is x64/arm64 only). -->
+    <GdkRedistArchitecture Condition="'$(GdkRedistArchitecture)' == '' and '$(RuntimeIdentifier)' == 'win-arm64'">arm64</GdkRedistArchitecture>
+    <GdkRedistArchitecture Condition="'$(GdkRedistArchitecture)' == '' and '$(Platform)' == 'ARM64'">arm64</GdkRedistArchitecture>
+    <GdkRedistArchitecture Condition="'$(GdkRedistArchitecture)' == ''">x64</GdkRedistArchitecture>
+
+    <!-- %GameDKCoreLatest% is the pinned edition root and normally already ends in a separator,
+         but it is set by an installer rather than by this repo, so do not assume either way. -->
+    <GdkCoreRoot Condition="'$(GameDKCoreLatest)' != ''">$([MSBuild]::EnsureTrailingSlash('$(GameDKCoreLatest)'))</GdkCoreRoot>
+
+    <GdkThunksPath Condition="'$(GdkCoreRoot)' != ''">$(GdkCoreRoot)windows\bin\$(GdkRedistArchitecture)\xgameruntime.thunks.dll</GdkThunksPath>
+
+    <!-- Opt-in: only titles that use GameRuntime.XboxLive need XSAPI. -->
+    <GdkNetIncludeXboxLive Condition="'$(GdkNetIncludeXboxLive)' == ''">false</GdkNetIncludeXboxLive>
+    <GdkXsapiThunksPath Condition="'$(GdkCoreRoot)' != ''">$(GdkCoreRoot)windows\bin\$(GdkRedistArchitecture)\Microsoft.Xbox.Services.C.Thunks.dll</GdkXsapiThunksPath>
+    <GdkHttpClientPath Condition="'$(GdkCoreRoot)' != ''">$(GdkCoreRoot)windows\bin\$(GdkRedistArchitecture)\libHttpClient.dll</GdkHttpClientPath>
+
+    <!-- Opt-in: the PlayFab modules. Party and Multiplayer both import PlayFabCore.dll, so asking
+         for either implies the core group. -->
+    <GdkNetIncludePlayFabMultiplayer Condition="'$(GdkNetIncludePlayFabMultiplayer)' == ''">false</GdkNetIncludePlayFabMultiplayer>
+    <GdkNetIncludePlayFabParty Condition="'$(GdkNetIncludePlayFabParty)' == ''">false</GdkNetIncludePlayFabParty>
+    <GdkNetIncludePlayFab Condition="'$(GdkNetIncludePlayFab)' == '' and ('$(GdkNetIncludePlayFabMultiplayer)' == 'true' or '$(GdkNetIncludePlayFabParty)' == 'true')">true</GdkNetIncludePlayFab>
+    <GdkNetIncludePlayFab Condition="'$(GdkNetIncludePlayFab)' == ''">false</GdkNetIncludePlayFab>
+
+    <GdkPlayFabRedist Condition="'$(GdkCoreRoot)' != ''">$(GdkCoreRoot)windows\bin\$(GdkRedistArchitecture)\</GdkPlayFabRedist>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(GdkThunksPath)' != '' and Exists('$(GdkThunksPath)')">
+    <None Include="$(GdkThunksPath)"
+          Link="xgameruntime.thunks.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(GdkNetIncludeXboxLive)' == 'true' and '$(GdkXsapiThunksPath)' != '' and Exists('$(GdkXsapiThunksPath)')">
+    <None Include="$(GdkXsapiThunksPath)"
+          Link="Microsoft.Xbox.Services.C.Thunks.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="$(GdkHttpClientPath)"
+          Condition="Exists('$(GdkHttpClientPath)')"
+          Link="libHttpClient.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(GdkNetIncludePlayFab)' == 'true' and '$(GdkPlayFabRedist)' != '' and Exists('$(GdkPlayFabRedist)PlayFabCore.dll')">
+    <None Include="$(GdkPlayFabRedist)PlayFabCore.dll"
+          Link="PlayFabCore.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="$(GdkPlayFabRedist)PlayFabServices.dll"
+          Condition="Exists('$(GdkPlayFabRedist)PlayFabServices.dll')"
+          Link="PlayFabServices.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="$(GdkPlayFabRedist)PlayFabGameSave.dll"
+          Condition="Exists('$(GdkPlayFabRedist)PlayFabGameSave.dll')"
+          Link="PlayFabGameSave.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+    <!-- The same libHttpClient.dll XSAPI needs; listing it in both groups is harmless because
+         MSBuild de-duplicates identical None items by their full path. -->
+    <None Include="$(GdkHttpClientPath)"
+          Condition="Exists('$(GdkHttpClientPath)')"
+          Link="libHttpClient.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(GdkNetIncludePlayFabMultiplayer)' == 'true' and '$(GdkPlayFabRedist)' != '' and Exists('$(GdkPlayFabRedist)PlayFabMultiplayer.dll')">
+    <None Include="$(GdkPlayFabRedist)PlayFabMultiplayer.dll"
+          Link="PlayFabMultiplayer.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(GdkNetIncludePlayFabParty)' == 'true' and '$(GdkPlayFabRedist)' != '' and Exists('$(GdkPlayFabRedist)Party.dll')">
+    <None Include="$(GdkPlayFabRedist)Party.dll"
+          Link="Party.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="$(GdkPlayFabRedist)PartyXboxLive.dll"
+          Condition="Exists('$(GdkPlayFabRedist)PartyXboxLive.dll')"
+          Link="PartyXboxLive.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+  </ItemGroup>
+
+  <!-- Say so once, at normal verbosity, rather than letting a run fail at the first native call
+       with an error that does not name the cause. -->  <Target Name="ReportGdkRedistStatus" AfterTargets="Build">
+    <Message Importance="high"
+             Condition="'$(GdkThunksPath)' == '' or !Exists('$(GdkThunksPath)')"
+             Text="$(MSBuildProjectName): the Microsoft GDK was not found (%GameDKCoreLatest% is unset or has no windows\bin\$(GdkRedistArchitecture)\xgameruntime.thunks.dll). The build is fine, but this app cannot run until that DLL sits next to the executable." />
+
+    <Message Importance="high"
+             Condition="'$(GdkNetIncludeXboxLive)' == 'true' and ('$(GdkXsapiThunksPath)' == '' or !Exists('$(GdkXsapiThunksPath)'))"
+             Text="$(MSBuildProjectName): GdkNetIncludeXboxLive is set but Microsoft.Xbox.Services.C.Thunks.dll was not found under %GameDKCoreLatest%windows\bin\$(GdkRedistArchitecture). GameRuntime.XboxLive will fail at the first call." />
+
+    <Message Importance="high"
+             Condition="'$(GdkNetIncludePlayFab)' == 'true' and ('$(GdkPlayFabRedist)' == '' or !Exists('$(GdkPlayFabRedist)PlayFabCore.dll'))"
+             Text="$(MSBuildProjectName): GdkNetIncludePlayFab is set but PlayFabCore.dll was not found under %GameDKCoreLatest%windows\bin\$(GdkRedistArchitecture). GDK.Net.PlayFab will fail at the first call." />
+
+    <Message Importance="high"
+             Condition="'$(GdkNetIncludePlayFabMultiplayer)' == 'true' and ('$(GdkPlayFabRedist)' == '' or !Exists('$(GdkPlayFabRedist)PlayFabMultiplayer.dll'))"
+             Text="$(MSBuildProjectName): GdkNetIncludePlayFabMultiplayer is set but PlayFabMultiplayer.dll was not found under %GameDKCoreLatest%windows\bin\$(GdkRedistArchitecture). GDK.Net.PlayFab.Multiplayer will fail at the first call." />
+
+    <Message Importance="high"
+             Condition="'$(GdkNetIncludePlayFabParty)' == 'true' and ('$(GdkPlayFabRedist)' == '' or !Exists('$(GdkPlayFabRedist)Party.dll'))"
+             Text="$(MSBuildProjectName): GdkNetIncludePlayFabParty is set but Party.dll was not found under %GameDKCoreLatest%windows\bin\$(GdkRedistArchitecture). GDK.Net.PlayFab.Party will fail at the first call." />
+  </Target>
+
+</Project>

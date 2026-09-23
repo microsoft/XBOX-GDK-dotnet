@@ -1,0 +1,5 @@
+# docfx writes the generated API reference with LF. Without this, a checkout on
+# Windows converts it to CRLF, and eng/generate-docs.ps1 -Check then reports
+# every page as out of date because it compares the files byte for byte.
+docs/api/*.md text eol=lf
+docs/api/toc.yml text eol=lf

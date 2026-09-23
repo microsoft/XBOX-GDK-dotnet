@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net10.0;netstandard2.0</TargetFrameworks>
+    <AssemblyName>GDK.Net</AssemblyName>
+    <RootNamespace>GDK.Net</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>GDK.Net</PackageId>
+    <Description>Idiomatic .NET projection of the Microsoft GDK flat C API.</Description>
+
+    <!--
+      Ships XML docs beside the assembly, so consumers get IntelliSense on the projected surface,
+      and is the input docs/api/ is generated from (eng/generate-docs.ps1).
+
+      Combined with the repo-wide TreatWarningsAsErrors, this makes documentation mandatory: a new
+      public type or member without a doc comment fails the build with CS1591. That is the point.
+      Generated PlayFab/Party code satisfies it through its emitters in eng/playfab, not through a
+      suppression - see AGENTS.md.
+    -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!--
+    Xbox consoles require NativeAOT, so the library must be usable from an AOT-published title.
+    These three analyzers are what enforce it: with TreatWarningsAsErrors, any IL2xxx/IL3xxx
+    diagnostic fails the build, which is what stops a future family from reintroducing reflection
+    or runtime-generated marshalling stubs.
+
+    They are set individually rather than through IsAotCompatible because that property also sets
+    IsTrimmable, which changes the assembly's NuGet packaging semantics. The analyzers are the part
+    with value here; the IsTrimmable *marker* is applied below directly.
+
+    They do pull in a Microsoft.NET.ILLink.Tasks PackageReference pinned to the SDK band. On a
+    machine whose NuGet feeds are restricted that can fail restore with NU1100/NU1603 naming
+    Microsoft.NET.ILLink.Tasks. Set GdkNetEnableAotAnalyzers=false to build without them; the AOT
+    contract is still enforced by eng/package.ps1 -Aot, which runs the real ILC compilation.
+
+    netstandard2.0 is excluded: the analyzers do not exist there, that target is for Unity/Mono
+    consumers and is never AOT-published, and it is the only target that still uses
+    Marshal.GetFunctionPointerForDelegate. net8.0+ uses [UnmanagedCallersOnly] function pointers,
+    which allocate no delegate and need no runtime code generation.
+  -->
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard2.0' And '$(GdkNetEnableAotAnalyzers)' != 'false'">
+    <EnableAotAnalyzer>true</EnableAotAnalyzer>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+  </PropertyGroup>
+
+  <!--
+    Tells the trimmer the assembly has been analysed and needs no conservative rooting. This is the
+    marker IsTrimmable would emit; setting it directly avoids the ILLink.Tasks package above.
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
+    <AssemblyMetadata Include="IsTrimmable" Value="True" />
+  </ItemGroup>
+
+  <!--
+    A title that AOT-publishes passes -p:PublishAot=true on the command line, and command-line
+    properties are MSBuild *global* properties: they flow into every ProjectReference and cannot be
+    overridden by an ordinary PropertyGroup. netstandard2.0 cannot be AOT-compiled, so without this
+    the consumer's publish fails with NETSDK1207 pointing at *this* project.
+
+    Properties assigned inside a target do override globals for that project instance, so clearing
+    them just before ProcessFrameworkReferences (the target that raises NETSDK1207) keeps
+    `dotnet publish -p:PublishAot=true` working for ProjectReference consumers, while net8.0 and
+    net10.0 are still compiled ahead of time as intended. Package consumers never hit this: NuGet
+    resolves a single nearest target framework.
+  -->
+  <Target Name="GdkNetDisableAotForNetStandard"
+          BeforeTargets="ProcessFrameworkReferences"
+          Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PropertyGroup>
+      <PublishAot>false</PublishAot>
+      <PublishTrimmed>false</PublishTrimmed>
+      <PublishReadyToRun>false</PublishReadyToRun>
+    </PropertyGroup>
+  </Target>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GDK.Net.Tests" />
+  </ItemGroup>
+</Project>

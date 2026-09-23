@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Company>GDK.Net Contributors</Company>
+    <Authors>GDK.Net Contributors</Authors>
+    <Product>GDK.Net</Product>
+    <PackageProjectUrl>https://github.com/</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <GdkEdition>260404</GdkEdition>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>GdkEdition</_Parameter1>
+      <_Parameter2>$(GdkEdition)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

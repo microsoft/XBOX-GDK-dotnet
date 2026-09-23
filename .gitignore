@@ -1,0 +1,50 @@
+# Build output
+bin/
+obj/
+artifacts/
+eng/Generated/
+eng/obj/
+
+# User/editor files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+.idea/
+
+# Test output
+TestResults/
+*.trx
+coverage/
+coverage.cobertura.xml
+*.coverage
+*.coveragexml
+
+# Packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Logs and diagnostics
+*.log
+*.binlog
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Python bytecode from the PlayFab generator (eng/playfab).
+__pycache__/
+*.pyc
+
+# Build outputs from the native repro (eng/repro).
+eng/repro/**/*.exe
+eng/repro/**/*.dll
+eng/repro/**/*.obj
+eng/repro/**/*.pdb
+eng/repro/**/*.ilk

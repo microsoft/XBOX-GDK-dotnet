@@ -1,0 +1,22 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [ "src/GDK.Net/GDK.Net.csproj" ],
+          "src": ".."
+        }
+      ],
+      "dest": "api",
+      "outputFormat": "markdown",
+      "memberLayout": "samePage",
+      "namespaceLayout": "flattened",
+      "disableGitFeatures": true,
+      "noRestore": true,
+      "properties": {
+        "TargetFramework": "net10.0",
+        "GdkNetEnableAotAnalyzers": "false"
+      }
+    }
+  ]
+}

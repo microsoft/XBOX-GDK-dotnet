@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <AssemblyName>GDK.Net.UserSample</AssemblyName>
+    <RootNamespace>GDK.Net.UserSample</RootNamespace>
+    <IsPackable>false</IsPackable>
+
+    <!-- Multi-targeted so both publish paths are first-class. net8.0 is the floor GDK.Net
+         supports and is what an ordinary `dotnet build` and the IL publish use. net10.0 is what
+         the NativeAOT publish uses, because the NativeAOT runtime pack
+         (Microsoft.NETCore.App.Runtime.NativeAOT.win-x64) is only published from 9.0 onward, so a
+         net8.0 AOT publish cannot be restored with a 10.x SDK. Both compile the same source
+         against the same GDK.Net. -->
+
+    <!-- The Gaming Runtime on PC is x64/arm64 only, and a GDK package is architecture-specific.
+         eng/package.ps1 publishes with an explicit win-x64 self-contained publish so the layout
+         carries its own runtime: a GDK package is installed into WindowsApps and must not depend on
+         a machine-wide shared framework. Ordinary `dotnet build` stays framework-dependent so CI can
+         compile this project without a runtime pack. -->
+    <Platforms>x64</Platforms>
+    <PublishTrimmed Condition="'$(PublishAot)' != 'true'">false</PublishTrimmed>
+    <PublishSingleFile>false</PublishSingleFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+
+    <!-- Xbox consoles require NativeAOT, so the sample must build clean under it. AOT is opt-in
+           through `eng/package.ps1 -Project Sample -Aot` rather than always-on because ILC needs the
+           MSVC linker, which a GitHub-hosted runner does not have. The analyzers below run on every
+           build regardless, so an AOT-hostile change is caught even without the toolchain. -->
+      <!-- See src/GDK.Net/GDK.Net.csproj for why these are set individually and how to opt out. -->
+      <EnableAotAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableAotAnalyzer>
+      <EnableTrimAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableTrimAnalyzer>
+      <EnableSingleFileAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableSingleFileAnalyzer>
+
+      <!-- The sample writes a plain text log, not JSON, so it needs no JsonSerializerContext.
+           Reflection-based serialization stays off so an AOT publish cannot silently depend on it. -->
+      <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+      <EventSourceSupport>false</EventSourceSupport>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\GDK.Net\GDK.Net.csproj" />
+    </ItemGroup>
+
+    <!-- Copies xgameruntime.thunks.dll next to the output, so the
+         sample runs unpackaged straight from `dotnet run` or a self-contained publish. -->
+    <Import Project="..\..\eng\packaging\GdkRedist.targets" />
+
+    <!-- Packaging inputs. MicrosoftGame.config is per-project because it names the executable; the
+         ShellVisuals are shared with tests/GDK.Net.LiveHarness and live in eng/packaging so neither
+         project owns the only copy. eng/package.ps1 copies both into the layout root. -->
+    <ItemGroup>
+      <None Update="MicrosoftGame.config" CopyToOutputDirectory="PreserveNewest" />
+      <None Include="..\..\eng\packaging\ShellVisuals\*.png"
+            Link="%(Filename)%(Extension)"
+            CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

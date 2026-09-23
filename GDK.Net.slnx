@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GDK.Net/GDK.Net.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GDK.Net.Tests/GDK.Net.Tests.csproj" />
+    <Project Path="tests/GDK.Net.LiveHarness/GDK.Net.LiveHarness.csproj" />
+    <Project Path="tests/GDK.Net.MultiplayerHarness/GDK.Net.MultiplayerHarness.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/GDK.Net.UserSample/GDK.Net.UserSample.csproj" />
+    <Project Path="samples/GDK.Net.PlayFabSample/GDK.Net.PlayFabSample.csproj" />
+  </Folder>
+</Solution>

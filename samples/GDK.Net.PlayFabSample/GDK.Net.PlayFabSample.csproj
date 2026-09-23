@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <AssemblyName>GDK.Net.PlayFabSample</AssemblyName>
+    <RootNamespace>GDK.Net.PlayFabSample</RootNamespace>
+    <IsPackable>false</IsPackable>
+
+    <!-- Multi-targeted for the same reason as GDK.Net.UserSample: net8.0 is the floor GDK.Net
+         supports and is what an ordinary `dotnet build` uses, while net10.0 is what a NativeAOT
+         publish uses, because the NativeAOT runtime pack is only published from 9.0 onward. -->
+
+    <Platforms>x64</Platforms>
+    <PublishTrimmed Condition="'$(PublishAot)' != 'true'">false</PublishTrimmed>
+    <PublishSingleFile>false</PublishSingleFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+
+    <!-- Xbox consoles require NativeAOT, so the sample must build clean under it. The analyzers
+         run on every build even without the ILC toolchain, so an AOT-hostile change is caught. -->
+    <EnableAotAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableAotAnalyzer>
+    <EnableTrimAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableTrimAnalyzer>
+    <EnableSingleFileAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableSingleFileAnalyzer>
+
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <EventSourceSupport>false</EventSourceSupport>
+
+    <!-- The whole point of this sample. Party and Multiplayer both import PlayFabCore.dll, so
+         either one already implies <GdkNetIncludePlayFab>; it is set here anyway to document the
+         dependency rather than rely on the inference. -->
+    <GdkNetIncludePlayFab>true</GdkNetIncludePlayFab>
+    <GdkNetIncludePlayFabMultiplayer>true</GdkNetIncludePlayFabMultiplayer>
+    <GdkNetIncludePlayFabParty>true</GdkNetIncludePlayFabParty>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GDK.Net\GDK.Net.csproj" />
+  </ItemGroup>
+
+  <!-- Copies xgameruntime.thunks.dll and - because of the properties above - the
+       six PlayFab modules next to the output, so the sample runs straight from `dotnet run`. -->
+  <Import Project="..\..\eng\packaging\GdkRedist.targets" />
+
+  <ItemGroup>
+    <None Update="MicrosoftGame.config" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\eng\packaging\ShellVisuals\*.png"
+          Link="%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
