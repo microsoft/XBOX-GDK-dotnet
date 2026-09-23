@@ -17,7 +17,7 @@ The harness writes a JSON report (and stdout, which a packaged title has no cons
 A P/Invoke that binds the wrong module fails **only** against a real Gaming Runtime, and fails with
 a misleading `E_GAMERUNTIME_VERSION_MISMATCH`. Building this harness is what caught exactly that:
 the projection originally bound `XGameRuntime.dll`, which exports nothing usable. See the repository
-[README](../../README.md#status) for the full explanation and
+[Projection status](../../docs/status.md) for the full explanation and
 `src/GDK.Net/Interop/Native.cs` for the details.
 
 ## Requirements

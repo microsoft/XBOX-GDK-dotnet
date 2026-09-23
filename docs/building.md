@@ -51,7 +51,14 @@ stubs, and what keeps the XML documentation complete. Do not suppress it globall
 ### Package feeds
 
 `NuGet.config` defaults to the public registry so that outside-contributor clones and
-GitHub-hosted CI work. Microsoft-internal developers can uncomment the `msfeedproxy` source.
+GitHub-hosted CI work. Microsoft-internal developers can uncomment the `msfeedproxy` source:
+
+```xml
+<add key="msfeedproxy" value="https://packagefeedproxy.microsoft.io/nuget/v3/index.json" protocolVersion="3" />
+```
+
+Hosted CI cannot reach Microsoft-internal package feeds, which is why the public registry is the
+default rather than an opt-out.
 
 If restore fails with `NU1100`/`NU1603` naming `Microsoft.NET.ILLink.Tasks`, the feed in use cannot
 serve the ILLink package that the AOT analyzers pull in. Build without them:

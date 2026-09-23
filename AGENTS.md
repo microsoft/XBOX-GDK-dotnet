@@ -27,10 +27,15 @@ copies. The canonical sources are `plans/dotnet.md` and `reference/*.md` in the
 
 | Path | Notes |
 |---|---|
+| `docs/README.md` | The documentation index. Add new authored pages here. |
 | `docs/building.md` | Build, test, run, package. |
 | `docs/getting-started.md` | Idioms and a first sign-in. |
 | `docs/architecture.md` | Layering, target frameworks, the AOT contract. |
 | `docs/gdk-edition.md` | The re-pin procedure and minimum version. |
+| `docs/status.md` | What is projected, what is out of scope, the coverage numbers. |
+| `docs/native-aot.md` | How AOT safety is enforced, and how to AOT-publish a title. |
+| `docs/custom-game-ui.md` | Title-implemented UI and its threading rules. |
+| `docs/repository-layout.md` | Where things live; what is generated or vendored. |
 | `docs/api/` | **Generated.** Do not hand-edit; edit the XML doc comments and run `eng/generate-docs.ps1`. |
 
 The re-vendor step is a blind copy of the meta repo's `reference/` and `plans/dotnet.md` onto
