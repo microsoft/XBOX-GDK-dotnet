@@ -128,7 +128,7 @@ The `docs/` directory holds both authored guides and a vendored, one-way copy of
 
 ## Support and contributing
 
-- [**Open an issue**](https://github.com/microsoft/XBOX-dotnet-GDK/issues/new) - bugs and feature requests
+- [**Open an issue**](https://github.com/microsoft/XBOX-GDK-dotnet/issues/new) - bugs and feature requests
 - [`SUPPORT.md`](SUPPORT.md) - how to file issues, and what to include
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) - the CLA, and what a change here has to satisfy
 - [`SECURITY.md`](SECURITY.md) - security vulnerability reporting (MSRC; please do **not** file security issues via GitHub)
