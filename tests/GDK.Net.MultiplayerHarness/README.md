@@ -6,13 +6,13 @@ then walks them through scenarios that only mean anything across a process bound
 membership and property changes have to reach every other client, and a Party network whose messages
 have to actually travel.
 
-Like [`GDK.Net.LiveHarness`](../GDK.Net.LiveHarness), this is manual and local-only — it needs a real
+Like [`GDK.Net.LiveHarness`](../GDK.Net.LiveHarness), this is manual and local-only: it needs a real
 Gaming Runtime, a real PlayFab title and a network, so CI never runs it.
 
 ## Why a separate process per player
 
 Lobby membership and Party message delivery are distributed state. Inside one process, "the guest
-saw the host's property" can be satisfied by the SDK handing back the object the host just wrote — no
+saw the host's property" can be satisfied by the SDK handing back the object the host just wrote: no
 service round trip is proven, and no state-change queue other than the writer's is exercised. With a
 process per player, every assertion is made by a different SDK instance with its own queue, its own
 sockets and its own authentication, so the only way it can pass is if the data really went to the
@@ -34,7 +34,7 @@ Verified green with 2, 3, 4 and 5 participants.
 
 ## Requirements
 
-- The Microsoft GDK, edition `260404`, and a dev-unlocked machine — the same prerequisites as
+- The Microsoft GDK, edition `260404`, and a dev-unlocked machine: the same prerequisites as
   `GDK.Net.LiveHarness`.
 - A network connection. Party will not report regions without one, and the lobby service is a
   service.
@@ -46,8 +46,8 @@ Verified green with 2, 3, 4 and 5 participants.
 
 Title `10D176` has client-side account creation turned off, so `LoginWithCustomID` with
 `CreateAccount = true` fails with `E_PF_PLAYER_CREATION_DISABLED`. Each participant is therefore
-provisioned server-side first — `ServerLoginWithCustomID` with the secret key, which the setting does
-not apply to — and only then signs in from the client with `CreateAccount = false`. That is also how
+provisioned server-side first: `ServerLoginWithCustomID` with the secret key, which the setting does
+not apply to, and only then signs in from the client with `CreateAccount = false`. That is also how
 a real title with a backend does it.
 
 Without a key the harness still runs and falls back to asking the client login to create the account,
@@ -80,7 +80,7 @@ child's output until it exits, which makes a running harness look like a hung on
 | Option | Meaning |
 |---|---|
 | `--participants <n>` | How many processes to spawn. Default 2. |
-| `--only <prefix>` | Run only scenarios whose name starts with this — `lobby` or `party`. |
+| `--only <prefix>` | Run only scenarios whose name starts with this: `lobby` or `party`. |
 | `--title-id <id>` | PlayFab title. Default `10D176`. |
 | `--out <dir>` | Where the JSON report goes. |
 | `--verbose` | Echo every command, reply and state change, and heartbeat the pump while a command is outstanding. This is the switch that tells "the service never answered" apart from "the SDK call never returned". |
@@ -93,7 +93,7 @@ scenario failed.
 These are properties of the native SDKs, not of this harness, and each one cost a debugging session.
 
 - **An idle `PFMultiplayer` instance stalls.** Initializing the multiplayer library and then leaving
-  it unused while the rest of the run gets going makes its first lobby operation hang — no failure
+  it unused while the rest of the run gets going makes its first lobby operation hang, no failure
   code, no state change, forever. Initializing it at the moment there is work for it is reliable.
   The participant therefore creates it lazily, in `Multiplayer()`, rather than at login.
 - **Public lobbies are unreliable to create.** `LobbyAccessPolicy.Public` additionally publishes the
@@ -104,7 +104,7 @@ These are properties of the native SDKs, not of this harness, and each one cost 
   runtime and networking stack have to be up before `PFMultiplayerInitialize`; the header documents
   this but does not enforce it, and initializing early still returns `S_OK`. The library's PubSub
   connection is then never viable, and shutdown parks forever in
-  `PubSubSubscriptionManager::Shutdown` — a poll loop with no timeout and no failure path.
+  `PubSubSubscriptionManager::Shutdown`, a poll loop with no timeout and no failure path.
   `GDK.Net` guards this in `PlayFabMultiplayer.Initialize`. Party has nothing to do with it; the
   two libraries can be initialized and shut down in any order.
 - **Party binds a fixed UDP port**, so the second participant on the machine fails to bind. Setting

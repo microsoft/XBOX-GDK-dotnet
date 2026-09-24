@@ -82,7 +82,7 @@ internal sealed class SampleOptions
     /// <remarks>
     /// Deliberately read from the environment only, never from a command-line flag: a title secret
     /// is a *server* credential, and a flag would leave it in shell history and CI logs. A shipping
-    /// game never holds one at all — it authenticates as the player through
+    /// game never holds one at all: it authenticates as the player through
     /// <see cref="GDK.Net.PlayFab.PlayFabLocalUser"/> instead. The sample uses it only to show the
     /// title-entity path working on a machine with nobody signed in.
     /// </remarks>

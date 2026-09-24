@@ -11,9 +11,9 @@ namespace GDK.Net.PlayFab.Multiplayer;
 /// <remarks>
 /// <para>
 /// A lobby's handle is owned by the multiplayer library, not by this wrapper, so there is nothing
-/// to dispose. The lobby stays usable until its teardown change arrives —
-/// <see cref="LeaveLobbyCompleted"/>, <see cref="LobbyDisconnected"/>,
-/// <see cref="ServerLeaveLobbyAsServerCompleted"/> or <see cref="ServerDeleteLobbyCompleted"/> —
+/// to dispose. The lobby stays usable until its teardown change arrives
+/// (<see cref="LeaveLobbyCompleted"/>, <see cref="LobbyDisconnected"/>,
+/// <see cref="ServerLeaveLobbyAsServerCompleted"/> or <see cref="ServerDeleteLobbyCompleted"/>),
 /// after which every member throws <see cref="ObjectDisposedException"/>.
 /// </para>
 /// <para>

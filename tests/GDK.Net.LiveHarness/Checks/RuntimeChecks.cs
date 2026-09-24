@@ -205,8 +205,8 @@ internal static class RuntimeChecks
     /// </summary>
     /// <remarks>
     /// A title's SCID is the null GUID with the 32-bit title id occupying the last eight hex digits
-    /// of the final group, lower case. That makes <c>--scid</c> an override for the unusual case —
-    /// a title whose SCID was assigned separately in Partner Center — rather than something every
+    /// of the final group, lower case. That makes <c>--scid</c> an override for the unusual case
+    /// (a title whose SCID was assigned separately in Partner Center) rather than something every
     /// run has to be told.
     /// </remarks>
     private static string DeriveScid(uint titleId) => $"00000000-0000-0000-0000-0000{titleId:x8}";

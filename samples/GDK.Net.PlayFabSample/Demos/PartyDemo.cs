@@ -16,7 +16,7 @@ namespace GDK.Net.PlayFabSample.Demos;
 /// started with a call that returns immediately, and completions arrive on a queue the title drains
 /// once per frame. The projection keeps that model rather than hiding it behind a Task, because a
 /// game's frame loop is where the pump belongs and because a state change can arrive with no
-/// operation to match it at all — a remote player leaving, say.
+/// operation to match it at all, a remote player leaving, say.
 /// </para>
 /// <para>
 /// So the shape is: a start call returns a <see cref="PartyOperationId"/>, and the matching

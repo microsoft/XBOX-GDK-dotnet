@@ -5,7 +5,7 @@ namespace GDK.Net.Users;
 
 /// <summary>
 /// The <c>XUserPlatform</c> family: lets the title draw the Gaming Runtime's sign-in prompts itself
-/// instead of using the system UI — the remote-connect prompt ("open this URL on another device")
+/// instead of using the system UI: the remote-connect prompt ("open this URL on another device")
 /// and the SPOP prompt ("this account is already signed in somewhere else").
 /// </summary>
 /// <remarks>

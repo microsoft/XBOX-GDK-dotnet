@@ -15,19 +15,19 @@ namespace GDK.Net.Interop;
 /// Three trampolines are provided:
 /// <list type="bullet">
 /// <item><description>
-/// <see cref="TaskQueueOneShotCallback"/> — for <c>XTaskQueueSubmitCallback</c> and
+/// <see cref="TaskQueueOneShotCallback"/>, for <c>XTaskQueueSubmitCallback</c> and
 /// <c>XTaskQueueSubmitDelayedCallback</c>. The context is a <see cref="GCHandle"/> pointing
 /// directly to the managed <see cref="System.Action"/> delegate. The handle is freed on every
 /// invocation (both the normal and the <c>canceled=true</c> termination paths).
 /// </description></item>
 /// <item><description>
-/// <see cref="TaskQueueWaiterCallback"/> — for <c>XTaskQueueRegisterWaiter</c>. The context is
+/// <see cref="TaskQueueWaiterCallback"/>, for <c>XTaskQueueRegisterWaiter</c>. The context is
 /// a <see cref="GCHandle"/> pointing to a <see cref="GameTaskQueueWaiterRegistration"/> held in
 /// a static dictionary. Freeing the handle is coordinated between the trampoline
 /// (<c>canceled=true</c> path) and <see cref="GameTaskQueueWaiterRegistration.Dispose"/>.
 /// </description></item>
 /// <item><description>
-/// <see cref="TaskQueueMonitorCallback"/> — for <c>XTaskQueueRegisterMonitor</c>. Same ownership
+/// <see cref="TaskQueueMonitorCallback"/>, for <c>XTaskQueueRegisterMonitor</c>. Same ownership
 /// model as the waiter trampoline, but carries the additional <c>queue</c> and <c>port</c> params.
 /// </description></item>
 /// </list>

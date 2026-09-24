@@ -1,0 +1,125 @@
+{
+  "$comment": "Area metadata for the generated API reference. eng/api-layout.ps1 reads this to place each namespace in its own folder and to write that folder's index. 'families' names the GDK API families the namespace projects; each entry is resolved to a Microsoft Learn URL through eng/gdk-learn-index.json.",
+  "areas": {
+    "GDK.Net": {
+      "folder": "Core",
+      "title": "Core runtime",
+      "summary": "Initialising and shutting down the Gaming Runtime, querying which runtime features are available, and the error model every other area reports through.",
+      "families": [ "XGameRuntimeInit", "XGameRuntimeFeature", "XGameRuntimeTypes", "XError", "XAsync", "XTaskQueue" ]
+    },
+    "GDK.Net.Accessibility": {
+      "folder": "Accessibility",
+      "title": "Accessibility",
+      "summary": "Player accessibility preferences: closed-caption styling, high-contrast mode, speech synthesis and speech-to-text.",
+      "families": [ "XAccessibility", "XSpeechSynthesizer" ]
+    },
+    "GDK.Net.Activation": {
+      "folder": "Activation",
+      "title": "Activation",
+      "summary": "How a title is launched: protocol and URI activation, and the invite and activation arguments the shell passes in.",
+      "families": [ "XGameActivation", "XGame" ]
+    },
+    "GDK.Net.Capture": {
+      "folder": "Capture",
+      "title": "Capture",
+      "summary": "Screenshots, game clips and broadcast state, including the developer-only diagnostic capture paths.",
+      "families": [ "XAppCapture" ]
+    },
+    "GDK.Net.Events": {
+      "folder": "Events",
+      "title": "Game events",
+      "summary": "Writing title-defined telemetry events declared in the title's game configuration.",
+      "families": [ "XGameEvent" ]
+    },
+    "GDK.Net.GameSave": {
+      "folder": "GameSave",
+      "title": "Game save",
+      "summary": "Cloud-synchronised save containers and blobs, and the file-system view over them.",
+      "families": [ "XGameSave", "XGameSaveFiles" ]
+    },
+    "GDK.Net.GameUI": {
+      "folder": "GameUI",
+      "title": "Game UI",
+      "summary": "System-provided dialogs: the account picker, error and message dialogs, text entry, gamertag pickers and the web authentication flow.",
+      "families": [ "XGameUI" ]
+    },
+    "GDK.Net.Networking": {
+      "folder": "Networking",
+      "title": "Networking",
+      "summary": "Connectivity hints and the network security configuration a title must honour before it opens a socket.",
+      "families": [ "XNetworking" ]
+    },
+    "GDK.Net.Package": {
+      "folder": "Package",
+      "title": "Package",
+      "summary": "Package and chunk enumeration, mounting, install monitoring and licence checks for downloadable content.",
+      "families": [ "XPackage" ]
+    },
+    "GDK.Net.PlayFab": {
+      "folder": "PlayFab",
+      "title": "PlayFab core and services",
+      "summary": "PlayFab initialisation, the entity handle every service call authenticates with, and the generated service layer (economy, data, profiles, statistics and the rest).",
+      "families": [],
+      "links": [
+        { "text": "PlayFab integration with the GDK", "url": "https://learn.microsoft.com/en-us/gaming/gdk/docs/services/playfab-integration/gdk-playfab-player-sign-in-concepts?view=gdk-2604" },
+        { "text": "PlayFab documentation", "url": "https://learn.microsoft.com/en-us/gaming/playfab/" }
+      ]
+    },
+    "GDK.Net.PlayFab.Multiplayer": {
+      "folder": "PlayFab/Multiplayer",
+      "title": "PlayFab Multiplayer",
+      "summary": "Lobbies and matchmaking, drained through the PlayFab Multiplayer state-change pump.",
+      "families": [],
+      "links": [
+        { "text": "PlayFab Lobby", "url": "https://learn.microsoft.com/en-us/gaming/playfab/features/multiplayer/lobby/" },
+        { "text": "PlayFab Matchmaking", "url": "https://learn.microsoft.com/en-us/gaming/playfab/features/multiplayer/matchmaking/" }
+      ]
+    },
+    "GDK.Net.PlayFab.Party": {
+      "folder": "PlayFab/Party",
+      "title": "PlayFab Party",
+      "summary": "Realtime networking, voice and text transport, and the XBOX Live identity bridge that authorises Party chat controls.",
+      "families": [],
+      "links": [
+        { "text": "PlayFab Party", "url": "https://learn.microsoft.com/en-us/gaming/playfab/features/multiplayer/networking/" },
+        { "text": "PlayFab Party chat introduction", "url": "https://learn.microsoft.com/en-us/gaming/gdk/docs/services/multiplayer/chat/playfab-party-intro-chat?view=gdk-2604" }
+      ]
+    },
+    "GDK.Net.Storage": {
+      "folder": "Storage",
+      "title": "Storage",
+      "summary": "The persistent local storage folder a title may write to outside its package.",
+      "families": [ "XPersistentLocalStorage" ]
+    },
+    "GDK.Net.Store": {
+      "folder": "Store",
+      "title": "Store",
+      "summary": "Commerce: licences, durables, add-ons, in-game purchase, catalogue queries and the licence-lost notification.",
+      "families": [ "XStore" ]
+    },
+    "GDK.Net.Streaming": {
+      "folder": "Streaming",
+      "title": "Game streaming",
+      "summary": "Detecting a cloud-streaming client and reading its properties, so a title can adapt to the streamed presentation.",
+      "families": [ "XGameStreaming" ]
+    },
+    "GDK.Net.SystemInfo": {
+      "folder": "SystemInfo",
+      "title": "System information",
+      "summary": "Console, operating system and application information, the analytics identifier, display mode and HDR capability.",
+      "families": [ "XSystem", "XDisplay" ]
+    },
+    "GDK.Net.Users": {
+      "folder": "Users",
+      "title": "Users",
+      "summary": "Sign-in and identity: adding users, privileges, tokens, and the user-change and sign-out deferral events that gate every user-scoped API.",
+      "families": [ "XUser" ]
+    },
+    "GDK.Net.XboxLive": {
+      "folder": "XboxLive",
+      "title": "XBOX Live services",
+      "summary": "XBOX Live through XSAPI: context and initialisation, profile, social, presence, achievements, leaderboards, statistics, title storage, privacy and multiplayer activity.",
+      "families": [ "XSAPI" ]
+    }
+  }
+}

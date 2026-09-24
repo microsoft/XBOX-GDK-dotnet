@@ -7,7 +7,7 @@ using GDK.Net.Interop;
 namespace GDK.Net.PlayFab;
 
 /// <summary>
-/// An authenticated PlayFab entity — the credential every Services call is made against. Wraps
+/// An authenticated PlayFab entity: the credential every Services call is made against. Wraps
 /// <c>PFEntityHandle</c>.
 /// </summary>
 /// <remarks>

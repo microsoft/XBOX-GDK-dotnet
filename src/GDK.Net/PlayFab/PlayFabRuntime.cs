@@ -87,7 +87,7 @@ public static class PlayFabRuntime
     /// </summary>
     /// <remarks>
     /// PlayFab's shutdown runs on the process default task queue, so it has to complete before
-    /// <c>XGameRuntimeUninitialize</c> tears that queue down — calling it afterwards faults inside
+    /// <c>XGameRuntimeUninitialize</c> tears that queue down: calling it afterwards faults inside
     /// <c>PFServicesUninitializeAsync</c>. Rather than make every title order the two by hand,
     /// <see cref="GameRuntime.Dispose"/> calls this first. A title that wants to observe the
     /// shutdown, or to bound it itself, calls <see cref="UninitializeAsync"/> beforehand; this then

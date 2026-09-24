@@ -1,8 +1,8 @@
 # GDK.Net.LiveHarness
 
 A Microsoft GDK PC title that exercises the `XUser` pilot end to end against a real Gaming Runtime,
-a real signed-in Xbox account and a real sandbox. It is the only thing in this repository that
-proves the projection actually works — the unit tests deliberately never touch native code.
+a real signed-in XBOX account and a real sandbox. It is the only thing in this repository that
+proves the projection actually works: the unit tests deliberately never touch native code.
 
 The harness writes a JSON report (and stdout, which a packaged title has no console for) that
 `eng/run-package-tests.ps1` reads back and turns into pass/fail per step.
@@ -27,8 +27,8 @@ These tests are **manual and local-only**. A hosted CI runner can satisfy none o
 
 - The Microsoft GDK, edition `260404` (`%GameDK%`, `%GameDKCoreLatest%`).
 - A dev-unlocked machine.
-- An Xbox account signed in on this machine, in the machine's current sandbox.
-- For the packaged tiers only: `makepkg.exe` and `wdapp.exe`, which live in `%GameDK%\bin` —
+- An XBOX account signed in on this machine, in the machine's current sandbox.
+- For the packaged tiers only: `makepkg.exe` and `wdapp.exe`, which live in `%GameDK%\bin`:
   **not** under the edition folder.
 
 ## Running
@@ -81,7 +81,7 @@ pwsh eng/run-package-tests.ps1 -Tier Layout,Register        # Running JIT-compil
 pwsh eng/run-package-tests.ps1 -Tier Layout,Register -Aot   # Running NativeAOT-compiled (X64)
 ```
 
-**JIT is the default** — `-Aot` is strictly opt-in, and every tier works without it. The JIT layout
+**JIT is the default**: `-Aot` is strictly opt-in, and every tier works without it. The JIT layout
 is a self-contained `net8.0` publish (~185 assemblies including `coreclr.dll`); the AOT layout is a
 single ~2.5 MB `net10.0` native executable with no managed assemblies at all. AOT additionally needs
 the MSVC linker, which is why it is not the default.
@@ -96,7 +96,7 @@ dotnet publish tests/GDK.Net.LiveHarness -c Release -f net8.0
 `eng/package.ps1` and `eng/run-local.ps1` always pass `-f` for you, so this only affects manual
 publishes.
 
-## ⚠️ Borrowed package identity — read before running the invasive tiers
+## ⚠️ Borrowed package identity: read before running the invasive tiers
 
 `MicrosoftGame.config` deliberately reuses the identity of an existing title
 (`41336MicrosoftATG.GodotTestApp`, StoreId `9MT216TML1T2`, TitleId `6184102E`) so the harness has a
@@ -104,7 +104,7 @@ real, provisioned identity to test with. Only the executable name, display name 
 changed.
 
 `samples/GDK.Net.UserSample` borrows the **same** identity, so only one of the two can be registered
-at a time; registering either displaces the other. This applies to the packaged tiers only — an
+at a time; registering either displaces the other. This applies to the packaged tiers only: an
 unpackaged run registers nothing, so both apps can be run side by side.
 
 **Registering or installing this harness therefore displaces that title.** It is fully reversible:
@@ -125,7 +125,7 @@ and none of this applies.
 
 | File | What it holds |
 |---|---|
-| `Program.cs` | The ordered check list — read this first to see what runs and in what order |
+| `Program.cs` | The ordered check list: read this first to see what runs and in what order |
 | `Checks/RuntimeChecks.cs` | Compilation mode, `XGameRuntimeInitialize`, the `XUser` feature gate |
 | `Checks/UserChecks.cs` | The `XUser` pilot: add, read, privileges, handle equality, picture, cancellation, sign-out |
 | `Checks/GameUiChecks.cs` | Title-rendered UI: registration and display are separate entry points |
@@ -144,16 +144,16 @@ and none of this applies.
 `gameui.custom-ui-roundtrip`, `activation.unified-event`, `activation.pending-invite` and
 `networking.configuration-setting`.
 
-Three further groups are recorded as explicit skips rather than omitted — `store.gifting-ui`,
-`capture.user-record` and `userplatform.prompts` — so the report states that those APIs are
+Three further groups are recorded as explicit skips rather than omitted: `store.gifting-ui`,
+`capture.user-record` and `userplatform.prompts`, so the report states that those APIs are
 reachable and says why they were not called.
 
 ## Troubleshooting
 
-- **`E_GAMERUNTIME_VERSION_MISMATCH` (`0x89240102`) on every step** — the binding resolved no entry
+- **`E_GAMERUNTIME_VERSION_MISMATCH` (`0x89240102`) on every step**: the binding resolved no entry
   point. Check that `xgameruntime.thunks.dll` is present in the layout.
-- **The report says it was written from `bin\Release\...` instead of the package** — a stale
+- **The report says it was written from `bin\Release\...` instead of the package**: a stale
   unpackaged build was activated. The runner now fails loudly on this; delete `bin` and `obj` under
   this directory and re-run.
-- **No report appears** — a packaged title has no console, so a startup crash is silent. Check the
+- **No report appears**: a packaged title has no console, so a startup crash is silent. Check the
   `Microsoft-Windows-AppModel-Runtime` and `AppXDeployment-Server` event logs.

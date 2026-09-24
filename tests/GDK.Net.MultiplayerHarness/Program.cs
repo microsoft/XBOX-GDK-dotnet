@@ -10,7 +10,7 @@ namespace GDK.Net.MultiplayerHarness;
 /// <para>
 /// <c>tests/GDK.Net.LiveHarness</c> can prove that a lobby is created and that the Party pump
 /// brackets correctly, because those are single-process facts. It cannot prove that a member a
-/// second client added shows up, or that a message one peer sent arrives at another — for that
+/// second client added shows up, or that a message one peer sent arrives at another, for that
 /// there has to be another client, in another process, with its own copy of the SDK's state.
 /// </para>
 /// <para>

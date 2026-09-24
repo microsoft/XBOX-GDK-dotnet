@@ -13,7 +13,7 @@ namespace GDK.Net.XboxLive;
 /// </summary>
 /// <remarks>
 /// The native struct carries fixed-size inline UTF-8 buffers rather than pointers, so this type is
-/// a straight copy and stays valid indefinitely — nothing here points into runtime-owned memory.
+/// a straight copy and stays valid indefinitely: nothing here points into runtime-owned memory.
 /// </remarks>
 public sealed class UserProfile
 {
@@ -49,7 +49,7 @@ public sealed class UserProfile
 
     /// <summary>
     /// Resizable gamer-picture URI for application UI. Append
-    /// <c>&amp;format=png&amp;w={width}&amp;h={height}</c> — 64, 208 and 424 are the supported sizes.
+    /// <c>&amp;format=png&amp;w={width}&amp;h={height}</c>: 64, 208 and 424 are the supported sizes.
     /// </summary>
     public string AppDisplayPictureUri { get; }
 

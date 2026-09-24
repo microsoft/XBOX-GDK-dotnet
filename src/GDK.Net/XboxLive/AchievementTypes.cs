@@ -472,7 +472,7 @@ public sealed class Achievement
     }
 
     /// <summary>
-    /// Converts a native <c>time_t</c> — seconds since the Unix epoch, UTC — to a .NET instant,
+    /// Converts a native <c>time_t</c> (seconds since the Unix epoch, UTC) to a .NET instant,
     /// clamping rather than throwing on a value the service should never send but could.
     /// </summary>
     internal static DateTimeOffset FromUnixSeconds(long seconds)

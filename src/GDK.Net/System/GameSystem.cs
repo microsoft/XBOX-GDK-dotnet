@@ -81,7 +81,7 @@ public static unsafe class GameSystem
     /// throttled default.
     /// </summary>
     /// <remarks>
-    /// Use this only while the title is genuinely blocked on a download — for example on a loading
+    /// Use this only while the title is genuinely blocked on a download, for example on a loading
     /// or install-progress screen. Leaving it enabled during gameplay starves other traffic.
     /// </remarks>
     /// <exception cref="GameRuntimeException">The runtime rejected the request.</exception>

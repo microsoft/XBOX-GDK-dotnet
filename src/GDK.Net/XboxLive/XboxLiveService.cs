@@ -14,7 +14,7 @@ public sealed class XboxLiveOptions
 {
     /// <summary>
     /// The title's Service Configuration ID, from Partner Center's Game Setup page. Required, and
-    /// <b>case sensitive</b> — paste it verbatim rather than normalizing it.
+    /// <b>case sensitive</b>: paste it verbatim rather than normalizing it.
     /// </summary>
     public string Scid { get; set; } = string.Empty;
 }
@@ -24,7 +24,7 @@ public sealed class XboxLiveOptions
 /// </summary>
 /// <remarks>
 /// <para>
-/// XSAPI is a <b>second native module</b> — <c>Microsoft.Xbox.Services.C.Thunks.dll</c>, with a hard
+/// XSAPI is a <b>second native module</b>: <c>Microsoft.Xbox.Services.C.Thunks.dll</c>, with a hard
 /// dependency on <c>libHttpClient.dll</c>. Neither is installed system-wide, so both must be
 /// redistributed in the package layout. Loading is lazy: a title that never calls
 /// <see cref="Initialize(XboxLiveOptions)"/> never loads them, and a missing module surfaces as a

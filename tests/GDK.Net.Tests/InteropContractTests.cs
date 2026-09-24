@@ -9,7 +9,7 @@ namespace GDK.Net.Tests;
 
 /// <summary>
 /// Guards the raw interop layer against silent drift from the GDK headers
-/// (%GameDKCoreLatest%windows\include, edition 260404). These are pure compile-time/layout checks —
+/// (%GameDKCoreLatest%windows\include, edition 260404). These are pure compile-time/layout checks:
 /// nothing here loads xgameruntime.thunks.dll, so they run identically on a developer box and on a
 /// hosted CI runner.
 /// </summary>
@@ -67,7 +67,7 @@ public sealed unsafe class InteropContractTests
     [Fact]
     public void DispatchModeMatchesTheHeader()
     {
-        // XTaskQueueDispatchMode from XTaskQueue.h — Manual is 0, not ThreadPool. Written as a Fact
+        // XTaskQueueDispatchMode from XTaskQueue.h: Manual is 0, not ThreadPool. Written as a Fact
         // rather than a Theory because GameTaskQueueDispatchMode is internal and xUnit requires
         // public test method signatures.
         Assert.Equal(0u, (uint)GameTaskQueueDispatchMode.Manual);

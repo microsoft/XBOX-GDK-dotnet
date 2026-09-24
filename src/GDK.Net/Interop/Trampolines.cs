@@ -1,5 +1,5 @@
 // Native-to-managed callback thunks for the runtime core (XAsync.h). Each API family keeps its own
-// thunks in a Trampolines.<Family>.cs partial — see Trampolines.User.cs, Trampolines.Xbl.cs and so
+// thunks in a Trampolines.<Family>.cs partial, see Trampolines.User.cs, Trampolines.Xbl.cs and so
 // on.
 
 using System;

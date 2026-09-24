@@ -39,30 +39,30 @@ The Gaming Runtime surface is projected against the real GDK headers of edition 
 | `Party` | `PartyManager`, `PartyLocalUser`, `PartyNetwork`, `PartyEndpoint`, `PartyDevice`, `PartyChatControl`, `PartyInvitation`, `PartyTextToSpeechProfile` |
 | `PartyXboxLive` | `PartyXblManager`, `PartyXblChatUser` |
 
-Xbox Live Services is a **second native module** — `Microsoft.Xbox.Services.C.Thunks.dll`, plus its
+XBOX Live Services is a **second native module**: `Microsoft.Xbox.Services.C.Thunks.dll`, plus its
 hard dependency `libHttpClient.dll`. It is reached through `GameRuntime.XboxLive` and is opt-in at
 packaging time (`<GdkNetIncludeXboxLive>true</GdkNetIncludeXboxLive>`), so a title that does not use
-Xbox Live does not carry the extra ~2.2 MB. The multiplayer session directory, its manager layer,
+XBOX Live does not carry the extra ~2.2 MB. The multiplayer session directory, its manager layer,
 matchmaking and the raw HTTP escape hatch are **deliberately out of scope**; see plan §13.1.1 for
 why. The two projected manager layers are process-global and hang off `GameRuntime.XboxLive` rather
-than a context, and must be pumped once per frame — `SocialManager.DoWork` and
+than a context, and must be pumped once per frame: `SocialManager.DoWork` and
 `AchievementsManager.DoWork`.
 
-PlayFab is projected in full — 1,006 of the 1,008 exports across its six native modules. Those
+PlayFab is projected in full: 1,006 of the 1,008 exports across its six native modules. Those
 modules are installed beside the Gaming Runtime under `%GameDKCoreLatest%windows\bin\<arch>`, and
 are opt-in at packaging time, in three groups:
 
 | Property | Native modules | Managed surface |
 |---|---|---|
-| `<GdkNetIncludePlayFab>` | `PlayFabCore.dll`, `PlayFabServices.dll`, `PlayFabGameSave.dll`, `libHttpClient.dll` | `GDK.Net.PlayFab` — `PlayFabRuntime`, the 20 generated service classes, `PlayFabGameSaveFiles` |
-| `<GdkNetIncludePlayFabMultiplayer>` | `PlayFabMultiplayer.dll` | `GDK.Net.PlayFab.Multiplayer` — lobbies and matchmaking |
-| `<GdkNetIncludePlayFabParty>` | `Party.dll`, `PartyXboxLive.dll` | `GDK.Net.PlayFab.Party` — voice, text chat and network transport |
+| `<GdkNetIncludePlayFab>` | `PlayFabCore.dll`, `PlayFabServices.dll`, `PlayFabGameSave.dll`, `libHttpClient.dll` | `GDK.Net.PlayFab`: `PlayFabRuntime`, the 20 generated service classes, `PlayFabGameSaveFiles` |
+| `<GdkNetIncludePlayFabMultiplayer>` | `PlayFabMultiplayer.dll` | `GDK.Net.PlayFab.Multiplayer`: lobbies and matchmaking |
+| `<GdkNetIncludePlayFabParty>` | `Party.dll`, `PartyXboxLive.dll` | `GDK.Net.PlayFab.Party`: voice, text chat and network transport |
 
 The last two groups import `PlayFabCore.dll`, so asking for either turns the first group on as
 well. Note that the GDK also installs a *second*, standalone PlayFab stack under
 `%GameDKCoreLatest%GRDK\ExtensionLibraries` (`*.GDK.dll`, plus a `Party.dll` whose
 `PartyCreateLocalUser` takes an entity id and token pair rather than a `PFEntityHandle`). The two
-stacks are not ABI compatible; this projection binds the `windows\bin` one, the same tree the Xbox
+stacks are not ABI compatible; this projection binds the `windows\bin` one, the same tree the XBOX
 Live group takes `Microsoft.Xbox.Services.C.Thunks.dll` from.
 
 The interop layer, the service classes, their request/result models and the `E_PF_*` error
@@ -87,16 +87,16 @@ Every family follows [`eng/interop-conventions.md`](../eng/interop-conventions.m
 handle lifetime, `XAsyncBlock` → `Task` with `CancellationToken` → `XAsyncCancel`, and
 register/unregister callbacks projected as .NET events that unregister with wait-for-completion.
 
-**Deliberately out of scope** — `XAsyncProvider.h` (for *implementing* async providers rather than
+**Deliberately out of scope**: `XAsyncProvider.h` (for *implementing* async providers rather than
 consuming the runtime) and `XCurl.h`.
 
-**APIs the thunks DLL omits** — 14 functions are **not exported** by `xgameruntime.thunks.dll`, so no
+**APIs the thunks DLL omits**: 14 functions are **not exported** by `xgameruntime.thunks.dll`, so no
 projection can reach them: 8 are declared in the public headers anyway (a genuine mismatch) and 6
 exist only as symbols in `xgameruntime.lib`. None is behind a preprocessor guard. Edition `260404`
 closed most of this gap: `260400` omitted 49, and the projection carried its own re-export shim to
-reach them. That shim is gone — the projection now ships **no native code of its own**, and every
+reach them. That shim is gone: the projection now ships **no native code of its own**, and every
 P/Invoke binds to the one redistributable module. The 15th unexported name, `XPackageMount`, is an
-`E_NOTIMPL` stub in the library itself — DLC mounting was never blocked, and is available through
+`E_NOTIMPL` stub in the library itself: DLC mounting was never blocked, and is available through
 the exported `XPackageMountWithUiAsync`. XSAPI, by contrast, has **no** gap on GDK; what looks
 missing there is gated out as non-GDK or internal surface. Full detail, including what each
 unreachable API's alternative is, is in [`eng/unexported-apis.md`](../eng/unexported-apis.md).
@@ -104,32 +104,32 @@ Run [`eng/api-coverage.ps1`](../eng/api-coverage.ps1) to diff the bound entry po
 thunk export table; it currently reports **349 of 355** exports bound, the remaining six being the
 out-of-scope `XAsync*` provider entry points.
 
-**Which module to bind** — the entry points are **not** in `XGameRuntime.dll`. That module (in
+**Which module to bind**: the entry points are **not** in `XGameRuntime.dll`. That module (in
 `System32`) exports only four private version-negotiation ordinals; every public `X*` API is a
 statically linked stub inside `xgameruntime.lib`, so a C++ title reaches them through the static
 library and a P/Invoke against `XGameRuntime.dll` can only ever raise
 `EntryPointNotFoundException`. The GDK also ships **`xgameruntime.thunks.dll`**
 (`%GameDKCoreLatest%windows\bin\{x64,arm64}`), which re-exports the full surface as 390 flat
 `__stdcall` C entry points. That is the module this projection binds to, and it must be
-redistributed next to the game executable — it is not installed system-wide.
+redistributed next to the game executable. It is not installed system-wide.
 [`eng/packaging/GdkRedist.targets`](../eng/packaging/GdkRedist.targets) copies it into the output of
 both app projects on every build, and `eng/package.ps1` does the same for the package layout.
 
-**Packaging is not required to run** — a GDK title is normally packaged, but packaging matters here
+**Packaging is not required to run**: a GDK title is normally packaged, but packaging matters here
 for one reason only: the Gaming Runtime resolves title identity (TitleId, StoreId, sandbox) from
 package identity. Put `MicrosoftGame.config` next to the executable and it reads the identity from
 there instead, so on a dev-unlocked PC with an account signed in, a plain `dotnet run` or a
-self-contained publish works — see [`eng/run-local.ps1`](../eng/run-local.ps1). Without that file the
+self-contained publish works. See [`eng/run-local.ps1`](../eng/run-local.ps1). Without that file the
 runtime still initializes but the first `XUser` call fails with `0x89245110`
 ("no package identity"). Packaging remains what a title ships as, and
 `eng/run-package-tests.ps1` still exercises it; it is just no longer the only way to run.
 
-**Verification** — `dotnet build -c Release` across `net8.0`, `net10.0` and `netstandard2.0` is
+**Verification**: `dotnet build -c Release` across `net8.0`, `net10.0` and `netstandard2.0` is
 warning-clean, and `dotnet test -c Release` passes 1216 tests. Interop correctness was cross-checked
 against ClangSharp output generated from the installed headers by `eng/generate-interop.ps1`.
 
 Unit tests deliberately never require the Gaming Runtime, so they run identically on a hosted CI
 runner. The pilot has additionally been exercised **live in a packaged GDK title** against a real
-signed-in account — 22 of 23 steps pass, the 23rd being an opt-in sign-out. See
+signed-in account: 22 of 23 steps pass, the 23rd being an opt-in sign-out. See
 [`tests/GDK.Net.LiveHarness/README.md`](../tests/GDK.Net.LiveHarness/README.md). Those package
 tests are manual and local-only: they need an installed GDK, which a hosted runner does not have.

@@ -29,7 +29,7 @@ verification and refresh mechanism described in `docs/plan.md` §3.
 Generated output is written to the git-ignored `eng\Generated\` and is **not compiled into the
 project**. Note that it declares the same native type names (`XAsyncBlock`, `XUserAddOptions`, …) in
 the same `GDK.Net.Interop` namespace, so it cannot simply be added to `GDK.Net.csproj` alongside the
-hand-authored files — adopting it means replacing them, not supplementing them.
+hand-authored files: adopting it means replacing them, not supplementing them.
 
 ## Current validation
 

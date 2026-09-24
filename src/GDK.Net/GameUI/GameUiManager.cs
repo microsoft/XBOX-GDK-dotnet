@@ -701,7 +701,7 @@ public sealed unsafe class GameUiManager : IDisposable
                     resultStatus = data->responseStatus;
                     if (data->responseCompletionUri != null)
                     {
-                        // responseCompletionUri points into buffer — copy before unpinning.
+                        // responseCompletionUri points into buffer: copy before unpinning.
                         completionUri = Utf8.ToString(data->responseCompletionUri);
                     }
                 }

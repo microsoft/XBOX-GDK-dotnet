@@ -1,9 +1,9 @@
-# .NET / C# Projection of the Microsoft GDK — Implementation Plan
+# .NET / C# Projection of the Microsoft GDK: Implementation Plan
 
 > Idiomatic projection of the Microsoft GDK for **.NET**. Reads the native surface described in
 > [`reference/gdk-surface.md`](./reference/gdk-surface.md) and implements the shared pilot in
 > [`reference/xuser-pilot.md`](./reference/xuser-pilot.md). Goal: an API that feels like **modern
-> C#** — `Task`/`await`, `IDisposable`, events, `[Flags]` — not a mechanical P/Invoke wrapper.
+> C#**: `Task`/`await`, `IDisposable`, events, `[Flags]`, not a mechanical P/Invoke wrapper.
 >
 > This plan is also the **worked example** for the repository: other language plans mirror its
 > structure and depth.
@@ -20,7 +20,7 @@
 | **Binding approach** | ClangSharp-generated raw P/Invoke + hand-authored idiomatic layer |
 | **Pinned GDK edition** | `260404` |
 | **Root namespace** | `GDK.Net` |
-| **In-scope surface** | core `X*` runtime + `_c` services (XSAPI, libHttpClient, GameChat2, PlayFab — incl. **PFMP** Lobby/Matchmaking + **Party** via `_c`, state-change pattern); **not** XCurl/XAL/GameInput, the legacy XSAPI multiplayer stack (MPM/MPSD/SmartMatch), or any deprecated API |
+| **In-scope surface** | core `X*` runtime + `_c` services (XSAPI, libHttpClient, GameChat2, PlayFab: incl. **PFMP** Lobby/Matchmaking + **Party** via `_c`, state-change pattern); **not** XCurl/XAL/GameInput, the legacy XSAPI multiplayer stack (MPM/MPSD/SmartMatch), or any deprecated API |
 
 ---
 
@@ -28,7 +28,7 @@
 
 Create a .NET projection of the GDK flat C API (`X*` family + the `_c` services) that **feels like
 idiomatic C#**. The guiding principle: a C# game developer should never see an `HRESULT`, a raw
-handle, an `XAsyncBlock`, or a two-call size buffer — they should see `Task<GameUser>`, `using`,
+handle, an `XAsyncBlock`, or a two-call size buffer: they should see `Task<GameUser>`, `using`,
 `event`, properties, and `[Flags]` enums. The projection must be consumable from **MonoGame** and
 **Stride** titles, from bespoke hosts (including Mono through `netstandard2.0`), and on the current
 LTS .NET runtimes for tooling/services.
@@ -38,11 +38,11 @@ documented mapping convention scales from the `XUser` pilot to the whole surface
 
 ## 2. Target runtimes & LTS policy
 
-- **`net8.0`** — current LTS; primary target for tools/services and modern titles.
-- **`net10.0`** — the next LTS; adopt its source-generated marshalling / AOT improvements.
-- **`netstandard2.0`** — the reach target: **MonoGame** (and Unity-style/older hosts) consume ns2.0.
+- **`net8.0`**: current LTS; primary target for tools/services and modern titles.
+- **`net10.0`**: the next LTS; adopt its source-generated marshalling / AOT improvements.
+- **`netstandard2.0`**: the reach target: **MonoGame** (and Unity-style/older hosts) consume ns2.0.
   This TFM cannot use `LibraryImport`/function pointers, so it gets a distinct interop shim (§3).
-- **.NET 9 is intentionally excluded** — it is STS (standard-term support), not LTS.
+- **.NET 9 is intentionally excluded**: it is STS (standard-term support), not LTS.
 - **Architectures:** `win-x64` primary; `win-arm64` supported (the GDK ships arm64 import libs).
   A single calling convention applies (x64/arm64 Windows), simplifying the shims.
 
@@ -60,37 +60,37 @@ documented mapping convention scales from the `XUser` pilot to the whole surface
 2. **Idiomatic layer (hand-authored).** Wraps the raw layer per the mapping table (§4).
 
 **Per-TFM interop shims** (the only place that forks by TFM):
-- **Modern (`net8.0` / `net10.0`)** — `[LibraryImport]` source-generated marshalling; native
+- **Modern (`net8.0` / `net10.0`)**: `[LibraryImport]` source-generated marshalling; native
   callbacks via `[UnmanagedCallersOnly]` static function pointers → trim/AOT friendly, no delegate
-  lifetime problems. **NativeAOT is mandatory for Xbox console**, so this is the required shape, not
+  lifetime problems. **NativeAOT is mandatory for XBOX console**, so this is the required shape, not
   a preference.
-- **`netstandard2.0`** — classic `[DllImport]` + `Marshal.GetFunctionPointerForDelegate` with
+- **`netstandard2.0`**: classic `[DllImport]` + `Marshal.GetFunctionPointerForDelegate` with
   **GC-rooted** delegate instances (kept alive for the registration's lifetime).
 
 **Pinning & hygiene:** generation targets edition **`260404`**; regenerating against a newer edition
 is a mechanical re-run + diff. The generator **filters** deprecated members (e.g.
 `XUserGetMsaTokenSilently*`) and the **out-of-scope** headers (XCurl, XAL, GameInput, and the legacy
-multiplayer trio `multiplayer_manager_c.h` / `multiplayer_c.h` / `matchmaking_c.h` — see
+multiplayer trio `multiplayer_manager_c.h` / `multiplayer_c.h` / `matchmaking_c.h`: see
 `gdk-surface.md` §7). Deprecated declarations are excluded from **every** family, following the
 detection rules and denylist discipline in `gdk-surface.md` §7.1.
 
-**Native linkage — bind the thunks DLLs, never the static libs.** See
+**Native linkage: bind the thunks DLLs, never the static libs.** See
 [`reference/gdk-surface.md`](./reference/gdk-surface.md) → "Which module to bind". Each native
 surface has a *redistributable* module that must be copied into the package layout; none of them is
 installed system-wide, and packaging must hard-fail if one is missing.
 
 | Surface | Module to bind | Notes |
 |---|---|---|
-| Core Gaming Runtime | `xgameruntime.thunks.dll` | 390 exports. **Never `XGameRuntime.dll`** — it exports only private version-negotiation ordinals, so a binding against it can never work. |
-| Core, unexported APIs | — | 14 APIs are declared or present in `xgameruntime.lib` but unexported in `260404`, so they are unreachable. None is required: each has an exported alternative recorded in `eng/unexported-apis.md`. |
-| **XSAPI (Xbox Live)** | **`Microsoft.Xbox.Services.C.Thunks.dll`** | 425 exports. **Never `Microsoft.Xbox.Services.{142,143}.C.lib`** — those are toolset-versioned static libs for C++ titles. Requires `libHttpClient.dll` shipped beside it. |
+| Core Gaming Runtime | `xgameruntime.thunks.dll` | 390 exports. **Never `XGameRuntime.dll`**: it exports only private version-negotiation ordinals, so a binding against it can never work. |
+| Core, unexported APIs | (none) | 14 APIs are declared or present in `xgameruntime.lib` but unexported in `260404`, so they are unreachable. None is required: each has an exported alternative recorded in `eng/unexported-apis.md`. |
+| **XSAPI (XBOX Live)** | **`Microsoft.Xbox.Services.C.Thunks.dll`** | 425 exports. **Never `Microsoft.Xbox.Services.{142,143}.C.lib`**: those are toolset-versioned static libs for C++ titles. Requires `libHttpClient.dll` shipped beside it. |
 
 XSAPI exports **no** `XAsync*`/`XTaskQueue*`, so `AsyncOperation<T>` and `GameTaskQueue` keep
 binding `xgameruntime.thunks.dll`; an XSAPI-using title loads **both** modules. Unlike the core
 runtime, XSAPI has **no meaningful export gap on GDK**: every `Xbl*` function that survives the GDK
 preprocessor is exported except the internal `XblSetApiType`. Header names that look missing are
-gated out of the GDK build — 11 by `HC_PLATFORM` (Win32/iOS/Android/UWP surface) and 6 by
-`#ifdef XSAPI_INTERNAL_EVENTS_SERVICE` — so no family needs degrading. Still verify each
+gated out of the GDK build: 11 by `HC_PLATFORM` (Win32/iOS/Android/UWP surface) and 6 by
+`#ifdef XSAPI_INTERNAL_EVENTS_SERVICE`, so no family needs degrading. Still verify each
 `[LibraryImport]` against the export table (`eng/api-coverage.ps1` does this), but compare against
 the *preprocessed* headers, not a raw grep.
 
@@ -115,9 +115,9 @@ the *preprocessed* headers, not a raw grep.
 | UTF-8 (`char*`) vs UTF-16 (`wchar_t*`) | surface **one** `string` API (prefer the UTF-16 variant where offered; else decode UTF-8) |
 | `XFooRegisterForXEvent` / `Unregister` + token | C# `event`; token + rooted delegate held internally, unregistered on dispose |
 | `struct S {...}` | `readonly struct` / `record struct`, blittable where possible |
-| polymorphic state-change struct (tagged union via `stateChangeType`) | a **public** `abstract record` hierarchy (`LobbyStateChange` → `CreateAndJoinLobbyCompleted` / `MemberAdded` / `LobbyUpdated` / …), dispatched with a `switch` expression on the record type — the loop is the surface |
-| `Start`/`Finish…StateChanges` drain | `foreach (var change in mp.ProcessStateChanges())` — the loop **is** public; the enumerator's `Dispose` calls `Finish` (lazy: batch held live during the loop, zero-copy); composes with `DispatchCompletions()` |
-| completion change + `void* asyncContext` | start call returns a typed `OperationId` (round-tripped as `asyncContext`); the `…Completed` record carries it back in the loop and the caller matches by id — **no `await`**, **no** cancellation (no `XAsyncCancel`) |
+| polymorphic state-change struct (tagged union via `stateChangeType`) | a **public** `abstract record` hierarchy (`LobbyStateChange` → `CreateAndJoinLobbyCompleted` / `MemberAdded` / `LobbyUpdated` / …), dispatched with a `switch` expression on the record type: the loop is the surface |
+| `Start`/`Finish…StateChanges` drain | `foreach (var change in mp.ProcessStateChanges())`: the loop **is** public; the enumerator's `Dispose` calls `Finish` (lazy: batch held live during the loop, zero-copy); composes with `DispatchCompletions()` |
+| completion change + `void* asyncContext` | start call returns a typed `OperationId` (round-tripped as `asyncContext`); the `…Completed` record carries it back in the loop and the caller matches by id: **no `await`**, **no** cancellation (no `XAsyncCancel`) |
 | notification change (non-completion) | a notification record in the same loop carrying `change.Lobby` (reference-equal via a handle→wrapper identity map); the object is valid until its teardown variant drains, then fails fast (`ObjectDisposedException`) |
 | naming | **drop the `X` prefix**, PascalCase, domain namespaces (`GDK.Net.Users.GameUser`), keep enum member names, XML-doc the GDK origin |
 
@@ -152,7 +152,7 @@ the *preprocessed* headers, not a raw grep.
 
 ## 7. Async & threading model  *(MonoGame-aware)*
 
-**The async engine** — `AsyncOperation<T>`:
+**The async engine**: `AsyncOperation<T>`:
 - Allocates a **pinned** `XAsyncBlock` (its `internal[sizeof(void*)*4]` layout is opaque; the struct
   is kept alive for the call's duration), stores a `GCHandle` context, and installs a **static**
   completion routine (`[UnmanagedCallersOnly]` on modern; rooted delegate on ns2.0).
@@ -162,13 +162,13 @@ the *preprocessed* headers, not a raw grep.
   `E_ABORT` completes the task as canceled.
 
 **Two completion strategies** (both back the same `Task` surface):
-- **Default (process queue) — shipped.** The projection creates no queue: operations name no queue,
-  so the Gaming Runtime resolves the process default — thread pool on both ports unless the host
+- **Default (process queue): shipped.** The projection creates no queue: operations name no queue,
+  so the Gaming Runtime resolves the process default: thread pool on both ports unless the host
   replaced it. `await` resumes on the pool. This is the only strategy currently reachable by a
   title.
-- **Pumped (game loop) — designed, not yet exposed.** A `Manual` completion port dispatched once per
+- **Pumped (game loop): designed, not yet exposed.** A `Manual` completion port dispatched once per
   frame, so continuations and events land on the thread that pumps, with a
-  `GameSynchronizationContext` installed there so plain `await` resumes on the game/update thread —
+  `GameSynchronizationContext` installed there so plain `await` resumes on the game/update thread:
   the key "native feel" for MonoGame. `GameTaskQueue` is presently **internal** and no public
   signature names a queue (enforced by `TaskQueueAdvancedTests.NoPublicApiMentionsATaskQueue`), so a
   title cannot yet create, name or pump one. Exposing this is outstanding work, and it is the
@@ -218,11 +218,11 @@ Covers: lifecycle + feature gate, `SafeHandle`/`IDisposable`/equality, async→`
 sync getters→properties, two-call buffer→`string`, `[Flags]` + plain enums, `out` deny-reason,
 `event`, and cancellation (`ct` → `XAsyncCancel` → `OperationCanceledException`).
 
-### 9.2 PFMP Lobby & PF Party — the state-change slice
+### 9.2 PFMP Lobby & PF Party: the state-change slice
 
 Implements [`reference/multiplayer-pilot.md`](./reference/multiplayer-pilot.md) with the
-state-change rows from §4. The native poll-drain is kept **faithful**: the loop is the public surface —
-a `foreach` over a closed `record` hierarchy — with `Start` / `Finish` / `stateChangeType` hidden
+state-change rows from §4. The native poll-drain is kept **faithful**: the loop is the public surface
+(a `foreach` over a closed `record` hierarchy) with `Start` / `Finish` / `stateChangeType` hidden
 behind the enumerator, which calls `Finish` on scope exit.
 
 ```csharp
@@ -240,7 +240,7 @@ foreach (var change in mp.ProcessStateChanges())
         case CreateAndJoinLobbyCompleted c when c.Operation == join:
             if (c.Failed) throw c.Error;                  // completions carry an HRESULT
             break;                                        // c.Lobby == `lobby`, now ready (identity map)
-        case MemberAdded m:  Show(m.Member);        break;  // m.Member is a borrowed view — copy to keep
+        case MemberAdded m:  Show(m.Member);        break;  // m.Member is a borrowed view: copy to keep
         case LobbyUpdated u: Refresh(u.ChangedKeys); break;
         case LobbyLeaveCompleted or Disconnected:         // teardown: `lobby` now invalidated → fails fast
             break;
@@ -259,14 +259,14 @@ with a `switch` expression; completions correlate by a typed `OperationId` (roun
 `asyncContext`) with **no `await`** and **no** cancellation; notifications are loop records carrying
 `change.Lobby` (reference-equal via a handle→wrapper identity map); `Finish` runs on **scope exit** via
 the enumerator's `Dispose` (lazy, zero-copy), so change records are **borrowed views valid only within
-the loop** — the caller copies (`Members` snapshots) anything it retains; a projected object is valid
+the loop**: the caller copies (`Members` snapshots) anything it retains; a projected object is valid
 until its teardown variant (`LobbyLeaveCompleted` or an involuntary `Disconnected`), then throws
 `ObjectDisposedException`. A loop-less host runs the same loop on a wrapper-owned thread. The same
 shape covers **Party** (`Party_c.h`) and **Matchmaking** (`PFMatchmaking.h`) off the same pump.
 
 ## 10. Testing
 
-Testing is **live** — see [`../reference/testing.md`](./reference/testing.md) for the shared harness
+Testing is **live**; see [`../reference/testing.md`](./reference/testing.md) for the shared harness
 contract. The idiomatic layer is a thin wrapper over P/Invoke, so there is no glue worth mocking; only
 the real Gaming Runtime proves behavior.
 
@@ -277,17 +277,17 @@ the real Gaming Runtime proves behavior.
   plus a cancellation test (`E_ABORT` → `OperationCanceledException`), and extends the same structure
   across Store, GameSave, Package, Capture and the XSAPI services and managers. Run the **same suite
   on a .NET LTS runtime *and* on Mono** so marshalling differences surface.
-- **Harness structure.** Checks are **values** — an id, the ids it requires, and a body — held in one
+- **Harness structure.** Checks are **values** (an id, the ids it requires, and a body) held in one
   ordered registry and executed one at a time in isolation, so a failure never ends the run and a
   failed prerequisite produces one explanatory skip rather than a screen of identical errors. The
   registry is an explicit list, not an assembly scan, because the harness publishes with NativeAOT.
   Results go to a JSON report flushed after every check: a packaged title has no console, and the
   file is the only channel out of the process. Each check is recorded as *running* before it makes
-  its call, so a relaunch can attribute a native crash and carry on past it — an access violation in
+  its call, so a relaunch can attribute a native crash and carry on past it, an access violation in
   the Gaming Runtime **cannot be caught** in .NET 8, by `catch`, attribute or runtimeconfig switch.
   See [`../reference/testing.md`](./reference/testing.md) §1.1.
 - **Contract tests.** `GDK.Net.Tests` runs on hosted CI with **xUnit** (+ **FluentAssertions**) and
-  coverlet. It never loads the GDK: it asserts shape — naming, enum values against the headers,
+  coverlet. It never loads the GDK: it asserts shape: naming, enum values against the headers,
   handle disposal semantics, marshalling attributes. It is a guard against drift, **not** evidence
   that any API works.
 - **Packaging tiers.** `eng/run-package-tests.ps1` runs **Layout** (publish, generate the map, run the
@@ -320,14 +320,14 @@ package, and launch commands. The packaged output must resolve the pinned-archit
   `net8.0;net10.0;netstandard2.0`). Effective RIDs **`win-x64`** / **`win-arm64`**.
 - **The native modules are redistributables the *title* ships, not system components.** Nothing the
   projection binds is installed machine-wide, so `eng/package.ps1` copies each one into the layout
-  and **hard-fails if it is absent** — a missing DLL otherwise surfaces at runtime as an
+  and **hard-fails if it is absent**, a missing DLL otherwise surfaces at runtime as an
   initialization failure that reads like a broken dev box:
 
   | DLL | Ships when | Source |
   |---|---|---|
   | `xgameruntime.thunks.dll` | always | `%GameDKCoreLatest%windows\bin\{x64,arm64}` |
   | `Microsoft.Xbox.Services.C.Thunks.dll` | any XSAPI use | `%GameDKCoreLatest%windows\bin\{x64,arm64}` |
-  | `libHttpClient.dll` | with XSAPI — **hard dependency** | same |
+  | `libHttpClient.dll` | with XSAPI: **hard dependency** | same |
 
   The XSAPI pair adds ~2.2 MB to the layout, so gate it on actual use rather than copying
   unconditionally. `libHttpClient.dll` is the easy one to forget: omitting it fails at the first
@@ -339,7 +339,7 @@ package, and launch commands. The packaged output must resolve the pinned-archit
 - PFMP-enabled applications deploy architecture-matched `PlayFabCore.dll` and
   `PlayFabMultiplayer.dll` from the pinned GDK redist during application packaging; the managed
   NuGet package does not silently embed them.
-- **NativeAOT** is required for Xbox console. The library is AOT-clean and enforces it (analyzers +
+- **NativeAOT** is required for XBOX console. The library is AOT-clean and enforces it (analyzers +
   a real ILC publish in CI + structural tests); JIT remains the default for PC. See the repo README.
 - `Directory.Build.props` centralizes `LangVersion`, `Nullable=enable`, TFMs, analyzers.
 - `getting-started.md` documents the `MicrosoftGame.config` + Gaming Runtime requirement plus
@@ -357,7 +357,7 @@ package, and launch commands. The packaged output must resolve the pinned-archit
   creates no queue either: operations leave `XAsyncBlock::queue` null and the Gaming Runtime resolves
   the process default, so nothing is owned or disposed on anyone's behalf. Trade-off: a host that
   replaces or removes the process default via `XTaskQueueSetCurrentProcessTaskQueue` changes where
-  callbacks run, and the projection currently offers no way to opt out of that — which is the same
+  callbacks run, and the projection currently offers no way to opt out of that, which is the same
   gap as the unexposed pumped model in §7.
 - **ClangSharp parsing** of GDK headers (C++11 + Windows SDK includes/defines) is the first real
   hurdle; fallback is hand-authored raw P/Invoke for the pilot headers while generation stabilizes.
@@ -369,26 +369,26 @@ package, and launch commands. The packaged output must resolve the pinned-archit
 
 ## 13. Expansion path
 
-> **Canonical surface & order:** the full Xbox + PlayFab coverage plan — every API family with its
-> async shape, dependencies, and priority tier — lives in
+> **Canonical surface & order:** the full XBOX + PlayFab coverage plan (every API family with its
+> async shape, dependencies, and priority tier) lives in
 > [`reference/roadmap.md`](./reference/roadmap.md). The order below is the .NET reading of it.
 
-The Gaming Runtime (`X*`) is now projected in full — every family in
+The Gaming Runtime (`X*`) is now projected in full, every family in
 [`reference/roadmap.md`](./reference/roadmap.md) §3, bar the deliberately excluded
-`XAsyncProvider.h` and `XCurl.h`. **Xbox Live (XSAPI) is the next major surface**, and it is an
+`XAsyncProvider.h` and `XCurl.h`. **XBOX Live (XSAPI) is the next major surface**, and it is an
 integral part of the GDK rather than an optional extra: achievements, presence, the social graph,
 leaderboards and title storage are certification-relevant for most shipping titles.
 
-### 13.1 Xbox Live Services (XSAPI)
+### 13.1 XBOX Live Services (XSAPI)
 
-XSAPI reuses everything the runtime pilot established — `AsyncOperation<T>`, `Hr.ThrowIfFailed`,
-`SafeHandle`, the event pattern, the `[LibraryImport]` + `[UnmanagedCallersOnly]` AOT shape — so the
+XSAPI reuses everything the runtime pilot established: `AsyncOperation<T>`, `Hr.ThrowIfFailed`,
+`SafeHandle`, the event pattern, the `[LibraryImport]` + `[UnmanagedCallersOnly]` AOT shape, so the
 work is surface area, not new mechanics. What is genuinely new:
 
 - **A second native module.** `Microsoft.Xbox.Services.C.Thunks.dll` plus `libHttpClient.dll` join
   the layout (§3, §11). `eng/api-coverage.ps1` must grow to diff this DLL's export table too.
 - **`XblContextHandle` is per-user and per-sign-in.** It is built from an `XUserHandle`, so it must
-  be torn down and rebuilt on user change or sign-out — a new `SafeHandle` type whose lifetime is
+  be torn down and rebuilt on user change or sign-out, a new `SafeHandle` type whose lifetime is
   coupled to `GameUser`, and a compliance obligation (see
   [`reference/compliance.md`](./reference/compliance.md)).
 - **Async teardown.** `XblCleanupAsync` has no synchronous form and must be awaited before the task
@@ -402,14 +402,14 @@ work is surface area, not new mechanics. What is genuinely new:
   and are therefore excluded (see [`gdk-surface.md`](./reference/gdk-surface.md) §7.1).
 - **A `DoWork` pump.** The `*_manager` layers (`social_manager_c.h`, `achievements_manager_c.h`) use
   the polled batch loop of [`reference/state-change.md`](./reference/state-change.md) with
-  *next-call* reclamation — the batch stays valid only until the next `DoWork`. That is the same
+  *next-call* reclamation: the batch stays valid only until the next `DoWork`. That is the same
   shape PFMP needs, so projecting one manager de-risks the other.
 - **No XSAPI export gap.** Earlier revisions of this plan claimed 23 header-declared functions were
   absent and that notification-handler registration for Social, Achievements, Privacy, Game invite,
   Multiplayer activity and Notification was unreachable. That was wrong: it came from grepping
   headers without the preprocessor. On GDK every `Xbl*` function that survives preprocessing is
   exported except the internal `XblSetApiType`. The names that looked missing are **non-GDK
-  surface** gated by `HC_PLATFORM` (Win32/iOS/Android/UWP — on GDK the core runtime's
+  surface** gated by `HC_PLATFORM` (Win32/iOS/Android/UWP, on GDK the core runtime's
   `XGameInvite*` / `XUser*` cover it) or **internal-only** surface gated by
   `XSAPI_INTERNAL_EVENTS_SERVICE`. Project every family in full.
 
@@ -420,26 +420,26 @@ privacy).
 ### 13.2 Beyond XSAPI
 
 PlayFab (Core, Services, Economy), PFMP Lobby/Matchmaking and Party via the `_c` surfaces, and
-GameChat2 — all shape **A** or the same `DoWork` loop, so they inherit the XSAPI groundwork.
+GameChat2: all shape **A** or the same `DoWork` loop, so they inherit the XSAPI groundwork.
 
 ## 14. Cross-cutting obligations
 
 Beyond the per-API mechanics above, every projection inherits a set of **cross-cutting duties**
-specified once — language-agnostically — in the shared references. This plan adopts them wholesale:
+specified once (language-agnostically) in the shared references. This plan adopts them wholesale:
 
-- **Security & privacy** — tooling generation enables `PFMULTIPLAYER_INCLUDE_SERVER_APIS` and keeps
+- **Security & privacy**: tooling generation enables `PFMULTIPLAYER_INCLUDE_SERVER_APIS` and keeps
   the full PlayFab player/title/server surface; whenever a post-login call takes authentication
   input, use `PFEntityHandle`. Title secrets exist only at trusted tooling bootstrap and are never
   embedded or logged.
   See [`reference/security-privacy.md`](./reference/security-privacy.md).
-- **Certification & compliance** — honor sign-out / user-change and license-loss promptly and without
+- **Certification & compliance**: honor sign-out / user-change and license-loss promptly and without
   blocking; gate comms/UGC behind privacy checks (**fail closed**); keep the advertised session
   accurate; prefer TCUI. See [`reference/compliance.md`](./reference/compliance.md).
-- **Diagnostics & tracing** — bridge the libHttpClient / PlayFab trace hooks into
+- **Diagnostics & tracing**: bridge the libHttpClient / PlayFab trace hooks into
   `Microsoft.Extensions.Logging` / `EventSource` with mapped levels and callback-routed logs
   scrubbed; direct debugger/file sinks are developer-only and may be unredacted.
   See [`reference/gdk-surface.md`](./reference/gdk-surface.md) §10.
-- **Idiomaticity first** — outside the state-change loop, prefer normal .NET strings, collections,
+- **Idiomaticity first**: outside the state-change loop, prefer normal .NET strings, collections,
   `SafeHandle`s, exceptions, and `Task`s over allocation rules or exposed native buffers; optimize
   measured hot paths only. See [`reference/gdk-surface.md`](./reference/gdk-surface.md) §11.
 

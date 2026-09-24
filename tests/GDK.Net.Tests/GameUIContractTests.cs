@@ -10,13 +10,13 @@ namespace GDK.Net.Tests;
 /// <summary>
 /// Guards the XGameUI interop layer against silent drift from the GDK headers
 /// (%GameDKCoreLatest%windows\include\XGameUI.h, edition 260404).
-/// Pure compile-time and layout checks — nothing here loads xgameruntime.thunks.dll.
+/// Pure compile-time and layout checks: nothing here loads xgameruntime.thunks.dll.
 /// All tests that require a live Gaming Runtime belong in <c>eng/run-package-tests.ps1</c>.
 /// </summary>
 public sealed unsafe class GameUIContractTests
 {
     // -----------------------------------------------------------------------
-    // Enum values — raw vs. public projection
+    // Enum values: raw vs. public projection
     // -----------------------------------------------------------------------
 
     [Theory]
@@ -116,7 +116,7 @@ public sealed unsafe class GameUIContractTests
     [Fact]
     public void TextEntryOptionsLayoutMatchesTheHeader()
     {
-        // struct XGameUiTextEntryOptions { inputScope, positionHint, visibilityFlags } — all uint32
+        // struct XGameUiTextEntryOptions { inputScope, positionHint, visibilityFlags }: all uint32
         Assert.Equal(12, Marshal.SizeOf<XGameUiTextEntryOptions>());
         Assert.Equal(0, (int)Marshal.OffsetOf<XGameUiTextEntryOptions>(nameof(XGameUiTextEntryOptions.inputScope)));
         Assert.Equal(4, (int)Marshal.OffsetOf<XGameUiTextEntryOptions>(nameof(XGameUiTextEntryOptions.positionHint)));
@@ -126,7 +126,7 @@ public sealed unsafe class GameUIContractTests
     [Fact]
     public void TextEntryExtentsLayoutMatchesTheHeader()
     {
-        // struct XGameUiTextEntryExtents { left, top, right, bottom } — all float
+        // struct XGameUiTextEntryExtents { left, top, right, bottom }: all float
         Assert.Equal(16, Marshal.SizeOf<XGameUiTextEntryExtents>());
         Assert.Equal(0, (int)Marshal.OffsetOf<XGameUiTextEntryExtents>(nameof(XGameUiTextEntryExtents.left)));
         Assert.Equal(4, (int)Marshal.OffsetOf<XGameUiTextEntryExtents>(nameof(XGameUiTextEntryExtents.top)));
@@ -177,7 +177,7 @@ public sealed unsafe class GameUIContractTests
     [Fact]
     public void TextEntryExtentsValuesRoundTrip()
     {
-        // Internal constructor — reached via GameTextEntry.GetExtents at runtime;
+        // Internal constructor: reached via GameTextEntry.GetExtents at runtime;
         // test via the internal access granted by InternalsVisibleTo.
         var extents = new TextEntryExtents(0.1f, 0.2f, 0.8f, 0.9f);
         Assert.Equal(0.1f, extents.Left);

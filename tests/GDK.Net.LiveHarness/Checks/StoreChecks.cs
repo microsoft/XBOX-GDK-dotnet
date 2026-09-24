@@ -11,7 +11,7 @@ namespace GDK.Net.LiveHarness;
 /// </summary>
 /// <remarks>
 /// <para>
-/// Everything here is a read. That is not squeamishness about side effects — the store's writes are
+/// Everything here is a read. That is not squeamishness about side effects: the store's writes are
 /// purchases and consumable fulfilments against real entitlements, and the ones that are not
 /// purchases (<c>ShowPurchaseUIAsync</c> and friends) block on system UI that no one is present to
 /// dismiss, so calling them would hang the run rather than test anything.

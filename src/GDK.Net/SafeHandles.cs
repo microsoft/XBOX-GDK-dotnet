@@ -73,7 +73,7 @@ internal sealed class SpeechSynthesizerHandle : SafeHandleZeroOrMinusOneIsInvali
 
     protected override bool ReleaseHandle()
     {
-        // Return value is an HRESULT, ignored here — ReleaseHandle must not throw.
+        // Return value is an HRESULT, ignored here: ReleaseHandle must not throw.
         Native.XSpeechSynthesizerCloseHandle(handle);
         return true;
     }
@@ -84,7 +84,7 @@ internal sealed class SpeechSynthesizerHandle : SafeHandleZeroOrMinusOneIsInvali
 /// </summary>
 /// <remarks>
 /// An Xbox Live context is per-user *and* per-sign-in: it is built from an <c>XUserHandle</c>, so
-/// it stops being valid when that user signs out or is replaced. See docs/plan.md section 13.1 —
+/// it stops being valid when that user signs out or is replaced. See docs/plan.md section 13.1:
 /// the projection couples the handle's lifetime to its <c>User</c> and rebuilds on user change
 /// rather than caching one for the process.
 /// </remarks>

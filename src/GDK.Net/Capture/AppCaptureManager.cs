@@ -1,6 +1,6 @@
 // App capture and broadcast management.
 //
-// Reached through GameRuntime.Capture (note: see the porting report — GameRuntime.cs needs a
+// Reached through GameRuntime.Capture (note: see the porting report: GameRuntime.cs needs a
 // Capture property added before end-users can access this through the standard entry point).
 //
 // XAppBroadcast is declared inside XAppCapture.h, so both families are projected here.
@@ -32,7 +32,7 @@ namespace GDK.Net.Capture;
 /// from the redistributable DLL): <c>XAppCaptureStartUserRecord</c>,
 /// <c>XAppCaptureStopUserRecord</c>, and <c>XAppCaptureCancelUserRecord</c>. Binding any of them
 /// would throw <see cref="System.EntryPointNotFoundException"/>, which the runtime surfaces as
-/// <c>E_GAMERUNTIME_VERSION_MISMATCH</c> — a misleading environment error rather than a
+/// <c>E_GAMERUNTIME_VERSION_MISMATCH</c>, a misleading environment error rather than a
 /// missing-API error.
 /// </para>
 /// </remarks>
@@ -496,7 +496,7 @@ public sealed unsafe class AppCaptureManager : IDisposable
     /// <para>
     /// Unlike <see cref="RecordTimespan(ulong)"/>, which captures a fixed window that has already
     /// elapsed, this begins recording now and runs until <see cref="StopUserRecord"/> or
-    /// <see cref="CancelUserRecord"/>. Every started recording must be stopped or cancelled — the
+    /// <see cref="CancelUserRecord"/>. Every started recording must be stopped or cancelled: the
     /// runtime keeps buffering until then.
     /// </para>
     /// </remarks>
@@ -657,7 +657,7 @@ public sealed unsafe class AppCaptureManager : IDisposable
     {
         if (registration is null) return;
 
-        // wait: true — returns only once no in-flight callback is executing.
+        // wait: true: returns only once no in-flight callback is executing.
         if (registration.Kind == CaptureRegistrationKind.Broadcasting)
         {
             Native.XAppBroadcastUnregisterIsAppBroadcastingChanged(registration.Token, wait: 1);

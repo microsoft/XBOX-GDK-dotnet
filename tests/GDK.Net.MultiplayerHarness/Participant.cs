@@ -23,8 +23,8 @@ namespace GDK.Net.MultiplayerHarness;
 /// pumping is testing the helper.
 /// </para>
 /// <para>
-/// So commands are not executed where they are read. A command either completes immediately —
-/// <c>lobby-post-update</c> just starts a native call — or registers a <see cref="Pending"/>
+/// So commands are not executed where they are read. A command either completes immediately:
+/// <c>lobby-post-update</c> just starts a native call, or registers a <see cref="Pending"/>
 /// predicate that the pump evaluates against every state change until it matches or the deadline
 /// passes. Only then is the reply written.
 /// </para>

@@ -14,7 +14,7 @@ namespace GDK.Net.UserSample;
 /// instead of handle-close calls and events instead of registration tokens.
 /// </para>
 /// <para>
-/// It must run as a packaged title — the Gaming Runtime refuses to initialize in a process without
+/// It must run as a packaged title: the Gaming Runtime refuses to initialize in a process without
 /// package identity. See README.md for how to build and register the package.
 /// </para>
 /// <para>

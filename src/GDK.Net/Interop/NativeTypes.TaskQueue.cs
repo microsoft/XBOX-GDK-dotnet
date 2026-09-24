@@ -37,5 +37,5 @@ internal struct XGameRuntimeOptions
     /// <see cref="XGameRuntimeGameConfigSource.File"/> the path to the config file. Ignored (may be
     /// null) when <see cref="XGameRuntimeGameConfigSource.Default"/>.
     /// </summary>
-    public IntPtr GameConfig; // const char* — caller-managed UTF-8 unmanaged memory
+    public IntPtr GameConfig; // const char*: caller-managed UTF-8 unmanaged memory
 }

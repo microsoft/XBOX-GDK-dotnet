@@ -26,7 +26,7 @@ namespace GDK.Net.LiveHarness;
 /// <c>PFLocalUser</c> path is the one a shipping title uses, and is the only one that proves the
 /// XUser → PlayFab bridge. The secret key is read from the environment
 /// (<c>GDKNET_PLAYFAB_SECRET_KEY</c>, <c>PLAYFAB_DEVELOPER_SECRET_KEY</c> or
-/// <c>PLAYFAB_SECRET_KEY</c>) and never appears in the report — a title secret is a server
+/// <c>PLAYFAB_SECRET_KEY</c>) and never appears in the report, a title secret is a server
 /// credential, so it must not reach a log, and the checks report only its presence.
 /// </para>
 /// <para>
@@ -126,7 +126,7 @@ internal static class PlayFabChecks
                   $"({skew.TotalSeconds:F1}s from this machine's clock)"
                 : throw new InvalidOperationException(
                     $"PFTitleDataManagementServerGetTimeAsync returned {result.Time:u}, which is " +
-                    $"{skew.TotalHours:F1}h from this machine's clock — the timestamp conversion is wrong.");
+                    $"{skew.TotalHours:F1}h from this machine's clock. The timestamp conversion is wrong.");
         }, "playfab.title-entity");
 
         yield return LiveCheck.Async("playfab.title-data", async ctx =>

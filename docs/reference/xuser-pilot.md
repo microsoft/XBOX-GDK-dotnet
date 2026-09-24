@@ -1,10 +1,10 @@
-# The `XUser` Pilot — Shared Projection Contract
+# The `XUser` Pilot: Shared Projection Contract
 
 > **Purpose.** Every projection plan in this repository implements **one** vertical slice first, and
 > it is always the same slice: **`XUser`**. `XUser` is the smallest subsystem that exercises *every*
 > pattern in [`gdk-surface.md`](./gdk-surface.md), so proving it end-to-end in a language validates
 > that language's answer to the whole surface. This document is the language-neutral **contract** for
-> that slice — the exact native functions, enums, and structs each plan must project, and the
+> that slice: the exact native functions, enums, and structs each plan must project, and the
 > patterns each one is there to prove.
 
 Read [`gdk-surface.md`](./gdk-surface.md) first for the universal conventions; this document maps a
@@ -74,7 +74,7 @@ STDAPI XUserGetMaxUsers(uint32_t* maxUsers);
 **Obligation:** a `User` resource type with deterministic close, a `Duplicate()` that yields an
 independent handle, value **equality/ordering** via `XUserCompare`, `Id`/`LocalId` accessors, and
 static **find** helpers. `XUserLocalId` projects as a small value type (equatable/hashable). Note
-`APP_LOCAL_DEVICE_ID` originates in the Windows SDK — a binding-generation dependency.
+`APP_LOCAL_DEVICE_ID` originates in the Windows SDK, a binding-generation dependency.
 
 ### 2.3 Add / sign-out (async start/result)
 ```c
@@ -173,16 +173,16 @@ STDAPI_(bool) XUserUnregisterForDeviceAssociationChanged(XTaskQueueRegistrationT
 **Obligation:** expose each as the language's native event/subscription (event+delegate, listener +
 closeable registration, `EventEmitter`, channel, …); keep the callback trampoline and context alive
 for the subscription's lifetime; unregister (honoring `wait`) on dispose. Callbacks are delivered on
-the supplied task queue — respect the projection's threading model (see gdk-surface §6).
+the supplied task queue: respect the projection's threading model (see gdk-surface §6).
 
 ### 2.9 Encoding variants, deferrals & deprecations (project or defer explicitly)
 - **UTF-8 vs UTF-16 pairs:** `XUserGetTokenAndSignatureAsync` / `...ResultSize` / `...Result` and the
   parallel `...Utf16...` trio, with result structs `XUserGetTokenAndSignatureData` /
   `...Utf16Data`. A plan states which encoding it surfaces (typically the platform-natural one).
 - **Sign-out deferral:** `XUserGetSignOutDeferral` / `XUserCloseSignOutDeferralHandle`
-  (`XUserSignOutDeferralHandle`) — a handle to hold off sign-out while the title saves state.
+  (`XUserSignOutDeferralHandle`), a handle to hold off sign-out while the title saves state.
 - **Audio endpoint:** `XUserGetDefaultAudioEndpointUtf16` + its register/unregister change event.
-- **Deprecated:** `XUserGetMsaTokenSilentlyAsync/Result/ResultSize` are `__declspec(deprecated)` — a
+- **Deprecated:** `XUserGetMsaTokenSilentlyAsync/Result/ResultSize` are `__declspec(deprecated)`. A
   plan should **omit or clearly mark** deprecated members and describe how it filters them during
   binding generation.
 
@@ -223,5 +223,5 @@ full strategy; the requirements below are the baseline every live suite needs:
 ---
 
 *This contract is intentionally identical across languages. Differences live in each plan's
-"idiomatic mapping table" — how that language expresses handles, async, events, enums, buffers, and
-errors — not in which `XUser` surface is covered.*
+"idiomatic mapping table": how that language expresses handles, async, events, enums, buffers, and
+errors, not in which `XUser` surface is covered.*

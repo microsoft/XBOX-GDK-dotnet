@@ -74,8 +74,8 @@ internal static class PlatformChecks
     /// Registration (<c>XGameUiSetUiCallbacks</c>) and display
     /// (<c>XGameUiShowMessageDialogAsync</c>) are separate entry points, and nothing in the headers
     /// promises that a table registered through one is observed by the other. Disassembly says it
-    /// is — <c>XGameUiSetUiCallbacks</c> is only a <c>QueryApiImpl</c> lookup plus a virtual call,
-    /// so the registration is held by the Gaming Runtime rather than in module-static state — but
+    /// is (<c>XGameUiSetUiCallbacks</c> is only a <c>QueryApiImpl</c> lookup plus a virtual call,
+    /// so the registration is held by the Gaming Runtime rather than in module-static state) but
     /// that is an inference from generated code. This check is the empirical test.
     /// </remarks>
     private static async Task<string> VerifyCustomGameUiAsync(CheckContext ctx)

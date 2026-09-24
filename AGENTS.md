@@ -1,4 +1,4 @@
-# AGENTS.md — `gdk-dotnet`
+# AGENTS.md: `gdk-dotnet`
 
 ## What this repository is
 
@@ -18,12 +18,12 @@ sibling language repositories split out of the `gdk-projections-plans` meta repo
 
 `docs/` holds **two kinds** of file. Know which you are editing before you touch anything.
 
-**Vendored — do not edit here.** `docs/plan.md` and `docs/reference/*.md` are manually vendored
+**Vendored: do not edit here.** `docs/plan.md` and `docs/reference/*.md` are manually vendored
 copies. The canonical sources are `plans/dotnet.md` and `reference/*.md` in the
 `gdk-projections-plans` meta repo. Fix the meta repo, then re-copy. The only local delta is that
 `docs/plan.md` has its `../reference/` links rewritten to `./reference/`.
 
-**Authored here — this repo is canonical.** These have no meta-repo counterpart:
+**Authored here: this repo is canonical.** These have no meta-repo counterpart:
 
 | Path | Notes |
 |---|---|
@@ -36,10 +36,10 @@ copies. The canonical sources are `plans/dotnet.md` and `reference/*.md` in the
 | `docs/native-aot.md` | How AOT safety is enforced, and how to AOT-publish a title. |
 | `docs/custom-game-ui.md` | Title-implemented UI and its threading rules. |
 | `docs/repository-layout.md` | Where things live; what is generated or vendored. |
-| `docs/api/` | **Generated.** Do not hand-edit; edit the XML doc comments and run `eng/generate-docs.ps1`. |
+| `docs/api/` | **Generated.** Do not hand-edit; edit the XML doc comments and run `eng/generate-docs.ps1`. One folder per namespace, each with a generated `README.md` index. |
 
 The re-vendor step is a blind copy of the meta repo's `reference/` and `plans/dotnet.md` onto
-`docs/reference/` and `docs/plan.md`. Keep it scoped to exactly those paths — a recursive copy over
+`docs/reference/` and `docs/plan.md`. Keep it scoped to exactly those paths: a recursive copy over
 all of `docs/` would destroy the authored guides and the generated reference.
 
 ## Public API changes must stay documented
@@ -53,6 +53,11 @@ This is deliberate: it is what keeps `docs/api/` complete.
   member summaries come from `emit_native.emit_enum(..., document: true)`.
 - After any public API change, re-run `pwsh eng/generate-docs.ps1` and commit `docs/api/`.
   `ApiReferenceDriftTests` fails when a type has no page or a page outlives its type.
+- `docs/api/` is one folder per namespace, each holding the type pages and a generated `README.md`
+  index. The layout is applied by `eng/api-layout.ps1`, which `generate-docs.ps1` calls last and
+  which can also be run alone. Never add or rename a folder there by hand: change
+  `eng/api-areas.json` and re-run. Folders exist because GitHub truncates a directory listing at
+  1,000 entries and the flat output is past that.
 
 
 ## Ground rules
@@ -62,8 +67,8 @@ This is deliberate: it is what keeps `docs/api/` complete.
 2. **Scope.** In: the core `X*` runtime + the `_c` services (XSAPI, libHttpClient, GameChat2,
    PlayFab incl. PFMP and Party). Out: XCurl, XAL, GameInput, the GXDK console tree.
 3. **Pinned GDK edition `260404`**. Headers come from the edition's `windows\include` tree and
-   import libraries from `windows\lib\{x64,arm64}`. **Never** use the `GRDK\GameKit\*` paths —
-   they omit the Xbox Live / PlayFab stack and ship no `arm64` libraries. Derive paths from
+   import libraries from `windows\lib\{x64,arm64}`. **Never** use the `GRDK\GameKit\*` paths:
+   they omit the XBOX Live / PlayFab stack and ship no `arm64` libraries. Derive paths from
    `%GameDKCoreLatest%` (the edition root), never `%GRDKLatest%` or `%GXDKLatest%`.
 4. **Cancellation** (`E_ABORT`) routes to the language's cancellation idiom, never a generic error.
    The numeric HRESULT is always preserved for diagnostics.

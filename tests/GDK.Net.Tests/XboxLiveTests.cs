@@ -20,7 +20,7 @@ namespace GDK.Net.Tests;
 public sealed unsafe class XboxLiveTests
 {
     // -----------------------------------------------------------------------
-    // Enum value contracts — values taken verbatim from achievements_c.h (GDK 260404).
+    // Enum value contracts: values taken verbatim from achievements_c.h (GDK 260404).
     // Each case asserts the public enum and the interop enum agree, so the casts the
     // projection performs between them are identity casts.
     // -----------------------------------------------------------------------
@@ -99,7 +99,7 @@ public sealed unsafe class XboxLiveTests
     }
 
     // -----------------------------------------------------------------------
-    // XblInitArgs — the layout most likely to be got wrong.
+    // XblInitArgs: the layout most likely to be got wrong.
     //
     // A GDK title compiles as HC_PLATFORM_GDK, so the struct is exactly { queue, scid }.
     // The WIN32 build additionally has localStoragePath; if that field ever crept into the mirror,
@@ -116,7 +116,7 @@ public sealed unsafe class XboxLiveTests
     }
 
     // -----------------------------------------------------------------------
-    // XblUserProfile — fixed inline UTF-8 buffers, so every offset is a function of the
+    // XblUserProfile: fixed inline UTF-8 buffers, so every offset is a function of the
     // *_CHAR_SIZE constants in profile_c.h. Getting one buffer size wrong shifts every field
     // after it, which shows up as a garbled gamertag rather than a crash.
     // -----------------------------------------------------------------------

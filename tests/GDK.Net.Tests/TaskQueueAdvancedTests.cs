@@ -145,7 +145,7 @@ public sealed unsafe class TaskQueueAdvancedTests
         }
         catch (GameRuntimeException)
         {
-            return; // Expected outside a packaged title — shape is verified above.
+            return; // Expected outside a packaged title: shape is verified above.
         }
         catch (DllNotFoundException)
         {
@@ -489,7 +489,7 @@ public sealed unsafe class TaskQueueAdvancedTests
     {
         // Task queues are an internal implementation detail: titles cannot create, name or pump
         // one, and every operation leaves XAsyncBlock::queue null so the Gaming Runtime resolves
-        // the process default. This guard is what keeps that true — it fails the moment any public
+        // the process default. This guard is what keeps that true: it fails the moment any public
         // signature reintroduces a queue, which is how the surface drifted before.
         //
         // Note the consequence: the pumped/Manual model described in docs/plan.md §7 is not

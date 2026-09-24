@@ -1,4 +1,4 @@
-// StoreProductQuery — SafeHandle-backed paged product query.
+// StoreProductQuery: SafeHandle-backed paged product query.
 
 using System;
 using System.Collections.Generic;
@@ -185,7 +185,7 @@ internal static unsafe class StoreProductQueryCallbacks
         }
         catch
         {
-            return 0; // stop on error — never unwind into native code
+            return 0; // stop on error, never unwind into native code
         }
     }
 
@@ -210,7 +210,7 @@ internal static unsafe class StoreProductQueryCallbacks
         }
         catch
         {
-            return 0; // stop on error — never unwind into native code
+            return 0; // stop on error, never unwind into native code
         }
     }
 

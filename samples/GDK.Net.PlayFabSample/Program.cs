@@ -11,8 +11,8 @@ namespace GDK.Net.PlayFabSample;
 /// </summary>
 /// <remarks>
 /// <para>
-/// PlayFab ships with the GDK as six flat C libraries — Core, Services, GameSave, Multiplayer,
-/// Party and Party Xbox Live — totalling about a thousand exports. GDK.Net projects all of them.
+/// PlayFab ships with the GDK as six flat C libraries (Core, Services, GameSave, Multiplayer,
+/// Party and Party Xbox Live) totalling about a thousand exports. GDK.Net projects all of them.
 /// This sample walks the shapes a title actually meets: authenticating, calling a service, and
 /// pumping Party.
 /// </para>
@@ -22,7 +22,7 @@ namespace GDK.Net.PlayFabSample;
 /// <c>HRESULT</c>s and <c>IDisposable</c> instead of handle-close calls.
 /// </para>
 /// <para>
-/// It must run as a packaged title — the Gaming Runtime refuses to initialize in a process without
+/// It must run as a packaged title: the Gaming Runtime refuses to initialize in a process without
 /// package identity. See README.md for how to build and register the package.
 /// </para>
 /// <para>

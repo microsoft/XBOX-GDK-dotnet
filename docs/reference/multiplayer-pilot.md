@@ -1,9 +1,9 @@
-# The PFMP Lobby Pilot — Shared State-Change Projection Contract
+# The PFMP Lobby Pilot: Shared State-Change Projection Contract
 
 > **Purpose.** [`state-change.md`](./state-change.md) describes the polled state-change pattern
 > abstractly. This document is the concrete, language-neutral **contract** for the one slice every
 > plan implements to prove it: **PlayFab Multiplayer (PFMP) Lobby**. Lobby is the smallest subsystem
-> that exercises the whole pattern — a polled drain, a tagged-union dispatch surfaced as a closed
+> that exercises the whole pattern, a polled drain, a tagged-union dispatch surfaced as a closed
 > variant set, an operation completion correlated by an operation id, unsolicited notifications, and
 > the hold-during-loop / `Finish`-on-scope-exit memory rule. Proving Lobby end-to-end validates a
 > language's answer to Party and Matchmaking too, which are the same shapes again.
@@ -20,7 +20,7 @@ are abbreviated; see the headers for full SAL.
 | Pattern (state-change.md) | Lobby proof point |
 |---|---|
 | Library lifecycle handle | `PFMultiplayerInitialize` / `PFMultiplayerUninitialize` → `PFMultiplayerHandle` |
-| Identity dependency | `PFEntityHandle` — an authenticated **PlayFab** entity handle obtained from PlayFab Core (not `XUser` directly) |
+| Identity dependency | `PFEntityHandle`: an authenticated **PlayFab** entity handle obtained from PlayFab Core (not `XUser` directly) |
 | Poll drain (`Start`/`Finish`) | `PFMultiplayerStartProcessingLobbyStateChanges` / `…FinishProcessingLobbyStateChanges` |
 | Tagged union + dispatch | `PFLobbyStateChangeType` discriminant → cast base `PFLobbyStateChange` to the derived struct |
 | Completion variant correlated by op id | `PFMultiplayerCreateAndJoinLobbyWithEntityHandle(…, asyncContext, out lobby)` → `PFLobbyCreateAndJoinLobbyCompletedStateChange { result; asyncContext; lobby }` (the projected op id round-trips as `asyncContext`) |
@@ -30,7 +30,7 @@ are abbreviated; see the headers for full SAL.
 | Ordered teardown (loop variant) | `PFLobbyLeaveWithEntityHandle(…, asyncContext)` → `PFLobbyLeaveLobbyCompletedStateChange`, drained **before** `Uninitialize` |
 
 If a projection expresses all of the above idiomatically, Party (`Party_c.h`) and Matchmaking
-(`PFMatchmaking.h`) — the other two drains — are the same contract with different variants.
+(`PFMatchmaking.h`) (the other two drains) are the same contract with different variants.
 
 ---
 
@@ -70,16 +70,16 @@ STDAPI PFMultiplayerFinishProcessingLobbyStateChanges(              // PFLobby.h
     PFMultiplayerHandle handle, uint32_t stateChangeCount,
     const PFLobbyStateChange* const* stateChanges) noexcept;
 ```
-**Obligation:** the drain **is** the public surface — expressed idiomatically. The projection exposes
+**Obligation:** the drain **is** the public surface. Expressed idiomatically. The projection exposes
 an **iterator over a closed variant set** (the language's sum type); user code writes the native
 `for change … match/switch` loop in its own idiom. `Start` / `Finish` / the raw `stateChangeType` are
-hidden behind the iterator, but **every change is a public variant** — completions and notifications
+hidden behind the iterator, but **every change is a public variant**: completions and notifications
 alike. The iterator holds the batch **live for the loop body** and calls `Finish` on **scope exit**
 (RAII / `Dispose` / context manager / `defer`), and it **must** run even if a handler throws; each
 change is passed back exactly once. Variants are therefore **borrowed views valid only within the
-iteration** — the caller copies any field it keeps past the loop.
+iteration**: the caller copies any field it keeps past the loop.
 
-### 2.3 Create & join — async correlated by `asyncContext`
+### 2.3 Create & join: async correlated by `asyncContext`
 ```c
 STDAPI PFMultiplayerCreateAndJoinLobbyWithEntityHandle(              // PFLobby.h:3428
     PFMultiplayerHandle handle, PFEntityHandle creator,
@@ -93,7 +93,7 @@ struct PFLobbyCreateAndJoinLobbyCompletedStateChange : PFLobbyStateChange {   //
 **Obligation:** project the start call to **return a typed operation id** (the projected
 `asyncContext`) together with the **not-yet-ready `Lobby`** (its native handle is retained internally).
 There is **no** async primitive and **no `await`**. The wrapper allocates the opaque id, passes it as
-`asyncContext`, and later — when the loop drains a `PFLobbyCreateAndJoinLobbyCompletedStateChange` — the
+`asyncContext`, and later (when the loop drains a `PFLobbyCreateAndJoinLobbyCompletedStateChange`) the
 caller matches that id on the completion **variant**, checks `result`, and treats the `Lobby` as ready
 (success) or reads the failure (the plan's error idiom). Because of the identity map (§2.4), the
 `change.lobby` on the completion **is** the same wrapper the start call returned. There is no pump
@@ -108,7 +108,7 @@ struct PFLobbyUpdatedStateChange : PFLobbyStateChange {             // PFLobby.h
     PFLobbyHandle lobby; /* + which-changed flags, member/property update summaries */ };
 ```
 **Obligation:** these are **notification variants** in the same loop, not a separate event surface.
-Each carries the changed **object** — `change.lobby`, routed via a **handle→wrapper identity map** so
+Each carries the changed **object**: `change.lobby`, routed via a **handle→wrapper identity map** so
 it is **reference-equal** to the wrapper the caller created. They carry no `asyncContext` (no operation
 id). The `PFEntityKey` and any update summaries are **borrowed views valid only within the iteration**
 (§2.2); the caller copies anything it retains.
@@ -133,10 +133,10 @@ struct PFLobbyLeaveLobbyCompletedStateChange : PFLobbyStateChange {            /
 ```
 **Obligation:** `Leave` returns an operation id like §2.3 (no `await`). The projected teardown keeps
 **running the loop** until the `PFLobbyLeaveLobbyCompletedStateChange` with that id drains, **before**
-disposing the runtime object (which calls `PFMultiplayerUninitialize`) — uninitializing with members
+disposing the runtime object (which calls `PFMultiplayerUninitialize`): uninitializing with members
 still in a lobby appears to remote clients as a lost connection. Per the object-lifetime invariant
-(`state-change.md` §3.4), the `Lobby` stays valid until its **teardown variant** drains — that
-`LeaveLobbyCompleted`, or an involuntary `Disconnected` — after which the wrapper **drops it from the
+(`state-change.md` §3.4), the `Lobby` stays valid until its **teardown variant** drains (that
+`LeaveLobbyCompleted`, or an involuntary `Disconnected`) after which the wrapper **drops it from the
 handle→wrapper identity map and fails fast** (throws `ObjectDisposedException` / returns `Err` /
 rejects) on any further use, and never touches the native handle after its terminal `Finish`.
 
@@ -151,7 +151,7 @@ The canonical happy path each projection should run against a live PlayFab title
 2. **Initialize** PFMP with the title id → a scoped runtime handle.
 3. **Create & join** a lobby: `CreateAndJoinLobby(creator, createCfg, joinCfg)` returns an **operation
    id** and a **not-ready `Lobby`** (its native handle is retained internally).
-4. **Pump** each frame — run the loop (drain → dispatch → `Finish` on scope exit). When it yields a
+4. **Pump** each frame: run the loop (drain → dispatch → `Finish` on scope exit). When it yields a
    `CreateAndJoinLobbyCompleted` variant whose operation id matches and `result == S_OK`, the `Lobby`
    (the same wrapper, via the identity map) is now **ready**.
 5. **Read** the member list and properties (snapshotted copies).
@@ -163,7 +163,7 @@ The canonical happy path each projection should run against a live PlayFab title
    variant with that id drains; then dispose (→ `Uninitialize`) and release the identity.
 9. **Error path:** start an operation that fails (e.g. invalid configuration) and confirm its
    `…Completed` **variant** surfaces a failed `HRESULT` in the loop, read through the plan's error
-   idiom — demonstrating that completions carry results, unlike `XAsyncBlock`'s `E_ABORT` cancellation.
+   idiom: demonstrating that completions carry results, unlike `XAsyncBlock`'s `E_ABORT` cancellation.
 
 ---
 
@@ -171,7 +171,7 @@ The canonical happy path each projection should run against a live PlayFab title
 
 PFMP cannot be meaningfully faked, and the wrapper is too thin to be worth mocking, so **all** tests
 are **live** (see [`testing.md`](./testing.md)). Beyond the `XUser` baseline
-([`xuser-pilot.md`](./xuser-pilot.md) §4 — installed GDK/Gaming Runtime, packaged app with
+([`xuser-pilot.md`](./xuser-pilot.md) §4: installed GDK/Gaming Runtime, packaged app with
 `MicrosoftGame.config`, registered title identity, authorized sandbox, signed-in test account) this
 slice additionally requires:
 
@@ -186,5 +186,5 @@ slice additionally requires:
 ---
 
 *This contract is intentionally identical across languages. Differences live in each plan's §4 mapping
-rows and §9.2 sketch — how that language expresses the sum type, the loop/iterator, operation-id
-correlation, and `Finish` on scope exit — not in which Lobby surface is covered.*
+rows and §9.2 sketch: how that language expresses the sum type, the loop/iterator, operation-id
+correlation, and `Finish` on scope exit, not in which Lobby surface is covered.*

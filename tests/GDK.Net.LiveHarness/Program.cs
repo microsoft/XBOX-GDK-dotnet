@@ -17,7 +17,7 @@ namespace GDK.Net.LiveHarness;
 /// decides what runs or in what order, so a new check never means editing the entry point.
 /// </para>
 /// <para>
-/// This project is deliberately dense — it is a test harness, and the reporting scaffolding is the
+/// This project is deliberately dense: it is a test harness, and the reporting scaffolding is the
 /// point. For readable, straight-line demonstrations of the same APIs, see
 /// <c>samples/GDK.Net.UserSample</c>.
 /// </para>

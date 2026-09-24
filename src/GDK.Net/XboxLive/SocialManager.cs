@@ -10,8 +10,8 @@ namespace GDK.Net.XboxLive;
 /// <summary>Process-global Xbox Live social manager. Mirrors <c>social_manager_c.h</c>.</summary>
 /// <remarks>
 /// <para>
-/// Social manager is pumped: nothing happens — no local-user completions, group updates, rich
-/// presence polling or notifications — unless the title calls <see cref="DoWork"/> regularly,
+/// Social manager is pumped: nothing happens: no local-user completions, group updates, rich
+/// presence polling or notifications, unless the title calls <see cref="DoWork"/> regularly,
 /// ideally once per frame.
 /// </para>
 /// <para>

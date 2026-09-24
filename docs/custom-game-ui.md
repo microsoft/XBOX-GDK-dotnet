@@ -15,7 +15,7 @@ CustomGameUi.SetHandlers(new CustomGameUiHandlers
 {
     MessageDialog = request =>
     {
-        // Runs on a thread pool thread, not the runtime's callback thread — blocking and awaiting
+        // Runs on a thread pool thread, not the runtime's callback thread, so blocking and awaiting
         // are both fine here. Responding may also happen later, from any thread.
         myGame.ShowDialog(request.TitleText, request.ContentText, chosen => request.Respond(chosen));
     },
@@ -36,5 +36,5 @@ response on its behalf so the caller's operation is never left pending.
 
 **Unregistering.** `CustomGameUi.ClearHandlers` passes a table whose function pointers are all null,
 not a null pointer. `XGameUiSetUiCallbacks` dereferences its argument unconditionally, so passing
-`nullptr` access-violates inside the Gaming Runtime and takes the process down — worth knowing for
+`nullptr` access-violates inside the Gaming Runtime and takes the process down, worth knowing for
 the other language projections, since nothing in the header says so.

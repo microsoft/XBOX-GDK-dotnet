@@ -42,7 +42,7 @@ public static unsafe class GameLauncher
     /// <param name="args">Optional command-line arguments to pass to the new process.</param>
     /// <remarks>
     /// The process is terminated after the native call. Resources allocated on the heap
-    /// (including managed objects) are not cleaned up — call <see cref="GameRuntime.Dispose"/>
+    /// (including managed objects) are not cleaned up: call <see cref="GameRuntime.Dispose"/>
     /// and flush any pending I/O before calling this method.
     /// </remarks>
     public static void LaunchNewGame(string exePath, string? args = null)

@@ -1,4 +1,4 @@
-// P/Invoke declarations for xgameruntime.thunks.dll: the runtime core — XGameRuntimeInit.h,
+// P/Invoke declarations for xgameruntime.thunks.dll: the runtime core: XGameRuntimeInit.h,
 // XGameRuntimeFeature.h, XTaskQueue.h and XAsync.h. Every other family lives in its own
 // Native.<Family>.cs partial; see Native.User.cs, Native.Store.cs and so on.
 //

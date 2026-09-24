@@ -18,7 +18,7 @@ namespace GDK.Net.PlayFab;
 /// <para>
 /// The <c>...UiRequested</c> events replace the native UI callbacks. The sync stays blocked until
 /// the handler calls <c>Respond</c> on the event arguments, so a title that subscribes must always
-/// respond — cancelling is a valid response. Events raised without a subscriber are answered with
+/// respond: cancelling is a valid response. Events raised without a subscriber are answered with
 /// the cancel action automatically, which keeps an unhandled prompt from hanging the sync.
 /// </para>
 /// </remarks>

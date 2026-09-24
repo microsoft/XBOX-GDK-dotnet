@@ -46,7 +46,7 @@ internal enum XAppCaptureScreenshotFormatFlag : ushort
 
 /// <summary>
 /// Mirrors Windows <c>SYSTEMTIME</c>. Used inside capture result structs where the GDK records an
-/// absolute calendar time. All fields are <c>WORD</c> (ushort) — 16 bytes total, 2-byte alignment.
+/// absolute calendar time. All fields are <c>WORD</c> (ushort): 16 bytes total, 2-byte alignment.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
 internal struct XSystemTime
@@ -91,14 +91,14 @@ internal struct XAppCaptureVideoCaptureSettings
     public ulong MaxRecordTimespanDurationInMs;
     public XAppCaptureVideoEncoding Encoding;
     public XAppCaptureVideoColorFormat ColorFormat;
-    public byte IsCaptureByGamesAllowed; // C++ bool — 1 byte
+    public byte IsCaptureByGamesAllowed; // C++ bool: 1 byte
 }
 
 /// <summary>Mirrors <c>struct XAppCaptureScreenshotFile</c> from XAppCapture.h.</summary>
 [StructLayout(LayoutKind.Sequential)]
 internal unsafe struct XAppCaptureScreenshotFile
 {
-    /// <summary><c>char path[MAX_PATH]</c> — null-terminated UTF-8 absolute file path.</summary>
+    /// <summary><c>char path[MAX_PATH]</c>: null-terminated UTF-8 absolute file path.</summary>
     public fixed byte Path[260];
     public nuint FileSize;
     public uint Width;
@@ -114,7 +114,7 @@ internal unsafe struct XAppCaptureScreenshotFile
 internal struct XAppCaptureDiagnosticScreenshotResult
 {
     public nuint FileCount;
-    // files[APPCAPTURE_MAX_CAPTURE_FILES] — 10 elements
+    // files[APPCAPTURE_MAX_CAPTURE_FILES]: 10 elements
     public XAppCaptureScreenshotFile File0;
     public XAppCaptureScreenshotFile File1;
     public XAppCaptureScreenshotFile File2;
@@ -131,10 +131,10 @@ internal struct XAppCaptureDiagnosticScreenshotResult
 [StructLayout(LayoutKind.Sequential)]
 internal unsafe struct XAppCaptureRecordClipResult
 {
-    /// <summary><c>char path[MAX_PATH]</c> — null-terminated UTF-8 path to the recorded clip file.</summary>
+    /// <summary><c>char path[MAX_PATH]</c>: null-terminated UTF-8 path to the recorded clip file.</summary>
     public fixed byte Path[260];
     public nuint FileSize;
-    public long StartTime;          // time_t — Unix seconds since 1970-01-01 UTC
+    public long StartTime;          // time_t: Unix seconds since 1970-01-01 UTC
     public uint DurationInMs;
     public uint Width;
     public uint Height;
@@ -178,7 +178,7 @@ internal struct XAppCaptureUserRecordingResult
 [StructLayout(LayoutKind.Sequential)]
 internal unsafe struct XAppCaptureTakeScreenshotResult
 {
-    /// <summary><c>char localId[APPCAPTURE_MAX_LOCALID_LENGTH]</c> (250 bytes) — opaque identifier for the screenshot.</summary>
+    /// <summary><c>char localId[APPCAPTURE_MAX_LOCALID_LENGTH]</c> (250 bytes): opaque identifier for the screenshot.</summary>
     public fixed byte LocalId[250];
     public XAppCaptureScreenshotFormatFlag AvailableScreenshotFormats;
 }

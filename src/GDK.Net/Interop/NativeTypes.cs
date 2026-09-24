@@ -6,7 +6,7 @@
 // idiomatic layer above it.
 //
 // Sources: XAsync.h, XTaskQueue.h, XGameRuntimeFeature.h (GDK edition 260404). Each API family
-// has its own NativeTypes.<Family>.cs partner — see NativeTypes.User.cs, NativeTypes.Store.cs and
+// has its own NativeTypes.<Family>.cs partner, see NativeTypes.User.cs, NativeTypes.Store.cs and
 // so on.
 
 using System;

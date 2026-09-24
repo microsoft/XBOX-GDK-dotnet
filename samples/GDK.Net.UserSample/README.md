@@ -39,10 +39,10 @@ pwsh eng/run-local.ps1 -Project Sample
 ```
 
 That publishes a self-contained executable to `artifacts/local/GDK.Net.UserSample` and runs it. No
-packaging, no registration — just a console app that prints what each API returned.
+packaging, no registration, just a console app that prints what each API returned.
 
 What it does need is an installed Microsoft GDK (edition `260404`), a dev-unlocked machine and an
-account signed in to the Xbox app. And two files have to sit next to the executable, both of which
+account signed in to the XBOX app. And two files have to sit next to the executable, both of which
 the build puts there for you (see [`eng/packaging/GdkRedist.targets`](../../eng/packaging/GdkRedist.targets)):
 
 | File | Why |
@@ -63,7 +63,7 @@ Output is mirrored to `<out>\sample.log`, which defaults to `%LOCALAPPDATA%\GDK.
 ### Running it packaged
 
 Running unpackaged is the fast loop, but it is not the configuration a title ships in. To exercise
-the real one — installed into `WindowsApps`, with the package's own identity, launched by the shell:
+the real one: installed into `WindowsApps`, with the package's own identity, launched by the shell:
 
 ```powershell
 pwsh eng/package.ps1 -Project Sample -Validate
@@ -76,18 +76,18 @@ A packaged title has no attached console, so `sample.log` is the only way to rea
 ## ⚠️ Borrowed package identity
 
 `MicrosoftGame.config` reuses the identity of an existing title
-(`41336MicrosoftATG.GodotTestApp`) so the sample has a real, provisioned identity — and
+(`41336MicrosoftATG.GodotTestApp`) so the sample has a real, provisioned identity, and
 `tests/GDK.Net.LiveHarness` borrows the **same** one. That only matters when packaging: with a
 package registered, only one of the two can exist at a time, and registering this sample displaces
-both that title and the harness. Run unpackaged and the collision disappears, because nothing is
-registered — both apps can run side by side.
+both that title and the harness. Run unpackaged and the collision disappears: because nothing is
+registered, both apps can run side by side.
 
-See [the harness README](../../tests/GDK.Net.LiveHarness/README.md#-borrowed-package-identity--read-before-running-the-invasive-tiers)
+See [the harness README](../../tests/GDK.Net.LiveHarness/README.md#-borrowed-package-identity-read-before-running-the-invasive-tiers)
 for how to restore the machine, and for how to substitute your own Partner Center identity.
 
 ## Building without a GDK
 
-Compiling needs nothing special — the project is part of the solution and builds on any Windows
+Compiling needs nothing special: the project is part of the solution and builds on any Windows
 machine with the .NET SDK. It multi-targets `net8.0;net10.0`, so a manual publish must name one:
 
 ```powershell
@@ -96,5 +96,5 @@ dotnet publish samples/GDK.Net.UserSample -c Release -f net8.0
 ```
 
 With no GDK installed there is nothing to copy, so the build says so and produces an executable that
-cannot run: the first native call fails with `0x89240101`. That is deliberate — hosted CI compiles
+cannot run: the first native call fails with `0x89240101`. That is deliberate: hosted CI compiles
 this project without a GDK and only needs it to build.

@@ -30,7 +30,7 @@ internal sealed unsafe class PlayFabArena : IDisposable
 
     /// <summary>
     /// Copies <paramref name="value"/> into the arena as a null-terminated UTF-8 string, or returns
-    /// <see langword="null"/> when it is <see langword="null"/> — the encoding PlayFab uses for an
+    /// <see langword="null"/> when it is <see langword="null"/>: the encoding PlayFab uses for an
     /// absent optional string.
     /// </summary>
     internal byte* String(string? value)

@@ -78,7 +78,7 @@ internal sealed class GameTaskQueueMonitorEventArgs : EventArgs
 /// </para>
 /// <para>
 /// The reason is that the projection already has to move callbacks off the queue's work port to
-/// stay deadlock-free — see <see cref="GameUI.CustomGameUi"/>, where a handler that re-entered the
+/// stay deadlock-free, see <see cref="GameUI.CustomGameUi"/>, where a handler that re-entered the
 /// runtime on the same queue would block against itself. Once callbacks are hopped to the thread
 /// pool, a manual completion port no longer buys the ordering guarantee it exists for, and multiple
 /// queues buy nothing at all. Exposing them would have cost titles real complexity in exchange for
@@ -509,7 +509,7 @@ internal sealed unsafe class GameTaskQueueWaiterRegistration : IDisposable
     private readonly Action _callback;
     private GCHandle _gcHandle;
     private XTaskQueueRegistrationToken _token; // set after successful native registration
-    private int _freed; // 0 = alive, 1 = freed — guards TryRelease against double-free
+    private int _freed; // 0 = alive, 1 = freed: guards TryRelease against double-free
 
     private GameTaskQueueWaiterRegistration(IntPtr queueHandle, Action callback)
     {

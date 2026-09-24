@@ -18,7 +18,7 @@ internal struct XUserLocalId
 }
 
 /// <summary>
-/// Mirrors <c>APP_LOCAL_DEVICE_ID</c> from windef.h — a 32-byte opaque device identifier.
+/// Mirrors <c>APP_LOCAL_DEVICE_ID</c> from windef.h, a 32-byte opaque device identifier.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
 internal unsafe struct XAppLocalDeviceId

@@ -9,7 +9,7 @@ as a new Issue.
 When reporting a bug, it helps a great deal to include:
 
 - The **GDK edition** you built against (this repository pins `260404`).
-- The **target framework** — `net8.0`, `net10.0` or `netstandard2.0` — and whether the build was
+- The **target framework** (`net8.0`, `net10.0` or `netstandard2.0`) and whether the build was
   JIT or NativeAOT.
 - Whether you were running **packaged**, or unpackaged with a `MicrosoftGame.config` beside the
   executable.

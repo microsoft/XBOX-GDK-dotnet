@@ -1,4 +1,4 @@
-# GDK.Net
+# XBOX GDK.NET
 
 [![License: MIT][badge-license]][link-license]
 [![.NET 8 and 10][badge-dotnet]][link-dotnet]
@@ -12,7 +12,7 @@
 [![Join us on Discord][badge-discord]][link-discord]
 [![PRs welcome][badge-prs]][link-prs]
 
-**Write your XBOX game in C#, not in P/Invoke.** GDK.Net is the .NET projection of the Microsoft **GDK** flat C API, exposing the Gaming Runtime, **XBOX Services** and **PlayFab** as ordinary modern C# - `Task`, `IDisposable`, events, exceptions and `[Flags]` enums instead of `HRESULT`s, raw handles, `XAsyncBlock`s and two-call size buffers.
+**Write your XBOX game in C#, not in P/Invoke.** XBOX GDK.NET is the .NET projection of the Microsoft **GDK** flat C API, exposing the Gaming Runtime, **XBOX Services** and **PlayFab** as ordinary modern C# - `Task`, `IDisposable`, events, exceptions and `[Flags]` enums instead of `HRESULT`s, raw handles, `XAsyncBlock`s and two-call size buffers. `GDK.Net` is the assembly, package and root namespace name, so it is what you see in code; XBOX GDK.NET is the name of the product.
 
 > [!IMPORTANT]
 > **This is source, not a product.** The projection is MIT-licensed, but the Microsoft GDK and the PlayFab extension libraries it binds to are installed and licensed separately, consistent with other XBOX samples. There is no specified update cadence. We will watch the repo, monitor issues, and iterate where it makes sense. We are keen to hear your feedback and to see community PRs.
@@ -76,7 +76,7 @@ The last two PlayFab groups import `PlayFabCore.dll`, so asking for either turns
 
 ## Supported versions
 
-### Table A — Supported runtimes
+### Table A: Supported runtimes
 
 | Runtime / version | Tier | Architectures (RIDs) | GDK edition | Build toolchain | Status |
 |---|---|---|---|---|---|
@@ -84,7 +84,7 @@ The last two PlayFab groups import `PlayFabCore.dll`, so asking for either turns
 | `net10.0` | LTS, Primary tier | `win-x64` (primary), `win-arm64` | `260404` | .NET SDK 10.0.x (verified locally: 10.0.302; 9.0.316 also present), MSVC v143+ / Windows SDK, ClangSharp for binding generation | Supported |
 | `netstandard2.0` | Compatibility tier (MonoGame / Mono / broad reach) | `win-x64` (primary), `win-arm64` | `260404` | .NET SDK 10.0.x (verified locally: 10.0.302; 9.0.316 also present), MSVC v143+ / Windows SDK, ClangSharp for binding generation | Supported |
 
-### Table B — Supported engines / frameworks
+### Table B: Supported engines / frameworks
 
 | Engine / framework | Version(s) | Tier | Status |
 |---|---|---|---|
@@ -111,13 +111,13 @@ Start here:
 
 Reference:
 
-- [**API reference**](docs/api/) - every public type and member, generated from the XML doc comments
+- [**API reference**](docs/api/) - every public type and member, generated from the XML doc comments, indexed by area
 - [**Repository layout**](docs/repository-layout.md) - where things live, and what is generated or vendored
 - [**The pinned GDK edition**](docs/gdk-edition.md) - minimum version and the full re-pin procedure
 - [**`docs/plan.md`**](docs/plan.md) - the authoritative implementation specification (vendored)
 - [**`docs/reference/`**](docs/reference/) - shared language-neutral references (vendored)
 
-The `docs/` directory holds both authored guides and a vendored, one-way copy of the shared specification from the `gdk-projections-plans` meta repo. `docs/plan.md` and `docs/reference/` are vendored — do not edit them here; update the meta repo sources and re-copy them instead.
+The `docs/` directory holds both authored guides and a vendored, one-way copy of the shared specification from the `gdk-projections-plans` meta repo. `docs/plan.md` and `docs/reference/` are vendored: do not edit them here; update the meta repo sources and re-copy them instead.
 
 ## Additional Documentation
 

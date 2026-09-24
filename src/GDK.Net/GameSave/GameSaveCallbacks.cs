@@ -8,7 +8,7 @@
 // On netstandard2.0: static readonly delegates are marshalled once at class initialisation and
 // rooted for the process lifetime to prevent collection while a P/Invoke is in flight.
 //
-// Exceptions must never cross the native boundary — every trampoline swallows them and returns 0
+// Exceptions must never cross the native boundary, every trampoline swallows them and returns 0
 // (stop enumeration) so the caller can inspect a partial result or throw its own exception.
 
 using System;

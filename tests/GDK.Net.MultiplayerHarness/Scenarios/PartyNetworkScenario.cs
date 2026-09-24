@@ -17,8 +17,8 @@ namespace GDK.Net.MultiplayerHarness.Scenarios;
 /// marshalling boundaries in opposite directions.
 /// </para>
 /// <para>
-/// Note that the host connects to its own network. Creating a network does not join it —
-/// <c>PartyCreateNewNetwork</c> only provisions it and hands back a descriptor — so every
+/// Note that the host connects to its own network. Creating a network does not join it:
+/// <c>PartyCreateNewNetwork</c> only provisions it and hands back a descriptor, so every
 /// participant runs the same connect-and-authenticate sequence.
 /// </para>
 /// </remarks>
