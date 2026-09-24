@@ -10,3 +10,5 @@ configuration:
     role: Maintain
   - member: phifarq
     role: Maintain
+  - member: zachhooper
+    role: Maintain
