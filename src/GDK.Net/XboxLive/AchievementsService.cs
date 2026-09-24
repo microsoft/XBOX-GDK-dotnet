@@ -15,7 +15,7 @@ namespace GDK.Net.XboxLive;
 /// <para>
 /// The native handle owns the achievement data, so <see cref="Achievements"/> is materialized once
 /// at construction and every element is a full managed copy. That means a page stays readable after
-/// it is disposed — only <see cref="GetNextAsync"/> needs the live handle.
+/// it is disposed, only <see cref="GetNextAsync"/> needs the live handle.
 /// </para>
 /// <para>
 /// This is <b>not</b> the reclaimed-batch pattern the <c>*_manager</c> layers use; each page is an
@@ -64,7 +64,7 @@ public sealed class AchievementsPage : IDisposable
     /// Fetches the next page (<c>XblAchievementsResultGetNextAsync</c>).
     /// </summary>
     /// <param name="maxItems">
-    /// Maximum achievements to return. 0 — the default — lets the service choose.
+    /// Maximum achievements to return. 0 (the default) lets the service choose.
     /// </param>
     /// <param name="cancellationToken">Cancels the call; surfaces as <see cref="OperationCanceledException"/>.</param>
     /// <exception cref="InvalidOperationException"><see cref="HasNext"/> is <see langword="false"/>.</exception>
@@ -258,7 +258,7 @@ public sealed unsafe class AchievementsService
     /// <param name="type">Which kinds of achievement to include.</param>
     /// <param name="unlockedOnly">When <see langword="true"/>, only achievements the user has earned.</param>
     /// <param name="orderBy">Sort order.</param>
-    /// <param name="skipItems">How many achievements to skip — the paging offset.</param>
+    /// <param name="skipItems">How many achievements to skip: the paging offset.</param>
     /// <param name="maxItems">Maximum achievements per page; 0 lets the service choose.</param>
     /// <param name="cancellationToken">Cancels the call; surfaces as <see cref="OperationCanceledException"/>.</param>
     public Task<AchievementsPage> GetForTitleAsync(

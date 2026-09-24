@@ -177,8 +177,8 @@ public sealed class GameRuntime : IDisposable
     /// </summary>
     /// <remarks>
     /// Inert until <see cref="XboxLiveService.Initialize(XboxLiveOptions)"/> is called with the
-    /// title's SCID. Accessing this property loads nothing — XSAPI's native modules are only pulled
-    /// in by the first real call — so a title that does not use Xbox Live is unaffected.
+    /// title's SCID. Accessing this property loads nothing: XSAPI's native modules are only pulled
+    /// in by the first real call, so a title that does not use Xbox Live is unaffected.
     /// </remarks>
     public XboxLiveService XboxLive { get; }
 
@@ -187,7 +187,7 @@ public sealed class GameRuntime : IDisposable
     /// </summary>
     /// <remarks>
     /// Async calls and event registrations name no task queue, so the Gaming Runtime resolves the
-    /// process default at call time — a thread-pool queue on both ports unless the host process
+    /// process default at call time, a thread-pool queue on both ports unless the host process
     /// replaced it. Continuations and events therefore arrive on the thread pool, and a title that
     /// must touch its renderer marshals to its own thread as it would for any other background
     /// callback.
@@ -276,7 +276,7 @@ public sealed class GameRuntime : IDisposable
         _disposed = true;
 
         // Reverse of the fixed initialization order (see SubsystemOrder): anything the title left
-        // running comes down first — Party, then multiplayer — so neither can fault at process
+        // running comes down first: Party, then multiplayer, so neither can fault at process
         // exit or block XGameRuntimeUninitialize.
         RuntimeLifetime.DisposeAll();
 

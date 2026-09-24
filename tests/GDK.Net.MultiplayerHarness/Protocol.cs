@@ -81,7 +81,7 @@ internal sealed record Message(
 /// <summary>
 /// Every verb a participant understands. They are deliberately fine-grained, so that a scenario in
 /// the orchestrator reads as the sequence of native calls it is testing rather than as one opaque
-/// "run the lobby test" instruction — when something fails, the verb that failed names the API.
+/// "run the lobby test" instruction: when something fails, the verb that failed names the API.
 /// </summary>
 internal static class Verbs
 {
@@ -110,7 +110,7 @@ internal static class Verbs
 
 /// <summary>
 /// Source-generated serialisation for the protocol. Reflection-based serialisation is switched off
-/// in the project file, so this context is not an optimisation — without it nothing serialises at
+/// in the project file, so this context is not an optimisation, without it nothing serialises at
 /// all, which is what keeps the harness honest about being AOT-publishable.
 /// </summary>
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]

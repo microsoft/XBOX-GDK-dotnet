@@ -177,7 +177,7 @@ public sealed unsafe class GameActivationManager : IDisposable
             return;
         }
 
-        // wait: true — returns only once no callback is running.
+        // wait: true: returns only once no callback is running.
         Native.XGameActivationUnregisterForEvent(registration.Token, wait: 1);
 
         Registrations.TryRemove(GCHandle.ToIntPtr(registration.Handle), out _);

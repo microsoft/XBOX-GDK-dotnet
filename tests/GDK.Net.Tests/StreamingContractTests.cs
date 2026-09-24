@@ -10,7 +10,7 @@ namespace GDK.Net.Tests;
 /// <summary>
 /// Guards the XGameStreaming raw interop layer and idiomatic types against silent drift from the
 /// GDK headers (<c>XGameStreaming.h</c>, edition 260404). These are pure compile-time / layout
-/// checks — nothing here loads <c>xgameruntime.thunks.dll</c>.
+/// checks: nothing here loads <c>xgameruntime.thunks.dll</c>.
 /// </summary>
 public sealed unsafe class StreamingContractTests
 {

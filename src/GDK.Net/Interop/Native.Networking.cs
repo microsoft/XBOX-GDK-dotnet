@@ -4,7 +4,7 @@
 // All 17 XNetworking* functions listed below are exported. One function declared in the header is
 // NOT exported and is therefore not declared here:
 //
-//   XNetworkingSetConfigurationSetting — absent from xgameruntime.thunks.dll. Binding it would
+//   XNetworkingSetConfigurationSetting: absent from xgameruntime.thunks.dll. Binding it would
 //   throw EntryPointNotFoundException at runtime. This function appears in the authoritative list
 //   of 14 APIs that exist in xgameruntime.lib but are NOT re-exported by the thunks DLL. Every
 //   P/Invoke in this file was cross-checked against that list before being committed.

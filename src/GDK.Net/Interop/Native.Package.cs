@@ -14,11 +14,11 @@
 //   XPackageInstalledCallback             -> IntPtr
 //   XPackageInstallationProgressCallback  -> IntPtr
 //
-// UNEXPORTED APIs — NOT declared here (verified against xgameruntime.thunks.dll export table):
+// UNEXPORTED APIs (NOT declared here (verified against xgameruntime.thunks.dll export table):
 //
-//   XPackageMount               — deprecated; superseded by XPackageMountWithUiAsync.
+//   XPackageMount) deprecated; superseded by XPackageMountWithUiAsync.
 //                                 Absent from the thunks DLL; would throw EntryPointNotFoundException.
-//   XPackageGetIdentifier       — absent from the thunks DLL; use
+//   XPackageGetIdentifier: absent from the thunks DLL; use
 //                                 XPackageGetCurrentProcessPackageIdentifier instead.
 
 using System;

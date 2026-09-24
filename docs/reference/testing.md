@@ -1,4 +1,4 @@
-# Testing a GDK Projection — Shared Strategy & Harness Contract
+# Testing a GDK Projection: Shared Strategy & Harness Contract
 
 > **Purpose.** Every projection wraps the *same* GDK, which imposes the *same* testing constraints, so
 > the testing strategy is shared. **Testing is live.** This document explains why, defines the
@@ -6,24 +6,24 @@
 > drive it, requires representative **engine/framework workflow integrations**, and sets out the
 > **CI vs self-hosted** split. Each plan's **§10** specializes it.
 
-Read [`xuser-pilot.md`](./xuser-pilot.md) first — its **§3** canonical scenario is the script the
+Read [`xuser-pilot.md`](./xuser-pilot.md) first: its **§3** canonical scenario is the script the
 live harness runs, and its **§4** lists the minimum live prerequisites. This document is the fuller
 model around that slice.
 
-The core constraint: `XUser` — and most of the GDK — **cannot be meaningfully faked**. A real
+The core constraint: `XUser` (and most of the GDK) **cannot be meaningfully faked**. A real
 signed-in user, an authorized sandbox, and the Gaming Runtime are required to prove behavior. And the
 projection itself is a **thin idiomatic layer** over the raw bindings: there is little glue worth
 mocking, and a mock of the native seam mostly asserts that our own fake behaves like our own fake.
-**So every test is live** — no mocks, no fakes, no substituted native seams. The language test
+**So every test is live**: no mocks, no fakes, no substituted native seams. The language test
 frameworks named below are used only as **runners** that drive the live harness.
 
 The cost is real: live tests need a GDK-capable, sandbox-authorized machine and cannot run on hosted
-CI. That is an accepted trade — a thin wrapper's correctness is *only* meaningful against the real
-runtime — and every plan flags it as a risk (§12).
+CI. That is an accepted trade: a thin wrapper's correctness is *only* meaningful against the real
+runtime, and every plan flags it as a risk (§12).
 
 ---
 
-## 1. The live-integration harness — requirements
+## 1. The live-integration harness: requirements
 
 The harness runs [`xuser-pilot.md`](./xuser-pilot.md) §3 end-to-end. Beyond the §4 prerequisites, a
 usable harness must satisfy:
@@ -31,7 +31,7 @@ usable harness must satisfy:
 - **Packaged GDK identity.** The test process is a **packaged app** with a `MicrosoftGame.config` and a
   **registered title identity**; the GDK resolves identity from the running package, so tests cannot
   run as a bare console binary. For every non-C# language this means **hosting the language runtime
-  (CLR/Mono, JVM, Node/Deno/Bun, CPython, the Lua host, or the AIR runtime) inside that package** — the
+  (CLR/Mono, JVM, Node/Deno/Bun, CPython, the Lua host, or the AIR runtime) inside that package**: the
   single hardest harness requirement.
 - **Runtime & sandbox state.** An installed **Gaming Runtime** compatible with edition `260404`, an
   **authorized sandbox**, and a **signed-in test account**. The account's state (age group, privileges,
@@ -41,12 +41,12 @@ usable harness must satisfy:
   uninitialize` and isolate cases in **separate processes** (or a single serial fixture); parallel
   test runners must be constrained to one live case per process.
 - **Deterministic async.** Prefer a **`Manual` completion queue that the test pumps explicitly**
-  (dispatch, then assert) over a thread-pool queue — pumping makes completions and event delivery
+  (dispatch, then assert) over a thread-pool queue: pumping makes completions and event delivery
   reproducible and removes flakiness from live runs.
 - **Teardown assertions.** Verify balanced `Duplicate`/`Close`, that subscriptions unregister honoring
   `wait`, and that no callback fires after dispose.
 - **Diagnostics capture.** Wire the projection's error callback (the `XError`-style hook) and any trace
-  output to the test log, and capture it as a CI artifact — live failures are often only diagnosable
+  output to the test log, and capture it as a CI artifact: live failures are often only diagnosable
   from that stream.
 - **PlayFab native deployment.** The PFMP pilot requires the architecture-matched
   `PlayFabCore.dll` and `PlayFabMultiplayer.dll` (and their build-time import libraries where the
@@ -67,10 +67,10 @@ projection will meet them.
 
 - **The report file is the only channel out.** A packaged title has no attached console, so stdout is
   not observable and a debugger is not always attachable. Everything the harness learns must be
-  written to a file, and written **as it is learned** — a report produced only on the way out is
+  written to a file, and written **as it is learned**, a report produced only on the way out is
   precisely the report you never get.
-- **A failing check must not end the run.** Model checks as **values** — an id, the ids of the checks
-  it depends on, and a body — and execute each in its own isolated attempt. A harness that calls its
+- **A failing check must not end the run.** Model checks as **values**: an id, the ids of the checks
+  it depends on, and a body, and execute each in its own isolated attempt. A harness that calls its
   families as one straight-line sequence lets the first failure hide the state of everything after
   it, which is backwards for something whose job is to report coverage.
 - **Declare prerequisites, and distinguish "prerequisite failed" from "prerequisite was filtered
@@ -81,12 +81,12 @@ projection will meet them.
   most severe defect found reviewing the .NET harness, and it would have hidden a broken API behind a
   passing suite. Prefer an explicit outcome value, or make the failure path throw.
 - **Skips can make a hollow run look clean.** The .NET harness originally skipped all of XSAPI and
-  GameSave when no service configuration id was supplied — and skips do not fail a run, so it
+  GameSave when no service configuration id was supplied, and skips do not fail a run, so it
   reported success while testing almost nothing. Treat a family-wide skip as a result that needs
   review, and derive configuration where it can be derived (the SCID follows from the title id) so
   the skip never arises.
 - **Plan for the process dying mid-run.** An access violation in native code **cannot be caught** in
-  a managed or hosted runtime — not in .NET, and equally not in the JVM, CPython, Node or a Lua host.
+  a managed or hosted runtime, not in .NET, and equally not in the JVM, CPython, Node or a Lua host.
   The process is gone without unwinding, and every check after the offending one goes unmeasured.
   The harness must therefore be **resumable**: record each check as *running* before making the call,
   and on relaunch treat a check still marked running as the one that crashed, record it as a failure
@@ -114,12 +114,12 @@ projection will meet them.
 
 Every language plan names and tests **three host profiles**:
 
-1. **Bespoke host** — a minimal packaged engine/tool host that directly owns the language runtime,
+1. **Bespoke host**: a minimal packaged engine/tool host that directly owns the language runtime,
    task queue, frame/update loop, and shutdown. This proves the projection without a framework
    adapter.
-2. **Primary engine/framework** — the ecosystem's most representative target; a release-gating live
+2. **Primary engine/framework**: the ecosystem's most representative target; a release-gating live
    integration.
-3. **Secondary engine/framework** — a materially different workflow; a scheduled/nightly live
+3. **Secondary engine/framework**: a materially different workflow; a scheduled/nightly live
    integration and a compatibility gate before declaring the projection mature.
 
 Each profile must use the host's normal workflow rather than a parallel test-only path:
@@ -159,7 +159,7 @@ and name the next candidate rather than silently dropping the profile.
 ## 3. Test runners by language
 
 Concrete choices live in each plan's **§10**; this is the map. These frameworks **drive the live
-harness** — they are not used to host mocks.
+harness**: they are not used to host mocks.
 
 | Language | Test runner (drives the live harness) | Coverage & static checks | Live host / matrix |
 |---|---|---|---|
@@ -177,17 +177,17 @@ harness** — they are not used to host mocks.
 ## 4. What runs where
 
 - **Hosted CI (every push):** build the raw + idiomatic layers, then **lint / type-check / package**.
-  No behavioral tests run here — there is no Gaming Runtime, and (by design) no mocks to stand in for
+  No behavioral tests run here: there is no Gaming Runtime, and (by design) no mocks to stand in for
   it.
-- **Self-hosted GDK runner (gated / scheduled):** the **entire live test suite** — the `XUser`
+- **Self-hosted GDK runner (gated / scheduled):** the **entire live test suite**. The `XUser`
   scenario plus any extended **soak / leak / race-under-load** runs. This is the only authoritative
   signal; it runs on merge, nightly, or on-demand depending on runner availability.
 
-Every plan repeats — as a **risk** (§12) — that the live suite cannot run on hosted CI, so a
+Every plan repeats: as a **risk** (§12): that the live suite cannot run on hosted CI, so a
 GDK-capable runner is a hard dependency for validation.
 
 ---
 
 *This strategy is intentionally shared. What differs per language is the **host/framework matrix**
-(§2), the **test runner** (§3), and the mechanics of hosting the runtime in a package (§1) —
+(§2), the **test runner** (§3), and the mechanics of hosting the runtime in a package (§1):
 captured in each plan's §10.*

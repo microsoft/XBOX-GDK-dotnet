@@ -148,7 +148,7 @@ internal sealed class Orchestrator
 
         if (participants.Count < scenario.MinimumParticipants)
         {
-            Console.WriteLine($"[skipped] {scenario.Name} — needs {scenario.MinimumParticipants} participants");
+            Console.WriteLine($"[skipped] {scenario.Name}: needs {scenario.MinimumParticipants} participants");
             _results.Add(new ScenarioResult(
                 scenario.Name,
                 "skipped",
@@ -163,13 +163,13 @@ internal sealed class Orchestrator
         {
             string detail = await scenario.RunAsync(participants).ConfigureAwait(false);
             clock.Stop();
-            Console.WriteLine($"[passed ] {scenario.Name} — {detail} ({clock.ElapsedMilliseconds}ms)");
+            Console.WriteLine($"[passed ] {scenario.Name}: {detail} ({clock.ElapsedMilliseconds}ms)");
             _results.Add(new ScenarioResult(scenario.Name, "passed", detail, clock.ElapsedMilliseconds));
         }
         catch (Exception ex)
         {
             clock.Stop();
-            Console.WriteLine($"[failed ] {scenario.Name} — {ex.Message}");
+            Console.WriteLine($"[failed ] {scenario.Name}: {ex.Message}");
             _results.Add(new ScenarioResult(scenario.Name, "failed", ex.Message, clock.ElapsedMilliseconds));
         }
     }

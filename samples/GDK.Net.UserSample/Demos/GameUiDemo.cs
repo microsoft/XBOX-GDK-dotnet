@@ -36,7 +36,7 @@ internal static class GameUiDemo
                 "Second");
 
             // The handler runs on the thread pool, and the request stays answerable after it
-            // returns — so a game can render the dialog over several frames and respond later.
+            // returns, so a game can render the dialog over several frames and respond later.
             MessageDialogUiRequest request = await dialogShown.Task
                 .WaitAsync(TimeSpan.FromSeconds(15))
                 .ConfigureAwait(false);

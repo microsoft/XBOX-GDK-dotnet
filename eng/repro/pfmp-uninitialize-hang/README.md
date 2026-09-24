@@ -52,7 +52,7 @@ timeout window after reporting a hang so a debugger can be attached.
 .\matrix.ps1
 ```
 
-Observed on GDK 260400, Windows 11, x64 — the hang is specific to the missing runtime
+Observed on GDK 260400, Windows 11, x64: the hang is specific to the missing runtime
 initialization, and Party is not involved in any way:
 
 | Case                                 | Result |
@@ -81,7 +81,7 @@ regardless of who initialized it.
 ## Call stack
 
 Captured with `cdb -p <pid> -pv -c "~*kv"` against the hung process. The thread is parked in a
-sleep-poll loop inside the PubSub subscription manager — it is not blocked on a lock, and it
+sleep-poll loop inside the PubSub subscription manager: it is not blocked on a lock, and it
 consumes almost no CPU (0.14s over seven minutes), so it is an unbounded retry rather than a
 deadlock.
 
@@ -130,7 +130,7 @@ XTaskQueueTerminate(m_workerQueue, false, nullptr, nullptr);
 
 `m_processingCallback` is incremented at init and again on each self-resubmit in `DoWorkInternal`,
 and decremented at the end of each `XTaskQueue` callback. If the queue never dispatches, the
-counter never drains and the loop spins forever — there is no timeout and no failure path.
+counter never drains and the loop spins forever: there is no timeout and no failure path.
 
 It was introduced by commit `b104ee46` (PR 13872395, 2025-10-01, "Ensure safe termination of
 XTaskQueue by waiting for submitted tasks and callback completion"), itself compensating for
@@ -138,8 +138,8 @@ XTaskQueue by waiting for submitted tasks and callback completion"), itself comp
 Game Core suspend/resume freeze. So it is a bounded-wait-shaped problem that was solved with an
 unbounded wait.
 
-The branch `bmoraescobar/fix_plm_suspend_hang` no longer exists on the remote — presumably merged
-or renamed — but the loop above is still present on `main`.
+The branch `bmoraescobar/fix_plm_suspend_hang` no longer exists on the remote: presumably merged
+or renamed, but the loop above is still present on `main`.
 
 ## How `GDK.Net` works around this
 
@@ -148,7 +148,7 @@ Two independent defences, because the ordering rule is enforceable but not suffi
 1. **A fixed startup order, enforced.** `SubsystemOrder` in `src/GDK.Net/RuntimeLifetime.cs` fixes
    the order as Gaming Runtime → PlayFab Core → multiplayer → Party, and teardown as the exact
    reverse. `PFInitialize`, `PFMultiplayerInitialize` and `PartyInitialize` each check that the
-   Gaming Runtime is up first — via `XGameRuntimeIsFeatureAvailable`, which is a live probe of the
+   Gaming Runtime is up first, via `XGameRuntimeIsFeatureAvailable`, which is a live probe of the
    real runtime state rather than a flag the library keeps, so it stays correct when a native host
    did the initialization. An ordering mistake now throws at the call that made it instead of
    surfacing as a hang at an unrelated teardown much later. `PlayFabMultiplayer.Initialize` also
@@ -162,5 +162,5 @@ Two independent defences, because the ordering rule is enforceable but not suffi
    fastfail described above.
 
 Note that the missing-runtime case only hangs reliably in a *native* process. In a .NET process the
-same steps complete, and the managed hang instead needs real in-flight PubSub work — which is what
+same steps complete, and the managed hang instead needs real in-flight PubSub work, which is what
 makes it a race in practice, and why the bound in (2) matters even with (1) in place.

@@ -123,12 +123,12 @@ internal enum XErrorOptions : uint
 /// <summary>Fixed-size buffer constants from XSystem.h.</summary>
 internal static class XSystemConstants
 {
-    /// <summary><c>XSystemConsoleIdBytes</c> from XSystem.h — includes null terminator.</summary>
+    /// <summary><c>XSystemConsoleIdBytes</c> from XSystem.h: includes null terminator.</summary>
     internal const nuint ConsoleIdBytes = 39;
 
-    /// <summary><c>XSystemXboxLiveSandboxIdMaxBytes</c> from XSystem.h — includes null terminator.</summary>
+    /// <summary><c>XSystemXboxLiveSandboxIdMaxBytes</c> from XSystem.h: includes null terminator.</summary>
     internal const nuint XboxLiveSandboxIdMaxBytes = 16;
 
-    /// <summary><c>XSystemAppSpecificDeviceIdBytes</c> from XSystem.h — includes null terminator.</summary>
+    /// <summary><c>XSystemAppSpecificDeviceIdBytes</c> from XSystem.h: includes null terminator.</summary>
     internal const nuint AppSpecificDeviceIdBytes = 45;
 }

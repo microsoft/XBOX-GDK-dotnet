@@ -1,4 +1,4 @@
-// StoreLicense — SafeHandle-backed package/durable licence with PackageLicenseLost event.
+// StoreLicense: SafeHandle-backed package/durable licence with PackageLicenseLost event.
 
 using System;
 using System.Collections.Concurrent;

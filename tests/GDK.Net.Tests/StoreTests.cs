@@ -16,7 +16,7 @@ namespace GDK.Net.Tests;
 public sealed unsafe class StoreTests
 {
     // -----------------------------------------------------------------------
-    // Enum value contracts — values are taken verbatim from XStore.h (GDK 260404).
+    // Enum value contracts: values are taken verbatim from XStore.h (GDK 260404).
     // -----------------------------------------------------------------------
 
     [Theory]
@@ -67,7 +67,7 @@ public sealed unsafe class StoreTests
     }
 
     // -----------------------------------------------------------------------
-    // HRESULT code contracts — values from XGameErr.h (GDK 260404).
+    // HRESULT code contracts: values from XGameErr.h (GDK 260404).
     // -----------------------------------------------------------------------
 
     [Theory]

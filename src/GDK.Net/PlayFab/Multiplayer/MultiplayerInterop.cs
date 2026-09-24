@@ -9,7 +9,7 @@ namespace GDK.Net.PlayFab.Multiplayer;
 /// </summary>
 /// <remarks>
 /// The PFMP entry points copy everything they are given before returning, so an arena only has to
-/// outlive the call itself — unlike the PlayFab Services calls, which read the request graph for
+/// outlive the call itself: unlike the PlayFab Services calls, which read the request graph for
 /// the whole HTTP round trip.
 /// </remarks>
 internal static unsafe class MultiplayerInterop

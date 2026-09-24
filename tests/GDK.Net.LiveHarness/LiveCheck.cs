@@ -21,7 +21,7 @@ namespace GDK.Net.LiveHarness;
 /// </param>
 /// <param name="Run">The check body. Returns the detail string recorded against the step.</param>
 /// <param name="Replay">
-/// Marks a check that establishes state in the <see cref="CheckContext"/> — a runtime, a user
+/// Marks a check that establishes state in the <see cref="CheckContext"/>, a runtime, a user
 /// handle, an <c>XblContext</c>. Native state does not survive the process, so when a crash forces
 /// a relaunch these must run again even though the carried-over report already records them as
 /// passed; otherwise every check after the crash fails for want of a handle. Their second result

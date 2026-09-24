@@ -14,8 +14,13 @@
     changes this reference would silently omit it -- see the TFM surface check in
     docs/architecture.md.
 
-    Output is one markdown file per type plus one per namespace and a toc.yml, written to
-    docs/api/. It is committed, so regenerate it in the same change as any public API edit.
+    Output is one markdown file per type plus one per namespace and a toc.yml. docfx writes them
+    into a single flat directory; eng/api-layout.ps1 then moves each page into a folder named for
+    its namespace, rewrites the links between them, and writes the folder indexes. The split is
+    what keeps the reference browsable: GitHub stops rendering a directory listing past 1,000
+    entries, and the projection has more pages than that.
+
+    The result is committed, so regenerate it in the same change as any public API edit.
 
     Requires the local docfx tool:
 
@@ -43,73 +48,8 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $config = Join-Path $PSScriptRoot 'docfx.json'
 $committed = Join-Path $repoRoot 'docs\api'
 
-function Get-GdkEdition {
-    $props = Join-Path $repoRoot 'Directory.Build.props'
-    $match = Select-String -Path $props -Pattern '<GdkEdition>(\d+)</GdkEdition>' | Select-Object -First 1
-    if (-not $match) {
-        throw "Could not read <GdkEdition> from $props."
-    }
-    return $match.Matches[0].Groups[1].Value
-}
-
-function Write-ApiIndex {
-    param([Parameter(Mandatory)] [string] $Destination)
-
-    $edition = Get-GdkEdition
-    $pages = (Get-ChildItem $Destination -Filter '*.md' -File).Count
-
-    # docfx's toc.yml lists the namespaces as its top-level entries.
-    $toc = Join-Path $Destination 'toc.yml'
-    $namespaces = Select-String -Path $toc -Pattern '^- name: (.+)$' |
-        ForEach-Object { $_.Matches[0].Groups[1].Value } |
-        Sort-Object
-
-    $namespaceList = ($namespaces | ForEach-Object { "- [``$_``]($_.md)" }) -join "`n"
-
-    $index = @"
-# API reference
-
-Generated from the XML documentation comments in ``src/GDK.Net`` by
-[``eng/generate-docs.ps1``](../../eng/generate-docs.ps1). **Do not edit these files by hand** --
-edit the doc comments and regenerate.
-
-| | |
-|---|---|
-| GDK edition | ``$edition`` |
-| Target framework | ``net10.0`` |
-| Namespaces | $($namespaces.Count) |
-| Pages | $pages |
-
-## Scope
-
-Two things are worth knowing about the scope of this reference.
-
-**Internal interop is excluded.** docfx's default API filter emits only public and protected
-members, so the ``GDK.Net.Interop`` layer -- the raw P/Invokes and the blittable native structs --
-does not appear. That layer is ``internal`` and is not part of the supported surface. See
-[``../architecture.md``](../architecture.md).
-
-**Generated from ``net10.0``, and complete for all targets.** The projection multi-targets
-``net8.0``, ``net10.0`` and ``netstandard2.0``. The ``#if NET7_0_OR_GREATER`` guards choose
-``[UnmanagedCallersOnly]`` function pointers over ``Marshal.GetFunctionPointerForDelegate``, but
-everything they switch is ``internal``: the three assemblies export the same public surface, so
-nothing is missing from this reference. Nothing here is target-specific unless the page says so.
-
-## Namespaces
-
-$namespaceList
-
-## Related
-
-- [Getting started](../getting-started.md)
-- [Architecture](../architecture.md)
-- [Building](../building.md)
-- [The pinned GDK edition](../gdk-edition.md)
-"@
-
-    $path = Join-Path $Destination 'README.md'
-    [System.IO.File]::WriteAllText($path, ($index -replace "`r`n", "`n"), [System.Text.UTF8Encoding]::new($false))
-}
+# The folder layout, the per-area indexes and the Microsoft Learn cross-links.
+. (Join-Path $PSScriptRoot 'api-layout.ps1')
 
 Push-Location $repoRoot
 try {
@@ -141,21 +81,27 @@ try {
         throw "docfx metadata failed with exit code $LASTEXITCODE."
     }
 
-    Write-ApiIndex -Destination $generated
+    Convert-ApiLayout -Directory $generated
 
     if (-not $Check) {
-        $count = (Get-ChildItem $committed -File).Count
-        Write-Host "docs/api: $count files regenerated."
+        $count = (Get-ChildItem $committed -File -Recurse).Count
+        $folders = (Get-ChildItem $committed -Directory -Recurse).Count
+        Write-Host "docs/api: $count files regenerated across $folders folders."
         return
     }
 
-    $expected = Get-ChildItem $generated -File | Sort-Object Name
-    $actual = Get-ChildItem $committed -File -ErrorAction SilentlyContinue | Sort-Object Name
+    # Compared by path relative to the reference root, because the pages live in folders now.
+    function Get-RelativePaths {
+        param([string] $Root)
+        $prefix = (Resolve-Path $Root).Path.TrimEnd('\') + '\'
+        return @(Get-ChildItem $Root -File -Recurse |
+            ForEach-Object { $_.FullName.Substring($prefix.Length) -replace '\\', '/' })
+    }
+
+    $expectedNames = Get-RelativePaths -Root $generated
+    $actualNames = if (Test-Path $committed) { Get-RelativePaths -Root $committed } else { @() }
 
     $differences = [System.Collections.Generic.List[string]]::new()
-
-    $expectedNames = $expected.Name
-    $actualNames = if ($actual) { $actual.Name } else { @() }
 
     foreach ($name in $expectedNames) {
         if ($actualNames -notcontains $name) {
@@ -189,7 +135,7 @@ try {
         exit 1
     }
 
-    Write-Host "docs/api is up to date ($($expected.Count) files)."
+    Write-Host "docs/api is up to date ($($expectedNames.Count) files)."
 }
 finally {
     Pop-Location

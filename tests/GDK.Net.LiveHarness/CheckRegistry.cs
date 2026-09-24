@@ -12,7 +12,7 @@ namespace GDK.Net.LiveHarness;
 /// Assembled by an explicit list rather than by reflecting over the assembly. Reflection would be
 /// shorter, but the harness publishes with NativeAOT to match what a title ships, and an assembly
 /// scan is exactly the pattern the trimmer cannot see through. An explicit list also makes the run
-/// order — which is a real contract here, not an incidental detail — readable in one place.
+/// order (which is a real contract here, not an incidental detail) readable in one place.
 /// </para>
 /// <para>
 /// Order matters twice. Setup runs before the families that depend on its handles, and teardown runs
@@ -23,7 +23,7 @@ namespace GDK.Net.LiveHarness;
 internal static class CheckRegistry
 {
     /// <summary>
-    /// Checks that establish state — a handle, an initialized subsystem, a value later checks read
+    /// Checks that establish state, a handle, an initialized subsystem, a value later checks read
     /// out of <see cref="CheckContext.State"/>.
     /// </summary>
     /// <remarks>

@@ -1,6 +1,6 @@
 // Contract tests for the XAppCapture / XAppBroadcast interop layer (GDK edition 260404).
 //
-// These tests are pure compile-time / layout checks — nothing here loads xgameruntime.thunks.dll
+// These tests are pure compile-time / layout checks: nothing here loads xgameruntime.thunks.dll
 // or calls native code, so they run identically on a developer box and on a hosted CI runner.
 //
 // Assertions:

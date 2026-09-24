@@ -1,13 +1,13 @@
 // P/Invoke declarations for XAppCapture.h and the broadcast section it embeds (GDK edition 260404).
 //
-// XAppBroadcast is declared inside XAppCapture.h, not in a separate header — all bindings are in
+// XAppBroadcast is declared inside XAppCapture.h, not in a separate header (all bindings are in
 // this file.
 //
-// BACKGROUND — the thunks DLL gap:
+// BACKGROUND) the thunks DLL gap:
 //   xgameruntime.lib statically links 404 X* symbols; xgameruntime.thunks.dll exports 390 of them.
 //   The 14 absent functions cannot be reached via P/Invoke: a binding for any of them would throw
 //   EntryPointNotFoundException, which GameRuntime translates to E_GAMERUNTIME_VERSION_MISMATCH.
-//   None of the 14 fall in this family — the user-record trio below was added to the export table
+//   None of the 14 fall in this family: the user-record trio below was added to the export table
 //   in edition 260404, which is this projection's minimum.
 //
 // NOTE: The native unregister function is XAppCaptureUnRegisterMetadataPurged (capital R in
@@ -37,7 +37,7 @@ internal static unsafe partial class Native
         IntPtr requestingUser,
         XAppBroadcastStatus* appBroadcastStatus);
 
-    /// <summary><c>XAppBroadcastIsAppBroadcasting</c> — returns C++ bool (1 byte); projected as byte.</summary>
+    /// <summary><c>XAppBroadcastIsAppBroadcasting</c>: returns C++ bool (1 byte); projected as byte.</summary>
     [LibraryImport(LibraryName)]
     internal static partial byte XAppBroadcastIsAppBroadcasting();
 
@@ -49,7 +49,7 @@ internal static unsafe partial class Native
         IntPtr appBroadcastMonitorCallback,
         XTaskQueueRegistrationToken* token);
 
-    /// <summary><c>XAppBroadcastUnregisterIsAppBroadcastingChanged</c> — wait is C++ bool (1 byte).</summary>
+    /// <summary><c>XAppBroadcastUnregisterIsAppBroadcastingChanged</c>: wait is C++ bool (1 byte).</summary>
     [LibraryImport(LibraryName)]
     internal static partial byte XAppBroadcastUnregisterIsAppBroadcastingChanged(
         XTaskQueueRegistrationToken token,
@@ -120,7 +120,7 @@ internal static unsafe partial class Native
         XTaskQueueRegistrationToken* token);
 
     /// <summary>
-    /// <c>XAppCaptureUnRegisterMetadataPurged</c> — native name has a capital R in "UnRegister";
+    /// <c>XAppCaptureUnRegisterMetadataPurged</c>: native name has a capital R in "UnRegister";
     /// EntryPoint preserves the binding while the C# method uses conventional casing.
     /// </summary>
     [LibraryImport(LibraryName, EntryPoint = "XAppCaptureUnRegisterMetadataPurged")]
@@ -130,7 +130,7 @@ internal static unsafe partial class Native
 
     // --- XAppCapture.h : Diagnostic APIs ---
 
-    /// <summary><c>XAppCaptureTakeDiagnosticScreenshot</c> — gamescreenOnly is C++ bool (1 byte).</summary>
+    /// <summary><c>XAppCaptureTakeDiagnosticScreenshot</c>: gamescreenOnly is C++ bool (1 byte).</summary>
     [LibraryImport(LibraryName)]
     internal static partial int XAppCaptureTakeDiagnosticScreenshot(
         byte gamescreenOnly,
@@ -138,7 +138,7 @@ internal static unsafe partial class Native
         byte* filenamePrefix,
         XAppCaptureDiagnosticScreenshotResult* result);
 
-    /// <summary><c>XAppCaptureRecordDiagnosticClip</c> — startTime is time_t (int64_t on Windows).</summary>
+    /// <summary><c>XAppCaptureRecordDiagnosticClip</c>: startTime is time_t (int64_t on Windows).</summary>
     [LibraryImport(LibraryName)]
     internal static partial int XAppCaptureRecordDiagnosticClip(
         long startTime,
@@ -153,7 +153,7 @@ internal static unsafe partial class Native
     internal static partial int XAppCaptureGetVideoCaptureSettings(
         XAppCaptureVideoCaptureSettings* userCaptureSettings);
 
-    /// <summary><c>XAppCaptureRecordTimespan</c> — startTimestamp may be null (uses current time).</summary>
+    /// <summary><c>XAppCaptureRecordTimespan</c>: startTimestamp may be null (uses current time).</summary>
     [LibraryImport(LibraryName)]
     internal static partial int XAppCaptureRecordTimespan(
         XSystemTime* startTimestamp,
@@ -181,7 +181,7 @@ internal static unsafe partial class Native
         IntPtr requestingUser,
         XAppCaptureTakeScreenshotResult* result);
 
-    /// <summary><c>XAppCaptureOpenScreenshotStream</c> — totalBytes is optional; pass non-null to retrieve size.</summary>
+    /// <summary><c>XAppCaptureOpenScreenshotStream</c>: totalBytes is optional; pass non-null to retrieve size.</summary>
     [LibraryImport(LibraryName)]
     internal static partial int XAppCaptureOpenScreenshotStream(
         byte* localId,

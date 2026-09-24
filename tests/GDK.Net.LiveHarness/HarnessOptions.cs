@@ -36,7 +36,7 @@ internal sealed class HarnessOptions
     /// <summary>
     /// Runs only checks whose id starts with one of these comma-separated prefixes, for iterating on
     /// one family without paying for a whole run. Checks outside the filter are not run, so anything
-    /// depending on them is skipped with a reason that says so rather than failing — which is why
+    /// depending on them is skipped with a reason that says so rather than failing, which is why
     /// several prefixes are accepted: a family is rarely useful without the setup it depends on
     /// (<c>--only runtime,users,playfab</c>).
     /// </summary>
@@ -47,7 +47,7 @@ internal sealed class HarnessOptions
     /// the checks it does not already account for.
     /// </summary>
     /// <remarks>
-    /// This exists because an access violation in the Gaming Runtime cannot be caught in .NET — the
+    /// This exists because an access violation in the Gaming Runtime cannot be caught in .NET: the
     /// process dies mid-run and every check after the offending one goes unmeasured. The launcher
     /// relaunches with this flag until the run completes, which turns a crash from "the rest of the
     /// suite is unknown" into a single failed check.
@@ -62,7 +62,7 @@ internal sealed class HarnessOptions
 
     /// <summary>
     /// The title's developer secret key, which lets the title-entity checks run without a signed-in
-    /// account. Read from the environment only — never from the command line, because a command
+    /// account. Read from the environment only: never from the command line, because a command
     /// line ends up in shell history and in CI logs.
     /// </summary>
     /// <remarks>

@@ -11,7 +11,7 @@ namespace GDK.Net.Tests;
 /// Guards the XAccessibility and XSpeechSynthesizer raw interop layers and idiomatic types
 /// against silent drift from the GDK headers (<c>XAccessibility.h</c>,
 /// <c>XSpeechSynthesizer.h</c>, edition 260404). These are pure compile-time / layout checks
-/// — nothing here loads <c>xgameruntime.thunks.dll</c>.
+///: nothing here loads <c>xgameruntime.thunks.dll</c>.
 /// </summary>
 public sealed unsafe class AccessibilityContractTests
 {

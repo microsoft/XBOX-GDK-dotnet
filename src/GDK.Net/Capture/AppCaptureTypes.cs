@@ -160,7 +160,7 @@ public sealed class DiagnosticScreenshotResult
     {
         int count = (int)r->FileCount;
         var files = new DiagnosticScreenshotFile[count];
-        // r points to stack/unmanaged memory — no fixed statement needed.
+        // r points to stack/unmanaged memory, no fixed statement needed.
         XAppCaptureScreenshotFile* first = &r->File0;
         for (int i = 0; i < count; i++)
         {
@@ -233,7 +233,7 @@ public sealed class TakeScreenshotResult
 /// </summary>
 /// <remarks>
 /// Unlike <see cref="LocalClipStream"/>, a user recording is written straight to the user's own
-/// capture library, so there is no stream handle to read or dispose — this type is a plain
+/// capture library, so there is no stream handle to read or dispose: this type is a plain
 /// description of what was recorded.
 /// </remarks>
 public sealed class UserRecordingResult

@@ -539,7 +539,7 @@ public static unsafe class GamePackage
     /// <remarks>
     /// <para>
     /// <see cref="PackageInstalled"/> is a static event with no owning instance, so the registration
-    /// otherwise lives for the lifetime of the process. Call this when the title is done listening —
+    /// otherwise lives for the lifetime of the process. Call this when the title is done listening:
     /// typically during shutdown, before <c>XGameRuntimeUninitialize</c>. Subscribing again after
     /// this call re-registers.
     /// </para>
@@ -559,7 +559,7 @@ public static unsafe class GamePackage
                 return;
             }
 
-            // wait: true — returns only once no callback is running.
+            // wait: true: returns only once no callback is running.
             Native.XPackageUnregisterPackageInstalled(s_installedToken, wait: 1);
 
             if (s_installedContextHandle.IsAllocated)

@@ -10,7 +10,7 @@ namespace GDK.Net.Tests;
 /// <summary>
 /// Guards the XNetworking raw interop layer and public projection against silent drift from the
 /// GDK headers (%GameDKCoreLatest%windows\include\XNetworking.h, edition 260404).
-/// These are pure compile-time/layout checks — nothing here loads xgameruntime.thunks.dll.
+/// These are pure compile-time/layout checks: nothing here loads xgameruntime.thunks.dll.
 /// </summary>
 public sealed unsafe class NetworkingContractTests
 {

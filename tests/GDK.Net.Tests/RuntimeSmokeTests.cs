@@ -33,7 +33,7 @@ public sealed class RuntimeSmokeTests
         GameRuntime? runtime = null;
         try
         {
-            // Any exception type other than GameRuntimeException fails the test — in particular a
+            // Any exception type other than GameRuntimeException fails the test, in particular a
             // raw DllNotFoundException or EntryPointNotFoundException escaping the interop layer.
             runtime = GameRuntime.Initialize();
         }

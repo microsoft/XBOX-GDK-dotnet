@@ -28,8 +28,8 @@ identity can come from a `MicrosoftGame.config` beside the executable rather tha
 package, which is what makes `eng/run-local.ps1` work. You still need:
 
 - a dev-unlocked Windows machine,
-- an account signed in to the Xbox app, and
-- `MicrosoftGame.config` and `xgameruntime.thunks.dll` next to the executable — both placed there
+- an account signed in to the XBOX app, and
+- `MicrosoftGame.config` and `xgameruntime.thunks.dll` next to the executable, both placed there
   automatically by `eng/packaging/GdkRedist.targets`.
 
 ## Initialising the runtime
@@ -76,7 +76,7 @@ static async Task<User> AddUserAsync(GameRuntime runtime, bool allowUI)
 }
 ```
 
-`User` is `IDisposable` — it owns an `XUserHandle`:
+`User` is `IDisposable`: it owns an `XUserHandle`:
 
 ```csharp
 using User user = await AddUserAsync(runtime, allowUI: true).ConfigureAwait(false);
@@ -103,7 +103,7 @@ catch (GameRuntimeException ex)
 
 `HResult` exposes the well-known codes as constants plus `Succeeded`, `Failed` and `IsGameUser`.
 Cancellation is special-cased: `E_ABORT` becomes `OperationCanceledException`, never a generic
-error — see `AGENTS.md` rule 4.
+error; see `AGENTS.md` rule 4.
 
 ## Events
 

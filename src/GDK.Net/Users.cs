@@ -298,7 +298,7 @@ public sealed unsafe class UserManager : IDisposable
             if (_registered)
             {
                 _registered = false;
-                // wait: true — returns only once no callback is running.
+                // wait: true: returns only once no callback is running.
                 Native.XUserUnregisterForChangeEvent(_token, wait: 1);
                 _token = default;
             }

@@ -44,7 +44,7 @@ diagnostics. See [`docs/plan.md`](docs/plan.md) §4.
 
 **Every public API carries an XML doc comment.** `src/GDK.Net/GDK.Net.csproj` sets
 `GenerateDocumentationFile`, so a new public type or member without one fails the build (CS1591).
-This is deliberate — it is what keeps the API reference complete. After any public API change,
+This is deliberate: it is what keeps the API reference complete. After any public API change,
 regenerate and commit the reference:
 
 ```powershell
@@ -55,7 +55,7 @@ pwsh eng/generate-docs.ps1
 `ApiReferenceDriftTests` fails when a type has no page or a page outlives its type.
 
 **Do not hand-edit generated output.** [`docs/api/`](docs/api/) is generated from the doc comments.
-The PlayFab and Party projections are generated too — fix the emitter under `eng/playfab/`, never
+The PlayFab and Party projections are generated too: fix the emitter under `eng/playfab/`, never
 its output.
 
 **Do not edit the vendored documentation here.** `docs/plan.md` and `docs/reference/` are one-way

@@ -11,7 +11,7 @@ namespace GDK.Net.LiveHarness;
 /// Live checks for the social surface of XSAPI: <see cref="SocialService"/>,
 /// <see cref="PresenceService"/>, <see cref="PrivacyService"/>, <see cref="SocialManager"/> and
 /// <see cref="RealTimeActivityService"/>. These run against the real service and intentionally
-/// exercise write paths — the account is a provisioned sandbox account that can be reset.
+/// exercise write paths: the account is a provisioned sandbox account that can be reset.
 /// </summary>
 /// <remarks>
 /// <para>

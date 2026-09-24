@@ -28,7 +28,7 @@ public static class HResult
     /// <summary>A pointer argument was invalid (<c>E_POINTER</c>).</summary>
     public const int EPointer = unchecked((int)0x80004003);
 
-    // E_GAMERUNTIME_* — runtime lifetime and configuration failures.
+    // E_GAMERUNTIME_*: runtime lifetime and configuration failures.
     /// <summary>The Gaming Runtime has not been initialized. Call GameRuntime.Initialize() first.</summary>
     public const int EGameRuntimeNotInitialized = unchecked((int)0x89240100);
     /// <summary>xgameruntime.thunks.dll could not be loaded. It must be redistributed next to the game executable from %GameDKCoreLatest%windows\bin\&lt;arch&gt;.</summary>
@@ -63,7 +63,7 @@ public static class HResult
     // Standard codes (E_INVALIDARG, E_FAIL, E_POINTER) apply; no new constants are needed here.
 
     // --- XGameSave ---
-    // E_GS_* — XGameSave failures (XGameSave.h, GDK edition 260404).
+    // E_GS_*: XGameSave failures (XGameSave.h, GDK edition 260404).
     /// <summary>The game-save container name is invalid.</summary>
     public const int EGsInvalidContainerName = unchecked((int)0x80830001);
     /// <summary>Access to the game-save provider was denied.</summary>
@@ -98,7 +98,7 @@ public static class HResult
     public const int EGsUserQuit = unchecked((int)0x80830010);
 
     // --- XPackage ---
-    // E_GAMEPACKAGE_* — packaging, chunk and mount failures (XGameErr.h, GDK 260404).
+    // E_GAMEPACKAGE_*: packaging, chunk and mount failures (XGameErr.h, GDK 260404).
     /// <summary>The title must be run as a packaged GDK app; this process has no package identity.</summary>
     public const int EGamePackageAppNotPackaged = unchecked((int)0x89245200);
     /// <summary>No languages are installed for this package.</summary>
@@ -125,7 +125,7 @@ public static class HResult
     public const int EGamePackageConfigNoMsaAppIdOrTitleId = unchecked((int)0x8924520B);
 
     // --- XStore ---
-    // E_GAMESTORE_* — Store and licence operation failures (XGameErr.h, GDK 260404).
+    // E_GAMESTORE_*: Store and licence operation failures (XGameErr.h, GDK 260404).
     /// <summary>The licence action is not applicable to this product type.</summary>
     public const int EGameStoreLicenseActionNotApplicableToProduct = unchecked((int)0x89245300);
     /// <summary>A Store network error occurred.</summary>
@@ -140,7 +140,7 @@ public static class HResult
     public const int EGameStoreLicenseActionThrottled = unchecked((int)0x89245305);
 
     // --- XGameStreaming ---
-    // E_GAMESTREAMING_* — Xbox Cloud Gaming failures (XGameErr.h, GDK 260404), range 0x5400–0x54FF.
+    // E_GAMESTREAMING_*: Xbox Cloud Gaming failures (XGameErr.h, GDK 260404), range 0x5400–0x54FF.
     /// <summary>XGameStreamingInitialize has not been called. Call StreamingManager.Initialize() first.</summary>
     public const int EGameStreamingNotInitialized = unchecked((int)0x89245400);
     /// <summary>The streaming client is not connected.</summary>
@@ -166,7 +166,7 @@ public static class HResult
     /// <summary>The requested custom stream resolution is invalid.</summary>
     public const int EGameStreamingInvalidCustomResolution = unchecked((int)0x8924540B);
 
-    // E_GAMEUSER_* — sign-in, sandbox and token failures.
+    // E_GAMEUSER_*: sign-in, sandbox and token failures.
     /// <summary>There is no authenticated user.</summary>
     public const int EGameUserNoAuthUser = unchecked((int)0x87DD0013);
     /// <summary>The user does not have access to the current sandbox.</summary>

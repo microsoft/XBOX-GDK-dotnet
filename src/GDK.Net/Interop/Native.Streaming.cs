@@ -4,22 +4,22 @@
 // (Native.LibraryName) via the authoritative lib→DLL diff (xgameruntime.lib 404 symbols
 // vs xgameruntime.thunks.dll 390 exports in edition 260404; 14 total gaps across all families).
 //
-// OMITTED — present in xgameruntime.lib / public headers but NOT exported by
+// OMITTED: present in xgameruntime.lib / public headers but NOT exported by
 // xgameruntime.thunks.dll. Declaring a P/Invoke for these would throw
 // EntryPointNotFoundException at runtime (surfaced as E_GAMERUNTIME_VERSION_MISMATCH):
 //
-//   XGameStreamingGetAssociatedFrame        — deprecated in the header; never made it to thunks.
+//   XGameStreamingGetAssociatedFrame: deprecated in the header; never made it to thunks.
 //                                             Also out of scope: it returns a GXDK console type
 //                                             and takes an IGameInputReading*.
-//   XGameStreamingSendDebugMessageToClient  — not exported and declared in no header; use
+//   XGameStreamingSendDebugMessageToClient, not exported and declared in no header; use
 //                                             server-side tooling instead.
 //
 // XGameStreamingGetGamepadPhysicality was in that list until edition 260404 exported it; it is
 // bound below.
 //
 // BOUND BUT DEPRECATED in the header (exported, so bindable):
-//   XGameStreamingGetLastFrameDisplayed     — deprecated; prefer XGameStreamingGetDisplayDetails.
-//   XGameStreamingGetClientIPAddress        — deprecated; returns E_GAMESTREAMING_NO_DATA on the
+//   XGameStreamingGetLastFrameDisplayed (deprecated; prefer XGameStreamingGetDisplayDetails.
+//   XGameStreamingGetClientIPAddress) deprecated; returns E_GAMESTREAMING_NO_DATA on the
 //                                             converged (WebRTC) streaming stack.
 //
 // See Interop/Native.cs for the dual-shim rules these declarations follow.

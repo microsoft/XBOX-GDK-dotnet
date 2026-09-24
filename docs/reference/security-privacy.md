@@ -1,7 +1,7 @@
-# Security & Privacy — Language-Agnostic Reference
+# Security & Privacy: Language-Agnostic Reference
 
-Cross-cutting rules every projection must honor when wrapping the Xbox Live and PlayFab backend
-surface. These are not ABI mechanics (see [`gdk-surface.md`](./gdk-surface.md)) — they define how
+Cross-cutting rules every projection must honor when wrapping the XBOX Live and PlayFab backend
+surface. These are not ABI mechanics (see [`gdk-surface.md`](./gdk-surface.md)): they define how
 trust, credentials, and user data appear in the idiomatic layer.
 
 ---
@@ -14,17 +14,17 @@ projection keeps that coverage because trusted tools and services need it.
 
 The API must make the caller's trust context obvious:
 
-- **Title-runtime APIs** run as a signed-in Xbox user or PlayFab player entity.
+- **Title-runtime APIs** run as a signed-in XBOX user or PlayFab player entity.
 - **Trusted-tooling APIs** may run as a PlayFab title entity and call privileged/server operations.
   Group these APIs in an explicit tooling/server namespace or package so they are not mistaken for
   title-safe calls.
 - **Raw header presence is not permission.** Documentation must identify which entity type and
   credential level each operation requires.
 
-The PlayFab **title id**, Xbox Live **service config id (SCID)**, and sandbox id are identifiers, not
+The PlayFab **title id**, XBOX Live **service config id (SCID)**, and sandbox id are identifiers, not
 secrets. The PlayFab **title secret**, signing keys, XSTS tokens, and entity tokens are credentials.
 
-> **Projection rule #1 — expose the full surface without obscuring trust.** Privileged PlayFab APIs
+> **Projection rule #1: expose the full surface without obscuring trust.** Privileged PlayFab APIs
 > remain available for tooling, but their namespace, documentation, and authentication path must
 > make it clear that they are not for an untrusted shipping-title process.
 
@@ -66,7 +66,7 @@ use that handle for all subsequent operations.
   metadata. Trusted tooling receives secrets at runtime from its normal secret provider.
 - Never persist or log title secrets, entity tokens, XSTS tokens/signatures, authorization headers,
   or web-auth results.
-- The idiomatic PlayFab API does not expose raw entity-token bytes. Xbox
+- The idiomatic PlayFab API does not expose raw entity-token bytes. XBOX
   `XUserGetTokenAndSignature*` remains available for callers authenticating their own service, but
   its result must be an opaque, non-loggable value.
 - Use the scrubbed trace-callback path for logs. Direct native debugger/file trace sinks can bypass
@@ -89,25 +89,25 @@ use that handle for all subsequent operations.
 
 ## 5. Sandbox & environment isolation
 
-- Xbox Live data is partitioned by **sandbox**. The sandbox id is configuration, not a secret; select
+- XBOX Live data is partitioned by **sandbox**. The sandbox id is configuration, not a secret; select
   it through deployment/test configuration rather than baking one environment into reusable code.
-- Test accounts, credentials, and sandbox membership are sensitive — keep them out of the repo,
+- Test accounts, credentials, and sandbox membership are sensitive: keep them out of the repo,
   logs, and CI artifacts.
 
 ---
 
 ## 6. Projection duties (checklist)
 
-1. **Full surface, explicit trust** — expose privileged PlayFab operations for tooling under a clear
+1. **Full surface, explicit trust**: expose privileged PlayFab operations for tooling under a clear
    tooling/server boundary.
-2. **Entity handles for authentication** — whenever a post-login operation takes authentication
+2. **Entity handles for authentication**: whenever a post-login operation takes authentication
    input, its idiomatic form takes `PFEntityHandle`; raw-token variants are unsupported.
-3. **Secrets only at bootstrap** — title secrets are runtime-provided to trusted tooling solely to
+3. **Secrets only at bootstrap**: title secrets are runtime-provided to trusted tooling solely to
    obtain a title entity handle.
-4. **No credential persistence/logging** — scrub callback-routed traces; direct sinks are opt-in and
+4. **No credential persistence/logging**: scrub callback-routed traces; direct sinks are opt-in and
    potentially unredacted.
-5. **Least data** — minimize PII fetched and cached; honor data residency.
-6. **Privacy gates first-class** — expose permission checks and fail closed on errors.
+5. **Least data**: minimize PII fetched and cached; honor data residency.
+6. **Privacy gates first-class**: expose permission checks and fail closed on errors.
 
 See also: [`compliance.md`](./compliance.md), [`gdk-surface.md`](./gdk-surface.md) §10
 (diagnostics), and [`testing.md`](./testing.md) (live-credential handling).

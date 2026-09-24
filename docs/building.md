@@ -1,7 +1,7 @@
 # Building GDK.Net
 
 This guide covers building, testing, running and packaging the repository. It is authored
-documentation — unlike [`plan.md`](plan.md) and [`reference/`](reference/), which are vendored
+documentation: unlike [`plan.md`](plan.md) and [`reference/`](reference/), which are vendored
 copies from the meta repo.
 
 ## Prerequisites
@@ -9,10 +9,10 @@ copies from the meta repo.
 | To do this | You need |
 |---|---|
 | Build the library, run the unit tests | .NET SDK 10.0.x. **No GDK install required.** |
-| Run anything against the Gaming Runtime | An installed Microsoft GDK (edition `260404`), a dev-unlocked Windows machine, and an account signed in to the Xbox app |
+| Run anything against the Gaming Runtime | An installed Microsoft GDK (edition `260404`), a dev-unlocked Windows machine, and an account signed in to the XBOX app |
 | Package a title (`makepkg`) | The GDK, for `%GameDK%bin\makepkg.exe` |
 | Re-generate interop or PlayFab bindings | The GDK, plus MSVC v143+ / Windows SDK (for `dumpbin.exe`) and Python 3 |
-| Publish with NativeAOT (`-Aot`) | The MSVC toolchain — ILC shells out to `link.exe` |
+| Publish with NativeAOT (`-Aot`) | The MSVC toolchain: ILC shells out to `link.exe` |
 
 The projection is **Windows-only**. See [`../README.md`](../README.md) for the authoritative
 supported-runtime, architecture and toolchain matrix.
@@ -38,7 +38,7 @@ dotnet test -c Release --no-build
 ```
 
 The solution is `GDK.Net.slnx`. `src/GDK.Net/GDK.Net.csproj` multi-targets
-`net8.0;net10.0;netstandard2.0`, so a single build compiles three times — see
+`net8.0;net10.0;netstandard2.0`, so a single build compiles three times: see
 [`architecture.md`](architecture.md) for what actually differs between them.
 
 ### Warnings are errors
@@ -73,7 +73,7 @@ This only disables the *analyzers*. The AOT contract is still enforced for real 
 ## Running against the Gaming Runtime
 
 A GDK title is normally packaged, registered and launched by AUMID. For day-to-day work that is
-unnecessary — on PC, a `MicrosoftGame.config` beside the executable supplies the same identity, so
+unnecessary, on PC, a `MicrosoftGame.config` beside the executable supplies the same identity, so
 the app can simply be run:
 
 ```powershell
@@ -88,7 +88,7 @@ pwsh eng/run-local.ps1 -NoRun                   # publish only, to copy to a tes
 `run-local.ps1` produces a self-contained directory that runs on another dev-unlocked machine with
 no SDK, no runtime install and no registration.
 
-What it does *not* exercise is the packaged execution environment itself — installation into
+What it does *not* exercise is the packaged execution environment itself: installation into
 `WindowsApps`, the package's own identity, and launch by the shell. That is what the packaged path
 is for.
 
@@ -117,7 +117,7 @@ dotnet pack src/GDK.Net/GDK.Net.csproj -c Release
 
 `GDK.Net` is the only packable project. Because `GenerateDocumentationFile` is on, the package
 carries `GDK.Net.xml` next to the assembly for all three targets, so consumers get the full
-IntelliSense text. If you change the packaging, verify the XML survives — the documentation is
+IntelliSense text. If you change the packaging, verify the XML survives: the documentation is
 only worth writing if it reaches the consumer:
 
 ```powershell
@@ -139,7 +139,7 @@ pwsh eng/run-package-tests.ps1 -Tier Layout,Msixvc,Register -Restore
 ```
 
 The tiers are ordered by invasiveness. `Layout` and `Msixvc` only write to `artifacts/`.
-**`Register` and `Install` modify the machine** — they loose-register or install the package,
+**`Register` and `Install` modify the machine**: they loose-register or install the package,
 launch the title and read back the JSON report the harness writes. Pass `-Restore` to undo this,
 and `-PriorPackage` to reinstall the title whose identity the harness borrows.
 
@@ -152,7 +152,9 @@ These are manual, local-only tests. `.github/workflows/ci.yml` only restores, bu
 | `eng/generate-interop.ps1` | ClangSharp generation of the raw interop layer into the git-ignored `eng/Generated/`. See [`../eng/README.md`](../eng/README.md). |
 | `eng/generate-playfab.ps1` | Regenerates the PlayFab projection from the installed headers. Use `-SkipExports` to reuse `eng/playfab/exports.json` on a machine without `dumpbin.exe`. |
 | `eng/api-coverage.ps1` | Diffs each native DLL's export table against the entry points bound in `src/GDK.Net/Interop`. The cheapest answer to "what is left?" |
-| `eng/generate-docs.ps1` | Regenerates the [API reference](api/) with docfx. |
+| `eng/generate-docs.ps1` | Regenerates the [API reference](api/) with docfx, then lays it out by area. |
+| `eng/api-layout.ps1` | The layout pass on its own: moves docfx's flat output into one folder per namespace and writes every index. Safe to re-run on an already-laid-out tree. |
+| `eng/update-learn-index.ps1` | Refreshes `eng/gdk-learn-index.json` from the published GDK table of contents, which is what the area indexes link out to. |
 
 ## Regenerating the API reference
 
@@ -168,9 +170,34 @@ pwsh eng/generate-docs.ps1
 the generator produces. The check skips itself when docfx is not restored, so it cannot break a
 build on a machine without the tool.
 
+### How the reference is laid out
+
+docfx writes one flat folder of `GDK.Net.<Namespace>.<Type>.md` pages. GitHub truncates any folder
+listing at 1,000 entries, and the projection is past that, so `generate-docs.ps1` finishes by
+calling `eng/api-layout.ps1`, which:
+
+1. moves each page into a folder named for its namespace, from `eng/api-areas.json`
+   (`GDK.Net.PlayFab.Party` becomes `docs/api/PlayFab/Party/`, and a namespace with no entry gets a
+   folder derived from its name);
+2. rewrites every inter-page link and the `toc.yml` hrefs to the new relative paths;
+3. writes a `README.md` in each folder listing every type with its kind, its summary, and a link to
+   the matching GDK reference page on Microsoft Learn, resolved through `eng/gdk-learn-index.json`;
+4. writes the root [`docs/api/README.md`](api/README.md) index of areas.
+
+The pass is idempotent: it re-derives namespaces from the page headings and normalises link targets
+before recomputing them, so running it twice changes nothing. To re-run the layout alone, without
+docfx:
+
+```powershell
+pwsh eng/api-layout.ps1
+```
+
+Editing `eng/api-areas.json` is how you change a folder name, an area title, an area summary, or
+the GDK families an area cross-links to.
+
 ## Related guides
 
-- [Getting started](getting-started.md) — initialising the runtime and signing in a user.
-- [Architecture](architecture.md) — layering, target frameworks and the AOT contract.
-- [Changing the GDK edition](gdk-edition.md) — the re-pin procedure and minimum version.
-- [API reference](api/) — every public type and member.
+- [Getting started](getting-started.md): initialising the runtime and signing in a user.
+- [Architecture](architecture.md): layering, target frameworks and the AOT contract.
+- [Changing the GDK edition](gdk-edition.md): the re-pin procedure and minimum version.
+- [API reference](api/), every public type and member.

@@ -20,7 +20,7 @@ internal static unsafe class StoreProductFactory
     /// <remarks>
     /// The Store returns sentinels, not just dates. Zero means "unset", and a licence that never
     /// expires comes back as a <c>time_t</c> far outside the range <see cref="DateTimeOffset"/>
-    /// accepts — passing that straight to <see cref="DateTimeOffset.FromUnixTimeSeconds"/> throws
+    /// accepts: passing that straight to <see cref="DateTimeOffset.FromUnixTimeSeconds"/> throws
     /// <see cref="ArgumentOutOfRangeException"/> from the middle of a native enumeration callback,
     /// which is how the live harness first hit this against a real game licence. Saturating is the
     /// projection that preserves the meaning: an unrepresentably distant expiry is

@@ -178,8 +178,8 @@ public sealed unsafe class XboxLiveContext : IDisposable
 
     /// <summary>Releases the native context handle (<c>XblContextCloseHandle</c>).</summary>
     /// <remarks>
-    /// Any notification handler still registered against this context — presence, social,
-    /// real-time activity, achievement progress — is removed first, while the handle is still
+    /// Any notification handler still registered against this context (presence, social,
+    /// real-time activity, achievement progress) is removed first, while the handle is still
     /// valid. Leaving one attached would let XSAPI invoke it against a closed handle.
     /// </remarks>
     public void Dispose()

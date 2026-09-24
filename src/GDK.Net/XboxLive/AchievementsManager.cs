@@ -118,8 +118,8 @@ public sealed unsafe class AchievementsManager
     /// in native order.
     /// </returns>
     /// <remarks>
-    /// Call this regularly, ideally once per frame. Nothing happens in the achievements manager —
-    /// cache warming, progress updates or unlock notifications — unless this pump runs. Unlike
+    /// Call this regularly, ideally once per frame. Nothing happens in the achievements manager:
+    /// cache warming, progress updates or unlock notifications, unless this pump runs. Unlike
     /// PFMP and Party, XSAPI has no <c>Finish</c> call for this batch; the native array is valid
     /// only until the next pump, so this method copies every event before returning.
     /// </remarks>

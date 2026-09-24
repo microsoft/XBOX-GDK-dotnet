@@ -2,10 +2,10 @@
 
 Run through `eng/generate-playfab.ps1`. Output lands in `src/GDK.Net/PlayFab/`:
 
-* `Models/<Family>Models.cs` — one `public sealed class` per PlayFab request/result struct plus the
+* `Models/<Family>Models.cs`: one `public sealed class` per PlayFab request/result struct plus the
   public enums those models reference. Each model can read itself out of the native struct
   (`FromNative`) and write itself into one (`WriteTo`), so no caller ever sees an interop type.
-* `<Family>.cs` — a static class per service family with one `Task`-returning method per
+* `<Family>.cs`: a static class per service family with one `Task`-returning method per
   `PFXxxAsync` / `PFXxxGetResult(Size)` triple.
 """
 

@@ -1,13 +1,13 @@
 // P/Invoke declarations for the XStore family.
 //
-// Dual shim — [LibraryImport] on net7+ for AOT/trimming, [DllImport] on netstandard2.0.
+// Dual shim: [LibraryImport] on net7+ for AOT/trimming, [DllImport] on netstandard2.0.
 // All parameters are blittable:  byte* for UTF-8 strings, byte for bool, IntPtr for opaque handles.
 // Callback function pointers are always passed as IntPtr; the calling convention is enforced by the
 // trampolines in StoreContext / StoreLicense / StoreProductQuery.
 //
 // ────────────────────────────────────────────────────────────────────────────────────────────────
-// The whole of XStore.h is bound here. Seven of these entry points — the gifting UI, the legacy
-// per-package-identifier update query, and the associated-products-by-store-id pair — were missing
+// The whole of XStore.h is bound here. Seven of these entry points: the gifting UI, the legacy
+// per-package-identifier update query, and the associated-products-by-store-id pair: were missing
 // from xgameruntime.thunks.dll's export table until GDK edition 260404 added them. 260404 is this
 // projection's minimum, so no XStore API needs a workaround any more.
 // ────────────────────────────────────────────────────────────────────────────────────────────────

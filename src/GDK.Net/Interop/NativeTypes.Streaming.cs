@@ -55,7 +55,7 @@ internal enum XGameStreamingTouchControlsStateValueKind : uint
 internal unsafe struct XGameStreamingTouchControlsStateValue
 {
     [FieldOffset(0)]  public XGameStreamingTouchControlsStateValueKind ValueKind;
-    [FieldOffset(8)]  public byte   BooleanValue;   // bool in C++ — first byte of the union
+    [FieldOffset(8)]  public byte   BooleanValue;   // bool in C++: first byte of the union
     [FieldOffset(8)]  public long   IntegerValue;   // int64_t
     [FieldOffset(8)]  public double DoubleValue;
     [FieldOffset(8)]  public byte*  StringValue;    // const char* (UTF-8)

@@ -176,7 +176,7 @@ public sealed unsafe class NetworkingManager : IDisposable
 
         // Allocate a null-terminated UTF-8 copy of the URL. The GDK copies the string during the
         // XNetworkingQuerySecurityInformationForUrlAsync call (_In_z_ annotation), so we free it
-        // after Start() returns — before the async operation ever completes.
+        // after Start() returns, before the async operation ever completes.
         IntPtr urlPtr = Utf8.Allocate(url);
         try
         {
@@ -482,7 +482,7 @@ public sealed unsafe class NetworkingManager : IDisposable
         }
 
         _udpPortRegistered = false;
-        // wait: true — returns only once no callback is running.
+        // wait: true: returns only once no callback is running.
         Native.XNetworkingUnregisterPreferredLocalUdpMultiplayerPortChanged(_udpPortToken, wait: 1);
         _udpPortToken = default;
 
@@ -499,7 +499,7 @@ public sealed unsafe class NetworkingManager : IDisposable
         }
 
         _connectivityRegistered = false;
-        // wait: true — returns only once no callback is running.
+        // wait: true: returns only once no callback is running.
         Native.XNetworkingUnregisterConnectivityHintChanged(_connectivityToken, wait: 1);
         _connectivityToken = default;
 

@@ -28,8 +28,9 @@ namespace GDK.Net.Tests;
 public class ApiReferenceDriftTests
 {
     /// <summary>
-    /// docfx emits one page per type, one per namespace, and a table of contents. The index is
-    /// written by <c>eng/generate-docs.ps1</c> rather than docfx.
+    /// docfx emits one page per type, one per namespace, and a table of contents.
+    /// <c>eng/api-layout.ps1</c> then moves the pages into one folder per namespace and writes a
+    /// <c>README.md</c> index into each folder and the root; those indexes are not type pages.
     /// </summary>
     private const string IndexPage = "README";
 
@@ -51,6 +52,19 @@ public class ApiReferenceDriftTests
         return null;
     }
 
+    /// <summary>
+    /// The generated pages, keyed by the type or namespace they document. The reference is laid
+    /// out one folder per namespace, so the search has to recurse, and the folder indexes are
+    /// excluded because they document an area rather than a type.
+    /// </summary>
+    private static Dictionary<string, FileInfo> GetPages(DirectoryInfo api) => api
+        .GetFiles("*.md", SearchOption.AllDirectories)
+        .Where(file => !string.Equals(file.Name, IndexPage + ".md", StringComparison.Ordinal))
+        .ToDictionary(
+            file => Path.GetFileNameWithoutExtension(file.Name),
+            file => file,
+            StringComparer.Ordinal);
+
     [Fact]
     public void EveryPublicTypeHasAGeneratedPage()
     {
@@ -61,15 +75,13 @@ public class ApiReferenceDriftTests
             return;
         }
 
-        HashSet<string> pages = api.GetFiles("*.md")
-            .Select(file => Path.GetFileNameWithoutExtension(file.Name))
-            .ToHashSet(StringComparer.Ordinal);
+        Dictionary<string, FileInfo> pages = GetPages(api);
 
         string[] undocumented = typeof(GameRuntime).Assembly
             .GetExportedTypes()
             .Select(type => type.FullName!.Replace('+', '.'))
             .Distinct(StringComparer.Ordinal)
-            .Where(name => !pages.Contains(name))
+            .Where(name => !pages.ContainsKey(name))
             .OrderBy(name => name, StringComparer.Ordinal)
             .ToArray();
 
@@ -102,10 +114,7 @@ public class ApiReferenceDriftTests
             }
         }
 
-        expected.Add(IndexPage);
-
-        string[] stale = api.GetFiles("*.md")
-            .Select(file => Path.GetFileNameWithoutExtension(file.Name))
+        string[] stale = GetPages(api).Keys
             .Where(page => !expected.Contains(page))
             .OrderBy(page => page, StringComparer.Ordinal)
             .ToArray();
@@ -115,6 +124,76 @@ public class ApiReferenceDriftTests
             $"docs/api has {stale.Length} page(s) for types that no longer exist. "
             + $"Run: pwsh eng/generate-docs.ps1{Environment.NewLine}"
             + string.Join(Environment.NewLine, stale.Take(25)));
+    }
+
+    /// <summary>
+    /// Every namespace folder carries a <c>README.md</c> index, and so does the reference root.
+    /// The indexes are what makes the reference navigable now that the pages are split across
+    /// folders, so a missing one is drift just as much as a missing page.
+    /// </summary>
+    [Fact]
+    public void EveryNamespaceFolderHasAnIndex()
+    {
+        DirectoryInfo? api = FindApiDirectory();
+        if (api is null)
+        {
+            return;
+        }
+
+        var missing = new List<string>();
+
+        if (!File.Exists(Path.Combine(api.FullName, IndexPage + ".md")))
+        {
+            missing.Add("docs/api/README.md");
+        }
+
+        foreach (FileInfo page in GetPages(api).Values)
+        {
+            string folder = page.DirectoryName!;
+            string index = Path.Combine(folder, IndexPage + ".md");
+            if (!File.Exists(index) && !missing.Contains(index))
+            {
+                missing.Add(index);
+            }
+        }
+
+        Assert.True(
+            missing.Count == 0,
+            $"docs/api is missing {missing.Count} folder index(es). "
+            + $"Run: pwsh eng/generate-docs.ps1{Environment.NewLine}"
+            + string.Join(Environment.NewLine, missing.Take(25)));
+    }
+
+    /// <summary>
+    /// A flat reference directory stops rendering on GitHub once it passes 1,000 entries, which is
+    /// why the pages are split by namespace. This guards the split: if one folder ever grows past
+    /// the limit, its pages are hidden from anyone browsing the repository on the web.
+    /// </summary>
+    [Fact]
+    public void NoFolderExceedsTheGitHubListingLimit()
+    {
+        DirectoryInfo? api = FindApiDirectory();
+        if (api is null)
+        {
+            return;
+        }
+
+        const int GitHubListingLimit = 1000;
+
+        string[] oversized = new[] { api }
+            .Concat(api.GetDirectories("*", SearchOption.AllDirectories))
+            .Select(folder => (folder, count: folder.GetFiles().Length + folder.GetDirectories().Length))
+            .Where(entry => entry.count >= GitHubListingLimit)
+            .Select(entry => $"{entry.folder.Name}: {entry.count} entries")
+            .OrderBy(entry => entry, StringComparer.Ordinal)
+            .ToArray();
+
+        Assert.True(
+            oversized.Length == 0,
+            $"{oversized.Length} reference folder(s) are at or past GitHub's {GitHubListingLimit}-entry "
+            + $"listing limit and would render truncated. Split the namespace in eng/api-areas.json."
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, oversized));
     }
 
     /// <summary>
@@ -147,26 +226,25 @@ public class ApiReferenceDriftTests
         const BindingFlags Declared = BindingFlags.Public | BindingFlags.NonPublic
             | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
 
+        Dictionary<string, FileInfo> pages = GetPages(api);
         var missing = new List<string>();
 
         foreach (Type type in typeof(GameRuntime).Assembly.GetExportedTypes())
         {
-            string page = Path.Combine(api.FullName, type.FullName!.Replace('+', '.') + ".md");
-            if (!File.Exists(page))
+            string typeUid = type.FullName!.Replace('+', '.');
+            if (!pages.TryGetValue(typeUid, out FileInfo? page))
             {
                 // EveryPublicTypeHasAGeneratedPage reports this; do not double-count it.
                 continue;
             }
 
-            string text = File.ReadAllText(page);
+            string text = File.ReadAllText(page.FullName);
 
             // A delegate renders as one signature; its Invoke/BeginInvoke/EndInvoke are generated.
             if (typeof(Delegate).IsAssignableFrom(type))
             {
                 continue;
             }
-
-            string typeUid = type.FullName!.Replace('+', '.');
 
             foreach (MemberInfo member in type.GetMembers(Declared))
             {

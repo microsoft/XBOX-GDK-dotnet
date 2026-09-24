@@ -5,8 +5,8 @@
 .DESCRIPTION
     The projection binds two native modules:
 
-      xgameruntime.thunks.dll          — the Gaming Runtime (X* APIs)
-      Microsoft.Xbox.Services.C.Thunks — Xbox Live Services (Xbl* APIs)
+      xgameruntime.thunks.dll          : the Gaming Runtime (X* APIs)
+      Microsoft.Xbox.Services.C.Thunks : Xbox Live Services (Xbl* APIs)
 
     Both re-export flat __stdcall C entry points. See eng/interop-conventions.md for why
     XGameRuntime.dll itself cannot be bound, and eng/unexported-apis.md for the APIs that are in
@@ -87,13 +87,13 @@ $playFabModules = @(
 # Exports the projection deliberately does not bind, reported separately so they do not read as
 # coverage gaps.
 #
-#   *CustomContext  — a void* title context slot on a native handle. A managed caller has no use
+#   *CustomContext  : a void* title context slot on a native handle. A managed caller has no use
 #                     for it (the projection already keys its own identity maps off the handle) and
 #                     storing a managed pointer there would outlive any GC guarantee the runtime can
 #                     make. .NET callers use an ordinary Dictionary instead.
-#   *ForDebug       — internal entry points not declared in any shipped header.
+#   *ForDebug       : internal entry points not declared in any shipped header.
 #   PFInitializeWithLHC, PartyCreateLocalUserWithEntityType
-#                   — exported but declared in no shipped header of edition 260404, so there is no
+#                   : exported but declared in no shipped header of edition 260404, so there is no
 #                     signature to bind against. Re-check when a future edition publishes them.
 $intentionallyUnbound = @(
     '(Get|Set)CustomContext$',

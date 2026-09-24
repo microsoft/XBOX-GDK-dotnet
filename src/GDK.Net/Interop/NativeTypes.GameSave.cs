@@ -72,7 +72,7 @@ internal unsafe struct NativeGameSaveContainerInfo
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Callback delegate declarations — needed on netstandard2.0 where
+// Callback delegate declarations: needed on netstandard2.0 where
 // [UnmanagedCallersOnly] / delegate* are unavailable.  On NET5+ the trampolines
 // in GameSaveCallbacks use static [UnmanagedCallersOnly] function pointers directly.
 // ──────────────────────────────────────────────────────────────────────────────

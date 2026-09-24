@@ -1,7 +1,7 @@
 // Callback thunks for XAppCapture.h event registrations.
 //
 // Both XAppBroadcastMonitorCallback and XAppCaptureMetadataPurgedCallback share the same
-// signature — void(void* context) — so a single thunk dispatches both. The context value
+// signature: void(void* context), so a single thunk dispatches both. The context value
 // identifies which AppCaptureManager instance fired.
 //
 // See Trampolines.cs for the shim rules these declarations follow.

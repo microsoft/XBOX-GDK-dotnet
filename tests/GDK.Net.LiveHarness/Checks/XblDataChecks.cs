@@ -15,8 +15,8 @@ namespace GDK.Net.LiveHarness;
 /// <remarks>
 /// <para>
 /// Every family exercises both read and write paths to prove the native binding end-to-end. Checks
-/// that leave server-side state — title-storage blobs, multiplayer activity and the
-/// achievements-manager local user — are cleaned up by the checks in <see cref="Teardown"/>.
+/// that leave server-side state (title-storage blobs, multiplayer activity and the
+/// achievements-manager local user) are cleaned up by the checks in <see cref="Teardown"/>.
 /// </para>
 /// <para>
 /// Several checks reference the statistic name <c>HarnessScore</c> and the event name
@@ -77,7 +77,7 @@ internal static class XblDataChecks
     /// </summary>
     /// <remarks>
     /// The statistic delete belongs here rather than beside its write. Title-managed statistics have
-    /// no read API — the only way to observe one is a stat-backed leaderboard query — so deleting it
+    /// no read API: the only way to observe one is a stat-backed leaderboard query, so deleting it
     /// at the end of <see cref="All"/> would leave the next run querying a statistic the previous run
     /// had already removed, and the leaderboard and user-statistic reads would be vacuous forever.
     /// </remarks>
@@ -177,7 +177,7 @@ internal static class XblDataChecks
     /// </summary>
     /// <remarks>
     /// A title-managed-stat-backed leaderboard only exists once the stat is configured in Partner
-    /// Center. Until then the service has nothing to serve and returns 404 — the same root cause
+    /// Center. Until then the service has nothing to serve and returns 404: the same root cause
     /// that makes <c>xbl.titlestats.delete</c> and the user-statistics lookups come back empty.
     /// </remarks>
     private static async Task<LeaderboardPage> GetOrSkipAsync(XboxLiveContext context, LeaderboardQuery query)

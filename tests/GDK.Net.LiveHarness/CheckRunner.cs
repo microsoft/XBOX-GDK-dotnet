@@ -18,7 +18,7 @@ namespace GDK.Net.LiveHarness;
 /// </para>
 /// <para>
 /// Prerequisites are the other half of that. Isolation alone would turn one failure into a screen of
-/// identical downstream errors — every Xbox Live check failing with "no context" tells you nothing
+/// identical downstream errors, every Xbox Live check failing with "no context" tells you nothing
 /// the first one did not. A check whose prerequisite did not pass is skipped and says which
 /// prerequisite, so the report has exactly one line describing the actual problem.
 /// </para>
@@ -98,7 +98,7 @@ internal sealed class CheckRunner
         }
         catch (SkipCheckException skip)
         {
-            // A check can decide at run time that its subject is not applicable — no SCID, no
+            // A check can decide at run time that its subject is not applicable, no SCID, no
             // network, an optional feature the console does not have. That is not a failure, and
             // reporting it as one would train the reader to ignore red.
             _report.Skip(check.Id, skip.Message);
@@ -130,8 +130,8 @@ internal sealed class SkipCheckException : Exception
 /// <remarks>
 /// A title that has not been published, or has no leaderboard or stat rule defined, makes the
 /// service answer 404 or 400. Reporting those as failures trains the reader to ignore red, and the
-/// interesting signal — that the call reached the service, authenticated, and got a well-formed
-/// answer — is lost. The HRESULT is still named in the skip so a genuinely new failure cannot hide
+/// interesting signal (that the call reached the service, authenticated, and got a well-formed
+/// answer) is lost. The HRESULT is still named in the skip so a genuinely new failure cannot hide
 /// behind the same branch.
 /// </remarks>
 internal static class ServiceGate

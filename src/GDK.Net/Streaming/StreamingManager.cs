@@ -34,7 +34,7 @@ namespace GDK.Net.Streaming;
 /// </remarks>
 public sealed unsafe class StreamingManager : IDisposable
 {
-    // Static dispatch tables — one entry per live registration context.
+    // Static dispatch tables, one entry per live registration context.
     private static readonly ConcurrentDictionary<IntPtr, StreamingManager> ConnectionRegistrations = new();
     private static readonly ConcurrentDictionary<IntPtr, ClientPropsRegistration> ClientPropsRegistrations = new();
 
@@ -187,7 +187,7 @@ public sealed unsafe class StreamingManager : IDisposable
     /// <summary>
     /// Registers for property-change notifications for <paramref name="client"/>
     /// (<c>XGameStreamingRegisterClientPropertiesChanged</c>). Events fire through
-    /// <see cref="ClientPropertiesChanged"/>. Idempotent — safe to call more than once for the
+    /// <see cref="ClientPropertiesChanged"/>. Idempotent: safe to call more than once for the
     /// same client.
     /// </summary>
     public void WatchClientProperties(StreamingClientId client)
@@ -565,7 +565,7 @@ public sealed unsafe class StreamingManager : IDisposable
     /// <remarks>
     /// <para>
     /// <paramref name="gamepadReading"/> is an opaque <c>IGameInputReading*</c>. GameInput is out
-    /// of scope for this projection, so the pointer is passed through untouched — obtain it from
+    /// of scope for this projection, so the pointer is passed through untouched: obtain it from
     /// your own GameInput binding and keep the reading alive across this call. The runtime only
     /// inspects it; it is never retained.
     /// </para>

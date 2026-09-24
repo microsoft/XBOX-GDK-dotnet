@@ -13,7 +13,7 @@ namespace GDK.Net.LiveHarness;
 /// <remarks>
 /// <para>
 /// This family writes for real, and it has to. A read-only game-save check proves almost nothing:
-/// the interesting marshalling is all on the write path — the blob array the update builds, the
+/// the interesting marshalling is all on the write path: the blob array the update builds, the
 /// pointers it hands to <c>XGameSaveSubmitUpdate</c>, and whether what comes back out of
 /// <c>XGameSaveReadBlobData</c> is byte-for-byte what went in.
 /// </para>

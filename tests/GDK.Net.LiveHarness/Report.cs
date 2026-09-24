@@ -22,7 +22,7 @@ internal sealed class Report
 {
     /// <summary>The outcome written before a check runs, and rewritten once it finishes.</summary>
     /// <remarks>
-    /// An access violation in native code cannot be caught in .NET 8 — the runtime tears the process
+    /// An access violation in native code cannot be caught in .NET 8: the runtime tears the process
     /// down without unwinding, and no <c>catch</c> or runtimeconfig switch changes that. So the only
     /// way a crash does not cost every check after it is to leave a marker on disk before making the
     /// call. A step still marked running in a report the process did not finish writing names
@@ -75,8 +75,8 @@ internal sealed class Report
     /// Serializes the steps recorded so far.
     /// </summary>
     /// <remarks>
-    /// Called after every step, not just at the end. A crash in native code — an access violation
-    /// inside the Gaming Runtime, say — takes the process down without unwinding, so a report
+    /// Called after every step, not just at the end. A crash in native code: an access violation
+    /// inside the Gaming Runtime, say: takes the process down without unwinding, so a report
     /// written only on the way out is exactly the report you never get when you most need it.
     /// Flushing per step costs nothing at this scale and means the file always names the last step
     /// that completed, which brackets the failure.
@@ -115,7 +115,7 @@ internal sealed class Report
     /// </summary>
     /// <remarks>
     /// Assembly-level custom attributes survive trimming and NativeAOT, so this stays reflection
-    /// over attributes only — it never reflects over members, which ILC could not resolve.
+    /// over attributes only: it never reflects over members, which ILC could not resolve.
     /// </remarks>
     private static string? ReadGdkEdition() =>
         typeof(GameRuntime).Assembly
@@ -145,7 +145,7 @@ internal sealed class Report
 
         if (outcome != RunningOutcome)
         {
-            Console.WriteLine($"[{outcome,-7}] {name} — {detail}");
+            Console.WriteLine($"[{outcome,-7}] {name}: {detail}");
         }
 
         try
@@ -232,7 +232,7 @@ internal sealed record ReportPayload(
 /// </summary>
 /// <remarks>
 /// <c>JsonSerializer.Serialize(object, JsonSerializerOptions)</c> walks the type graph with
-/// reflection, which is unavailable under NativeAOT — the exact configuration an Xbox title ships
+/// reflection, which is unavailable under NativeAOT: the exact configuration an Xbox title ships
 /// in. Generating the converters at compile time keeps the report identical (camelCase, indented)
 /// while removing the run-time reflection entirely.
 /// </remarks>

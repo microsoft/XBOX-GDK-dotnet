@@ -47,7 +47,7 @@ public static unsafe class PersistentLocalStorage
     /// <remarks>
     /// <para>
     /// Unlike the rest of this type, which addresses the calling title's own storage, this reaches
-    /// a package identified by <paramref name="packageIdentifier"/> — typically a related title in
+    /// a package identified by <paramref name="packageIdentifier"/>: typically a related title in
     /// the same publisher family. The mount is synchronous; no download is triggered.
     /// </para>
     /// </remarks>

@@ -4,7 +4,7 @@
 // (Native.LibraryName) via the authoritative lib→DLL diff (xgameruntime.lib 404 symbols
 // vs xgameruntime.thunks.dll 355 exports; 49 total gaps across all families).
 //
-// No APIs from XAccessibility.h or XSpeechSynthesizer.h appear in the gap list —
+// No APIs from XAccessibility.h or XSpeechSynthesizer.h appear in the gap list:
 // every XClosedCaption*, XHighContrast*, XSpeechToText*, and XSpeechSynthesizer* symbol
 // that is declared in the public headers is exported by the thunks DLL.
 //

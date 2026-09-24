@@ -1,4 +1,4 @@
-// StoreContext — the entry point for all XStore operations.
+// StoreContext: the entry point for all XStore operations.
 
 using System;
 using System.Collections.Concurrent;

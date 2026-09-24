@@ -108,7 +108,7 @@ internal enum XSpeechSynthesizerVoiceGender : uint
 [StructLayout(LayoutKind.Sequential)]
 internal unsafe struct XSpeechSynthesizerVoiceInformation
 {
-    public byte* Description;   // const char* — copied to managed string in the trampoline
+    public byte* Description;   // const char*: copied to managed string in the trampoline
     public byte* DisplayName;
     public XSpeechSynthesizerVoiceGender Gender;
     // 4 bytes natural padding here for 8-byte alignment of the next pointer field
