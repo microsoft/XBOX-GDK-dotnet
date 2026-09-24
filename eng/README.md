@@ -24,7 +24,7 @@ When the GDK edition is re-pinned, update `%GameDKCoreLatest%`, rerun the script
 
 `src/GDK.Net/Interop/` is currently **hand-authored** and transcribed directly from the headers; its
 signatures were cross-checked against this generator's output. The generator is kept here as the
-verification and refresh mechanism described in `docs/plan.md` §3.
+verification and refresh mechanism for that hand-authored layer.
 
 Generated output is written to the git-ignored `eng\Generated\` and is **not compiled into the
 project**. Note that it declares the same native type names (`XAsyncBlock`, `XUserAddOptions`, …) in

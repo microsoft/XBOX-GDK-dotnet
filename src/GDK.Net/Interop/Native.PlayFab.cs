@@ -7,7 +7,7 @@
 // not present in System32. eng/packaging/GdkRedist.targets copies them from the pinned GDK
 // edition's windows\bin tree.
 //
-// Two shims exist per docs/plan.md section 3:
+// Two shims exist:
 //   * net8.0 / net10.0    -> [LibraryImport], source-generated and trimming/AOT friendly.
 //   * netstandard2.0      -> [DllImport], the only option on the older surface.
 // The generated Native.PF*.cs partials carry both, and every parameter is blittable so the two

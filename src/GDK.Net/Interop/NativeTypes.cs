@@ -2,7 +2,7 @@
 //
 // Types here mirror the headers under %GameDKCoreLatest%windows\include one-for-one and keep the
 // native `X*` names on purpose: this layer is the hand-maintained stand-in for the ClangSharp
-// output described in docs/plan.md section 3, so swapping in generated code must not disturb the
+// output, so swapping in generated code must not disturb the
 // idiomatic layer above it.
 //
 // Sources: XAsync.h, XTaskQueue.h, XGameRuntimeFeature.h (GDK edition 260404). Each API family

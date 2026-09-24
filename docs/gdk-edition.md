@@ -120,9 +120,6 @@ This is mechanical but large: the 260400 → 260404 move touched 196 files.
 - `eng/unexported-apis.md`: both gap tables.
 - This page, if the procedure changed.
 
-`docs/plan.md` and `docs/reference/*.md` also mention the edition, but they are **vendored**:
-fix them in the `gdk-projections-plans` meta repo and re-copy. See `AGENTS.md`.
-
 ### 7. Validate
 
 ```powershell

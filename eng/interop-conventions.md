@@ -106,7 +106,7 @@ marshaller:
   `internal`. No public method, constructor, property or field may accept, return or expose one, and
   no public API may offer a queue as an optional parameter "for flexibility". Pass `IntPtr.Zero` (or
   a null `GameTaskQueue?`, which `RawHandle()` maps to `IntPtr.Zero`) so the Gaming Runtime resolves
-  the process default. The rationale is in `docs/plan.md` §7: the projection already hops runtime
+  the process default. The rationale: the projection already hops runtime
   callbacks to the thread pool to stay deadlock-free, which forfeits the ordering guarantee a manual
   completion port exists to provide. The compiler enforces most of this through accessibility, and
   `TaskQueueAdvancedTests.NoPublicApiMentionsATaskQueue` catches the rest.
@@ -116,8 +116,7 @@ marshaller:
 XSAPI's manager layers (social, achievements and multiplayer) do not use `XAsyncBlock` at all.
 They report every result and every unsolicited notification through one polled queue drained by
 `Xbl…ManagerDoWork(const Event** events, size_t* count)`, which the title calls once per frame.
-[`docs/reference/state-change.md`](../docs/reference/state-change.md) is the language-neutral
-contract for that shape; these are the .NET-specific decisions it leaves open.
+These are the .NET-specific decisions that shape leaves open.
 
 - **`DoWork` snapshots; it does not lend.** PFMP and Party bracket a batch with `Start…`/`Finish…`,
   which C# can hold open with an enumerator's `Dispose`. XSAPI has **no `Finish`**: the array is

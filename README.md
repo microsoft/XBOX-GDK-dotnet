@@ -112,12 +112,8 @@ Start here:
 Reference:
 
 - [**API reference**](docs/api/) - every public type and member, generated from the XML doc comments, indexed by area
-- [**Repository layout**](docs/repository-layout.md) - where things live, and what is generated or vendored
+- [**Repository layout**](docs/repository-layout.md) - where things live, and what is generated rather than authored
 - [**The pinned GDK edition**](docs/gdk-edition.md) - minimum version and the full re-pin procedure
-- [**`docs/plan.md`**](docs/plan.md) - the authoritative implementation specification (vendored)
-- [**`docs/reference/`**](docs/reference/) - shared language-neutral references (vendored)
-
-The `docs/` directory holds both authored guides and a vendored, one-way copy of the shared specification from the `gdk-projections-plans` meta repo. `docs/plan.md` and `docs/reference/` are vendored: do not edit them here; update the meta repo sources and re-copy them instead.
 
 ## Additional Documentation
 

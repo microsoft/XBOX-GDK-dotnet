@@ -10,8 +10,8 @@ namespace GDK.Net.Tests;
 /// </summary>
 /// <remarks>
 /// <para>
-/// A live GDK exercise needs a packaged title, a signed-in account and a real sandbox
-/// (docs/plan.md section 10), none of which exist in a unit-test host. What these tests do assert is
+/// A live GDK exercise needs a packaged title, a signed-in account and a real sandbox,
+/// none of which exist in a unit-test host. What these tests do assert is
 /// the contract that holds everywhere: the projection never leaks a raw marshalling failure.
 /// </para>
 /// <para>

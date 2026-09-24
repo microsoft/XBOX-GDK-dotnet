@@ -1,8 +1,6 @@
 # Building GDK.Net
 
-This guide covers building, testing, running and packaging the repository. It is authored
-documentation: unlike [`plan.md`](plan.md) and [`reference/`](reference/), which are vendored
-copies from the meta repo.
+This guide covers building, testing, running and packaging the repository.
 
 ## Prerequisites
 

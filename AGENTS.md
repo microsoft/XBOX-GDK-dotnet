@@ -5,25 +5,22 @@
 The **dotnet** implementation of the Microsoft GDK idiomatic projection. It is one of eight
 sibling language repositories split out of the `gdk-projections-plans` meta repo.
 
-## The spec lives in `docs/`
+## The specification lives in the meta repo
 
-- **`docs/plan.md`** is the authoritative specification for this repository. Implement against it.
-  It follows a shared 15-section template; §4 (the mapping table) is the heart, §9 is the acceptance
-  slice (the `XUser` pilot, plus the PFMP Lobby state-change slice).
-- **`docs/reference/*.md`** are the nine shared, language-agnostic reference docs
-  (`gdk-surface.md`, `xuser-pilot.md`, `state-change.md`, `multiplayer-pilot.md`,
-  `roadmap.md`, `security-privacy.md`, `compliance.md`, `glossary.md`, `testing.md`).
+The authoritative specification for this repository is `plans/dotnet.md` in the
+`gdk-projections-plans` meta repo, alongside the nine shared, language-agnostic reference docs
+under `reference/` (`gdk-surface.md`, `xuser-pilot.md`, `state-change.md`, `multiplayer-pilot.md`,
+`roadmap.md`, `security-privacy.md`, `compliance.md`, `glossary.md`, `testing.md`). The plan follows
+a shared 15-section template; §4 (the mapping table) is the heart, §9 is the acceptance slice (the
+`XUser` pilot, plus the PFMP Lobby state-change slice).
 
-## Vendored docs are read-only copies
+Those documents are **not vendored into this repository**. This repo is public and the meta repo is
+not, so the specification is not mirrored here and must not be copied back in. Read it in the meta
+repo, and fix it there.
 
-`docs/` holds **two kinds** of file. Know which you are editing before you touch anything.
+## Everything under `docs/` is authored here
 
-**Vendored: do not edit here.** `docs/plan.md` and `docs/reference/*.md` are manually vendored
-copies. The canonical sources are `plans/dotnet.md` and `reference/*.md` in the
-`gdk-projections-plans` meta repo. Fix the meta repo, then re-copy. The only local delta is that
-`docs/plan.md` has its `../reference/` links rewritten to `./reference/`.
-
-**Authored here: this repo is canonical.** These have no meta-repo counterpart:
+`docs/` is canonical for this repository. There is no vendored content and no re-vendor step.
 
 | Path | Notes |
 |---|---|
@@ -35,12 +32,12 @@ copies. The canonical sources are `plans/dotnet.md` and `reference/*.md` in the
 | `docs/status.md` | What is projected, what is out of scope, the coverage numbers. |
 | `docs/native-aot.md` | How AOT safety is enforced, and how to AOT-publish a title. |
 | `docs/custom-game-ui.md` | Title-implemented UI and its threading rules. |
-| `docs/repository-layout.md` | Where things live; what is generated or vendored. |
+| `docs/repository-layout.md` | Where things live; what is generated. |
 | `docs/api/` | **Generated.** Do not hand-edit; edit the XML doc comments and run `eng/generate-docs.ps1`. One folder per namespace, each with a generated `README.md` index. |
 
-The re-vendor step is a blind copy of the meta repo's `reference/` and `plans/dotnet.md` onto
-`docs/reference/` and `docs/plan.md`. Keep it scoped to exactly those paths: a recursive copy over
-all of `docs/` would destroy the authored guides and the generated reference.
+Because this repository is public, do not add links to the meta repo or to any other private
+resource in documentation, source comments or commit messages: they resolve for nobody outside
+Microsoft.
 
 ## Public API changes must stay documented
 
@@ -63,7 +60,7 @@ This is deliberate: it is what keeps `docs/api/` complete.
 ## Ground rules
 
 1. **Idiomatic, not mechanical.** Callers must never see an `HRESULT`, a raw handle, an
-   `XAsyncBlock`, a registration token, or a two-call size buffer. See `docs/plan.md` §4.
+   `XAsyncBlock`, a registration token, or a two-call size buffer.
 2. **Scope.** In: the core `X*` runtime + the `_c` services (XSAPI, libHttpClient, GameChat2,
    PlayFab incl. PFMP and Party). Out: XCurl, XAL, GameInput, the GXDK console tree.
 3. **Pinned GDK edition `260404`**. Headers come from the edition's `windows\include` tree and
@@ -73,6 +70,6 @@ This is deliberate: it is what keeps `docs/api/` complete.
 4. **Cancellation** (`E_ABORT`) routes to the language's cancellation idiom, never a generic error.
    The numeric HRESULT is always preserved for diagnostics.
 5. **Testing is live.** The pilot is validated in a packaged GDK app against a real sandbox; CI only
-   builds and lints. See `docs/reference/testing.md`.
+   builds and lints.
 6. **Supported versions are declared in `README.md`.** Any change to the supported runtime,
    architecture, engine, or toolchain matrix must update that table in the same change.

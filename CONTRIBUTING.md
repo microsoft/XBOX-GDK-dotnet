@@ -40,7 +40,7 @@ layering and the NativeAOT contract.
 **The projection is idiomatic, not mechanical.** Callers must never see an `HRESULT`, a raw handle,
 an `XAsyncBlock`, a registration token, or a two-call size buffer. Cancellation (`E_ABORT`) routes
 to `OperationCanceledException`, never a generic error, while the numeric HRESULT is preserved for
-diagnostics. See [`docs/plan.md`](docs/plan.md) §4.
+diagnostics.
 
 **Every public API carries an XML doc comment.** `src/GDK.Net/GDK.Net.csproj` sets
 `GenerateDocumentationFile`, so a new public type or member without one fails the build (CS1591).
@@ -57,10 +57,6 @@ pwsh eng/generate-docs.ps1
 **Do not hand-edit generated output.** [`docs/api/`](docs/api/) is generated from the doc comments.
 The PlayFab and Party projections are generated too: fix the emitter under `eng/playfab/`, never
 its output.
-
-**Do not edit the vendored documentation here.** `docs/plan.md` and `docs/reference/` are one-way
-copies of the shared specification from the `gdk-projections-plans` meta repo. Fix the source there
-and re-copy. Everything else under `docs/` is authored in this repository and is canonical here.
 
 **Keep the support matrix honest.** Any change to the supported runtime, architecture, engine, or
 toolchain matrix must update the tables in [`README.md`](README.md) in the same change.
@@ -79,4 +75,4 @@ pwsh eng/run-package-tests.ps1 -Tier Layout,Register -Aot
 ```
 
 If your change affects runtime behaviour, please say in the pull request whether you were able to
-run this, and on what. See [`docs/reference/testing.md`](docs/reference/testing.md).
+run this, and on what.

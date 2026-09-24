@@ -10,8 +10,8 @@ Full documentation tree for the .NET projection of the Microsoft GDK.
   generation tooling
 - [**Architecture**](architecture.md): the two layers, the native modules, the three target
   frameworks, the AOT contract, threading
-- [**Repository layout**](repository-layout.md): where things live, and what is generated or
-  vendored rather than authored
+- [**Repository layout**](repository-layout.md): where things live, and what is generated
+  rather than authored
 
 ## Reference
 
@@ -27,17 +27,3 @@ Full documentation tree for the .NET projection of the Microsoft GDK.
   AOT-publish a title
 - [**Title-implemented UI**](custom-game-ui.md): drawing the runtime's dialogs yourself, and the
   threading rules that come with it
-
-## Specification
-
-`plan.md` and everything under `reference/` are **vendored**: one-way copies of the shared
-specification from the `gdk-projections-plans` meta repo. Do not edit them here; fix the source and
-re-copy.
-
-- [**`plan.md`**](plan.md): the authoritative implementation specification for this repository
-- [**`reference/`**](reference/): the shared, language-neutral reference documents:
-  [gdk-surface](reference/gdk-surface.md), [xuser-pilot](reference/xuser-pilot.md),
-  [state-change](reference/state-change.md), [multiplayer-pilot](reference/multiplayer-pilot.md),
-  [roadmap](reference/roadmap.md), [security-privacy](reference/security-privacy.md),
-  [compliance](reference/compliance.md), [glossary](reference/glossary.md),
-  [testing](reference/testing.md)

@@ -8,7 +8,7 @@ listing see the [API reference](api/).
 
 ## The projection in one table
 
-Every GDK.Net design decision follows from `docs/plan.md` §4: callers must never see a raw GDK
+Every GDK.Net design decision follows from one rule: callers must never see a raw GDK
 convention. What that replaces:
 
 | Microsoft GDK (flat C) | GDK.Net |
@@ -136,4 +136,3 @@ title's frame loop. See `samples/GDK.Net.PlayFabSample` and the `PartyManager` r
 | Move to a new GDK edition | [gdk-edition.md](gdk-edition.md) |
 | Look up any type or member | [API reference](api/) |
 | Read working code | `samples/GDK.Net.UserSample`, `samples/GDK.Net.PlayFabSample` |
-| See the authoritative spec | [`plan.md`](plan.md) (vendored) |

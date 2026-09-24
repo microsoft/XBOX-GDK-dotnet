@@ -8,7 +8,7 @@ namespace GDK.Net;
 /// Owns an <c>XTaskQueueHandle</c>.
 /// </summary>
 /// <remarks>
-/// Task queues are the shutdown special case called out in docs/plan.md section 6: every handle,
+/// Task queues are the shutdown special case: every handle,
 /// including one produced by <c>XTaskQueueDuplicateHandle</c>, terminates and waits for termination
 /// before closing, so no callback can be in flight once the handle is gone.
 /// </remarks>
@@ -84,8 +84,8 @@ internal sealed class SpeechSynthesizerHandle : SafeHandleZeroOrMinusOneIsInvali
 /// </summary>
 /// <remarks>
 /// An Xbox Live context is per-user *and* per-sign-in: it is built from an <c>XUserHandle</c>, so
-/// it stops being valid when that user signs out or is replaced. See docs/plan.md section 13.1:
-/// the projection couples the handle's lifetime to its <c>User</c> and rebuilds on user change
+/// it stops being valid when that user signs out or is replaced.
+/// The projection couples the handle's lifetime to its <c>User</c> and rebuilds on user change
 /// rather than caching one for the process.
 /// </remarks>
 internal sealed class XboxLiveContextHandle : SafeHandleZeroOrMinusOneIsInvalid

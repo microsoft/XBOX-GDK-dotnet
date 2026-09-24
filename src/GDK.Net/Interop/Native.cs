@@ -16,7 +16,7 @@
 // On a machine without the Gaming Runtime the first call raises DllNotFoundException; the idiomatic
 // layer translates that into E_GAMERUNTIME_DLL_NOT_FOUND (see GameRuntime.Initialize).
 //
-// Two shims exist per docs/plan.md section 3:
+// Two shims exist:
 //   * net8.0 / net10.0    -> [LibraryImport], source-generated and trimming/AOT friendly.
 //   * netstandard2.0      -> [DllImport], the only option on the older surface.
 // Both blocks must stay signature-identical; every parameter is blittable so the two generate

@@ -492,7 +492,7 @@ public sealed unsafe class TaskQueueAdvancedTests
         // the process default. This guard is what keeps that true: it fails the moment any public
         // signature reintroduces a queue, which is how the surface drifted before.
         //
-        // Note the consequence: the pumped/Manual model described in docs/plan.md §7 is not
+        // Note the consequence: the pumped/Manual task queue model is not
         // reachable by a title today. Exposing it means changing this test deliberately, not
         // discovering the gap by accident.
         var queueTypes = typeof(GameTaskQueue).Assembly

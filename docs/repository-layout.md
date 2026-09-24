@@ -1,6 +1,6 @@
 # Repository layout
 
-Where things live, and which directories are generated or vendored rather than authored by hand.
+Where things live, and which directories are generated rather than authored by hand.
 
 
 - `src/GDK.Net/`: the idiomatic .NET projection.
@@ -21,8 +21,6 @@ Where things live, and which directories are generated or vendored rather than a
   configured by `docfx.json`) and its per-area layout pass (`api-layout.ps1`, configured by
   `api-areas.json`), the unpackaged run script (`run-local.ps1`) and the package
   build/test scripts (`package.ps1`, `run-package-tests.ps1`).
-- `docs/plan.md`: vendored authoritative .NET projection plan.
-- `docs/reference/`: vendored shared reference documents.
 - `docs/api/`: generated API reference (`eng/generate-docs.ps1`), one folder per area, each with a
   generated `README.md` index.
 - `docs/building.md`, `docs/getting-started.md`, `docs/architecture.md`, `docs/gdk-edition.md`:

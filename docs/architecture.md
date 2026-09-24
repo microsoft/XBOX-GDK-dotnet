@@ -3,7 +3,7 @@
 How GDK.Net is layered, why the interop layer is checked in, and what actually differs between the
 three target frameworks.
 
-The authoritative specification is [`plan.md`](plan.md) (vendored). The binding rulebook is
+The binding rulebook is
 [`../eng/interop-conventions.md`](../eng/interop-conventions.md), which is normative for anyone
 adding a family.
 

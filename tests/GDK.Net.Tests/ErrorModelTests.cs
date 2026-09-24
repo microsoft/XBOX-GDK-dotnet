@@ -6,7 +6,7 @@ using Xunit;
 namespace GDK.Net.Tests;
 
 /// <summary>
-/// Covers docs/plan.md section 5: every failing HRESULT maps onto a specific exception type, and
+/// Covers the error model: every failing HRESULT maps onto a specific exception type, and
 /// cancellation is never reported as a runtime fault.
 /// </summary>
 public sealed class ErrorModelTests

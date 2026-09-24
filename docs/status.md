@@ -43,8 +43,8 @@ XBOX Live Services is a **second native module**: `Microsoft.Xbox.Services.C.Thu
 hard dependency `libHttpClient.dll`. It is reached through `GameRuntime.XboxLive` and is opt-in at
 packaging time (`<GdkNetIncludeXboxLive>true</GdkNetIncludeXboxLive>`), so a title that does not use
 XBOX Live does not carry the extra ~2.2 MB. The multiplayer session directory, its manager layer,
-matchmaking and the raw HTTP escape hatch are **deliberately out of scope**; see plan §13.1.1 for
-why. The two projected manager layers are process-global and hang off `GameRuntime.XboxLive` rather
+matchmaking and the raw HTTP escape hatch are **deliberately out of scope**. The two projected
+manager layers are process-global and hang off `GameRuntime.XboxLive` rather
 than a context, and must be pumped once per frame: `SocialManager.DoWork` and
 `AchievementsManager.DoWork`.
 
