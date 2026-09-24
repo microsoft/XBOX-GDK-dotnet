@@ -6,9 +6,9 @@ resource: repository
 where:
 configuration:
   manageAccess:
-  - member: jameslen
+  - member: jameslen-atg
     role: Maintain
-  - member: phifarq
+  - member: PFarqMS
     role: Maintain
   - member: zachhooper
     role: Maintain
