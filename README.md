@@ -1,4 +1,4 @@
-# GDK.Net
+# XBOX GDK.NET
 
 [![License: MIT][badge-license]][link-license]
 [![.NET 8 and 10][badge-dotnet]][link-dotnet]
