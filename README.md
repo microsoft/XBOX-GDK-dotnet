@@ -124,7 +124,6 @@ The `docs/` directory holds both authored guides and a vendored, one-way copy of
 - [**Microsoft GDK**](https://github.com/microsoft/GDK) - Microsoft GDK product details
 - [**PlayFab Unified SDK**](https://learn.microsoft.com/en-us/gaming/playfab/sdks/unified-sdk/overview) - PlayFab Unified SDK product details
 - [**XBOX Godot Sample**](https://github.com/microsoft/XBOX-Godot-Sample) - the same GDK surface bound into Godot 4, usable from GDScript and C#
-- [**Godot C# Essentials**](https://github.com/microsoft/godot-csharp-essentials) - learning content provided by Microsoft on using Godot with C#
 
 ## Support and contributing
 
