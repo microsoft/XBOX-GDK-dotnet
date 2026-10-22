@@ -178,7 +178,7 @@ jobs:
         shell: bash
         run: |
           gh extension install github/gh-aw --pin v0.89.21
-          gh aw version | grep -F 'v0.89.21'
+          gh aw version 2>&1 | grep -F 'v0.89.21'
           gh aw compile issue-triage issue-triage-eval gdk-release-assess \
             --strict --no-check-update --schedule-seed microsoft/XBOX-GDK-dotnet
           git diff --exit-code -- .github/workflows '*.lock.yml' .github/aw/actions-lock.json
