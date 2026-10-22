@@ -33,6 +33,8 @@ repo, and fix it there.
 | `docs/native-aot.md` | How AOT safety is enforced, and how to AOT-publish a title. |
 | `docs/custom-game-ui.md` | Title-implemented UI and its threading rules. |
 | `docs/repository-layout.md` | Where things live; what is generated. |
+| `docs/releasing.md` | Exact dependency/package identity, release retention, on-demand maintenance. |
+| `docs/ci/` | PR gates, staged triage/evaluations, advisory GDK monitoring. |
 | `docs/api/` | **Generated.** Do not hand-edit; edit the XML doc comments and run `eng/generate-docs.ps1`. One folder per namespace, each with a generated `README.md` index. |
 
 Because this repository is public, do not add links to the meta repo or to any other private
@@ -63,13 +65,22 @@ This is deliberate: it is what keeps `docs/api/` complete.
    `XAsyncBlock`, a registration token, or a two-call size buffer.
 2. **Scope.** In: the core `X*` runtime + the `_c` services (XSAPI, libHttpClient, GameChat2,
    PlayFab incl. PFMP and Party). Out: XCurl, XAL, GameInput, the GXDK console tree.
-3. **Pinned GDK edition `260404`**. Headers come from the edition's `windows\include` tree and
+3. **One GDK pin per ref**, declared in `.github/gdk-version.json`. Headers come from the restored Windows package's `native\<edition>\windows\include` tree and
    import libraries from `windows\lib\{x64,arm64}`. **Never** use the `GRDK\GameKit\*` paths:
    they omit the XBOX Live / PlayFab stack and ship no `arm64` libraries. Derive paths from
-   `%GameDKCoreLatest%` (the edition root), never `%GRDKLatest%` or `%GXDKLatest%`.
+   actual restore outputs, never an unrelated installed `%GameDKCoreLatest%`,
+   `%GRDKLatest%` or `%GXDKLatest%`. Core packaging tools are a separate restored package root.
 4. **Cancellation** (`E_ABORT`) routes to the language's cancellation idiom, never a generic error.
    The numeric HRESULT is always preserved for diagnostics.
 5. **Testing is live.** The pilot is validated in a packaged GDK app against a real sandbox; CI only
-   builds and lints.
+   builds and performs deterministic checks without executing live harnesses.
 6. **Supported versions are declared in `README.md`.** Any change to the supported runtime,
    architecture, engine, or toolchain matrix must update that table in the same change.
+7. **Prepare source builds with `eng/build.ps1`.** Generate clean production inputs from the
+   exact restored pair before building. Never compile ClangSharp verification output alongside
+   hand-written interop, or reuse stale exports for another SDK.
+8. **Release history lives in tags/packages, not a matrix on main.** Create older maintenance
+   branches from exact release tags only when needed. Preserve baseline binaries before an SDK
+   upgrade; publication, live evidence and hosted activation are separate approved checkpoints.
+9. **Automation posts only in exact `post` mode on trusted main.** Missing mode values stage
+   publication; explicit preview wins. No model calls or sandbox secrets in ordinary PR checks.

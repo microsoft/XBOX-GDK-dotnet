@@ -433,10 +433,12 @@ function Write-ApiRootIndex {
         [Parameter(Mandatory)] [hashtable] $NamespaceFolders
     )
 
-    $props = Join-Path $script:ApiLayoutRoot 'Directory.Build.props'
-    $match = Select-String -Path $props -Pattern '<GdkEdition>(\d+)</GdkEdition>' | Select-Object -First 1
-    if (-not $match) { throw "Could not read <GdkEdition> from $props." }
-    $edition = $match.Matches[0].Groups[1].Value
+    $pinPath = Join-Path $script:ApiLayoutRoot '.github\gdk-version.json'
+    $pin = Get-Content -LiteralPath $pinPath -Raw -ErrorAction Stop | ConvertFrom-Json -AsHashtable
+    $edition = $pin['edition']
+    if ($edition -isnot [string] -or $edition -cnotmatch '^\d{6}$') {
+        throw "Could not read a six-digit GDK edition from $pinPath."
+    }
 
     $pages = @(Get-ChildItem $Root -Filter '*.md' -File -Recurse | Where-Object { $_.Name -ne 'README.md' }).Count
 

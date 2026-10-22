@@ -62,7 +62,7 @@ public abstract record PartyStateChange : IEquatable<PartyStateChange>
 
 ## Remarks
 
-Party reports everything: operation completions, membership changes, chat and messaging:
+Party reports everything (operation completions, membership changes, chat and messaging)
 through a single poll-drain queue, so the loop is the public surface. Every record snapshots
 its values, so it stays valid after the batch is returned to Party; the Party objects it
 references are invalidated when their teardown change is processed.
@@ -85,7 +85,7 @@ The discriminator matching the native <code>PartyStateChangeType</code>.
 
 #### Remarks
 
-Party reports everything: operation completions, membership changes, chat and messaging:
+Party reports everything (operation completions, membership changes, chat and messaging)
 through a single poll-drain queue, so the loop is the public surface. Every record snapshots
 its values, so it stays valid after the batch is returned to Party; the Party objects it
 references are invalidated when their teardown change is processed.

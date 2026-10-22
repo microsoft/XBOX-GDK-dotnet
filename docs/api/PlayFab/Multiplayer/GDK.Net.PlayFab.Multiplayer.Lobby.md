@@ -30,7 +30,7 @@ public sealed class Lobby
 A lobby's handle is owned by the multiplayer library, not by this wrapper, so there is nothing
 to dispose. The lobby stays usable until its teardown change arrives
 (<xref href="GDK.Net.PlayFab.Multiplayer.LeaveLobbyCompleted" data-throw-if-not-resolved="false"></xref>, <xref href="GDK.Net.PlayFab.Multiplayer.LobbyDisconnected" data-throw-if-not-resolved="false"></xref>,
-<xref href="GDK.Net.PlayFab.Multiplayer.ServerLeaveLobbyAsServerCompleted" data-throw-if-not-resolved="false"></xref> or <xref href="GDK.Net.PlayFab.Multiplayer.ServerDeleteLobbyCompleted" data-throw-if-not-resolved="false"></xref>)
+<xref href="GDK.Net.PlayFab.Multiplayer.ServerLeaveLobbyAsServerCompleted" data-throw-if-not-resolved="false"></xref> or <xref href="GDK.Net.PlayFab.Multiplayer.ServerDeleteLobbyCompleted" data-throw-if-not-resolved="false"></xref>),
 after which every member throws <xref href="System.ObjectDisposedException" data-throw-if-not-resolved="false"></xref>.
 </p>
 <p>

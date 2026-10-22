@@ -1,0 +1,13 @@
+{
+  "id": "historical-package-mismatch",
+  "synthetic": true,
+  "repository": "microsoft/XBOX-GDK-dotnet",
+  "target_sha": "8ae3563d2fcd9ecffd45ec15c436bacf3ee44033",
+  "source_url": "https://github.com/microsoft/XBOX-GDK-dotnet/commit/8ae3563d2fcd9ecffd45ec15c436bacf3ee44033",
+  "sha_justification": "Synthetic insufficient-information report deliberately differs from main's public 260404 pin. The older build label is invented and is not evidence that a historical package or tag exists.",
+  "fixture_digest": "15e824b160077026be6e1d47cbd801dc15e5b792e01166730e607dee295026b4",
+  "source_files": [
+    { "path": "Directory.Build.props", "sha256": "6c49137511a34f81414588e7b1e82849c045f88dc7f59b97fd8ef290f0d5e6ea" },
+    { "path": "src/GDK.Net/GDK.Net.csproj", "sha256": "bb748fd0c76c34f32008cb7e2912c7539cc412dc461bd26c12be52d99d96584a" }
+  ]
+}

@@ -6,36 +6,43 @@ This guide covers building, testing, running and packaging the repository.
 
 | To do this | You need |
 |---|---|
-| Build the library, run the unit tests | .NET SDK 10.0.x. **No GDK install required.** |
-| Run anything against the Gaming Runtime | An installed Microsoft GDK (edition `260404`), a dev-unlocked Windows machine, and an account signed in to the XBOX app |
+| Build, generate, test and pack the library | Pinned .NET SDK (`global.json`) and Python (`.python-version`), MSVC v143+ / Windows SDK, access to the configured NuGet sources. **No GDK installation/registration required.** |
+| Run anything against Gaming Runtime | Matching runtime/native dependencies, a dev-unlocked Windows machine, and an account signed in to the XBOX app |
 | Package a title (`makepkg`) | The GDK, for `%GameDK%bin\makepkg.exe` |
-| Re-generate interop or PlayFab bindings | The GDK, plus MSVC v143+ / Windows SDK (for `dumpbin.exe`) and Python 3 |
+| Re-generate interop or PlayFab bindings | The exact restored Windows SDK package; MSVC / Windows SDK for native export/header tooling; pinned Python for PlayFab |
 | Publish with NativeAOT (`-Aot`) | The MSVC toolchain: ILC shells out to `link.exe` |
 
 The projection is **Windows-only**. See [`../README.md`](../README.md) for the authoritative
 supported-runtime, architecture and toolchain matrix.
 
-### Why no GDK is needed to build
+### Restore before generation
 
-The raw P/Invoke layer under `src/GDK.Net/Interop/` is **checked in**, not generated at build time.
-The GDK headers and import libraries are inputs to the *generators* in `eng/`, which are run
-deliberately and whose output is committed. Consequently `dotnet restore`, `dotnet build` and
-`dotnet test` need no GDK, which is what lets hosted CI (`windows-latest`) build this repo.
+The ref's [.github/gdk-version.json](../.github/gdk-version.json) selects one exact
+Windows/Core pair and verified SDK archive hashes. `eng/build.ps1` restores those inputs
+before generating production PlayFab/Party sources into isolated `artifacts/gdk/` output.
+Changing refs must not reuse a model/export/source set from a different pin.
 
-The GDK is only needed to **run**, because `xgameruntime.thunks.dll` and the XSAPI/PlayFab redist
-DLLs are copied next to the output by `eng/packaging/GdkRedist.targets` from `%GameDKCoreLatest%`.
+Hand-written core/XSAPI interop remains checked in. ClangSharp output is verification
+scratch, not a second set of production declarations. A direct repository `dotnet`
+build requires prepared inputs; use the orchestrator first. NuGet consumers instead use
+prebuilt managed assemblies and ordinary package restore/build, with no repository
+checkout, Python or ClangSharp requirement.
+
+Restoring SDK files is not installing/registering Gaming Runtime. Native staging resolves
+the actual restored SDK and selected application RID, not a machine's latest installed GDK.
 
 ## Build and test
 
 From the repository root:
 
 ```powershell
-dotnet restore
-dotnet build -c Release
-dotnet test -c Release --no-build
+pwsh eng/build.ps1 -Configuration Release -Test -Pack
+pwsh eng/build.ps1 -Configuration Release -Test -Pack -Aot -CheckDocs
 ```
 
-The solution is `GDK.Net.slnx`. `src/GDK.Net/GDK.Net.csproj` multi-targets
+The second command also performs real NativeAOT compilation and the full non-mutating
+API reference comparison. Neither command executes a live harness. The solution is
+`GDK.Net.slnx`. `src/GDK.Net/GDK.Net.csproj` multi-targets
 `net8.0;net10.0;netstandard2.0`, so a single build compiles three times: see
 [`architecture.md`](architecture.md) for what actually differs between them.
 
@@ -48,15 +55,11 @@ stubs, and what keeps the XML documentation complete. Do not suppress it globall
 
 ### Package feeds
 
-`NuGet.config` defaults to the public registry so that outside-contributor clones and
-GitHub-hosted CI work. Microsoft-internal developers can uncomment the `msfeedproxy` source:
-
-```xml
-<add key="msfeedproxy" value="https://packagefeedproxy.microsoft.io/nuget/v3/index.json" protocolVersion="3" />
-```
-
-Hosted CI cannot reach Microsoft-internal package feeds, which is why the public registry is the
-default rather than an opt-out.
+`NuGet.config` defaults to the public registry for outside contributors and hosted CI.
+Use an explicitly selected local NuGet configuration for an approved internal mirror.
+Keep private source URLs and credentials out of committed files, logs and packages.
+Build tooling must respect the selected sources rather than silently retrying another registry.
+Local access does not establish that a hosted runner or a fork PR can use the same feed.
 
 If restore fails with `NU1100`/`NU1603` naming `Microsoft.NET.ILLink.Tasks`, the feed in use cannot
 serve the ILLink package that the AOT analyzers pull in. Build without them:
@@ -65,8 +68,9 @@ serve the ILLink package that the AOT analyzers pull in. Build without them:
 dotnet build -c Release -p:GdkNetEnableAotAnalyzers=false
 ```
 
-This only disables the *analyzers*. The AOT contract is still enforced for real by
-`eng/package.ps1 -Aot`, which runs the actual ILC compilation.
+This is a local diagnostic option only, not successful CI or release validation. It disables the
+*analyzers*, not their underlying requirements. Required gates keep them enabled and also perform
+real NativeAOT compilation.
 
 ## Running against the Gaming Runtime
 
@@ -110,21 +114,17 @@ cannot run on a hosted CI runner.
 `eng/package.ps1` builds the *game* package. The library itself is packed by the SDK:
 
 ```powershell
-dotnet pack src/GDK.Net/GDK.Net.csproj -c Release
+pwsh eng/build.ps1 -Configuration Release -Pack
 ```
 
-`GDK.Net` is the only packable project. Because `GenerateDocumentationFile` is on, the package
+`GDK.Net` is the library package. Exact Windows/Core dependencies must survive packing for
+every target framework. Package preparation does not publish to a feed; see
+[Releasing](releasing.md) for retention, approval and maintenance.
+
+Because `GenerateDocumentationFile` is on, the package
 carries `GDK.Net.xml` next to the assembly for all three targets, so consumers get the full
-IntelliSense text. If you change the packaging, verify the XML survives: the documentation is
-only worth writing if it reaches the consumer:
-
-```powershell
-Add-Type -AssemblyName System.IO.Compression.FileSystem
-$nupkg = Get-Item src/GDK.Net/bin/Release/GDK.Net.*.nupkg | Select-Object -First 1
-$zip = [IO.Compression.ZipFile]::OpenRead($nupkg.FullName)
-$zip.Entries | Where-Object FullName -like 'lib/*' | Select-Object FullName, Length
-$zip.Dispose()
-```
+IntelliSense text. Package checks must inspect the actual output, not an older package
+left in another output directory, and verify both metadata and clean external consumers.
 
 Expect six entries: a `GDK.Net.dll` and a `GDK.Net.xml` under each of `lib/net8.0`, `lib/net10.0`
 and `lib/netstandard2.0`.
@@ -141,15 +141,17 @@ The tiers are ordered by invasiveness. `Layout` and `Msixvc` only write to `arti
 launch the title and read back the JSON report the harness writes. Pass `-Restore` to undo this,
 and `-PriorPackage` to reinstall the title whose identity the harness borrows.
 
-These are manual, local-only tests. `.github/workflows/ci.yml` only restores, builds and unit-tests.
+These are manual, local-only tests. [PR gates](ci/pr-gates.md) perform deterministic
+build/package, unit/native-contract, AOT and documentation checks without running a title.
 
 ## Generation and verification tooling
 
 | Script | Purpose |
 |---|---|
 | `eng/generate-interop.ps1` | ClangSharp generation of the raw interop layer into the git-ignored `eng/Generated/`. See [`../eng/README.md`](../eng/README.md). |
-| `eng/generate-playfab.ps1` | Regenerates the PlayFab projection from the installed headers. Use `-SkipExports` to reuse `eng/playfab/exports.json` on a machine without `dumpbin.exe`. |
-| `eng/api-coverage.ps1` | Diffs each native DLL's export table against the entry points bound in `src/GDK.Net/Interop`. The cheapest answer to "what is left?" |
+| `eng/build.ps1` | Resolves/restores the current pin, generates production inputs, and runs selected build/test/package/AOT/docs checks. |
+| `eng/generate-playfab.ps1` | Generates the PlayFab projection from explicit selected inputs and clean model/export/output paths. Never reuse old exports for a new SDK. |
+| `eng/api-coverage.ps1` | Reports export coverage; identifier counts alone do not establish ABI correctness. |
 | `eng/generate-docs.ps1` | Regenerates the [API reference](api/) with docfx, then lays it out by area. |
 | `eng/api-layout.ps1` | The layout pass on its own: moves docfx's flat output into one folder per namespace and writes every index. Safe to re-run on an already-laid-out tree. |
 | `eng/update-learn-index.ps1` | Refreshes `eng/gdk-learn-index.json` from the published GDK table of contents, which is what the area indexes link out to. |
@@ -164,9 +166,16 @@ dotnet tool restore
 pwsh eng/generate-docs.ps1
 ```
 
-`GDK.Net.Tests` contains a drift check that fails when the committed output no longer matches what
-the generator produces. The check skips itself when docfx is not restored, so it cannot break a
-build on a machine without the tool.
+`GDK.Net.Tests` checks that public types and members have reference pages and that pages do not
+outlive their types. It does not invoke docfx. To compare the complete committed reference with
+fresh generator output without modifying it, run:
+
+```powershell
+pwsh eng/generate-docs.ps1 -Check
+```
+
+This check restores the pinned documentation tools and fails on generated-output drift or missing
+tooling.
 
 ### How the reference is laid out
 

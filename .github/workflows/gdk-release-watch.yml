@@ -1,0 +1,89 @@
+name: GDK Release Watch
+
+on:
+  schedule:
+    - cron: '23 7 * * 1'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Optional exact upstream tag. Older releases are explicit maintenance investigations, not automatic queue entries.'
+        type: string
+        required: false
+      retry:
+        description: 'Explicit paid reassessment; requires release_tag. Never replaces historical reports.'
+        type: boolean
+        default: false
+      preview:
+        description: 'Force no-write preview regardless of repository mode.'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gdk-release-watch
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      post_allowed: ${{ steps.preview.outputs.post_allowed }}
+    permissions:
+      contents: read
+      issues: read
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - name: Discover and stage read-only preview
+        id: preview
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          GDK_WATCH_INPUTS: ${{ toJSON(inputs) }}
+          GDK_WATCH_MODE: ${{ vars.GDK_WATCH_MODE }}
+          GDK_NUGET_INDEX_URL: ${{ vars.GDK_NUGET_INDEX_URL }}
+        with:
+          script: |
+            const watch = require('./eng/ci/gdk_release_watch.cjs');
+            const inputs = watch.readWatchInputs(process.env);
+            const trust = watch.evaluateTrustedContext({ context, env: process.env });
+            // GitHub expression equality ignores case; this read-only gate enforces exact "post".
+            const postAllowed = trust.trusted && process.env.GDK_WATCH_MODE === 'post' && !inputs.preview;
+            await watch.runWatch({
+              github, context, core,
+              env: { ...process.env, GDK_WATCH_MODE: 'staged' },
+            });
+            core.setOutput('post_allowed', String(postAllowed));
+
+  post:
+    needs: preview
+    if: >-
+      needs.preview.outputs.post_allowed == 'true' &&
+      github.repository == 'microsoft/XBOX-GDK-dotnet' &&
+      github.ref == 'refs/heads/main' &&
+      vars.GDK_WATCH_MODE == 'post' &&
+      inputs.preview != true
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+      actions: write
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - name: Discover newest pending exact GDK package pair
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          GDK_WATCH_INPUTS: ${{ toJSON(inputs) }}
+          GDK_WATCH_MODE: ${{ vars.GDK_WATCH_MODE }}
+          # Explicitly configured V3 metadata source; never silently fall back.
+          GDK_NUGET_INDEX_URL: ${{ vars.GDK_NUGET_INDEX_URL }}
+        with:
+          script: |
+            const { runWatch } = require('./eng/ci/gdk_release_watch.cjs');
+            await runWatch({ github, context, core, env: process.env });

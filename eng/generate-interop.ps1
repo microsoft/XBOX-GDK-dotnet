@@ -1,5 +1,8 @@
 [CmdletBinding(SupportsShouldProcess = $true)]
 param(
+    [Parameter(Mandatory = $true)][string]$IncludeRoot,
+    [Parameter(Mandatory = $true)][ValidatePattern('^\d{6}$')][string]$Edition,
+    [Parameter(Mandatory = $true)][string]$OutputRoot,
     [switch]$NoInstall,
     [switch]$Clean
 )
@@ -11,9 +14,17 @@ Set-StrictMode -Version 3.0
 $ToolPackageId = 'ClangSharpPInvokeGenerator'
 $ToolVersion = '21.1.8.4'
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
+$ToolRoot = Join-Path $RepoRoot '.config\interop'
 $ResponseTemplate = Join-Path $PSScriptRoot 'GDK.Net.rsp'
-$ObjDir = Join-Path $PSScriptRoot 'obj'
-$GeneratedOutput = Join-Path $PSScriptRoot 'Generated'
+$OutputRoot = [IO.Path]::GetFullPath($OutputRoot)
+if (-not $OutputRoot.StartsWith(([IO.Path]::GetFullPath((Join-Path $RepoRoot 'artifacts')) + '\'), [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'ClangSharp verification OutputRoot must be under artifacts; it is never a production Compile input.'
+}
+if ($OutputRoot -match '(?i)\\generated(?:\\|$)') {
+    throw 'ClangSharp verification must not write anywhere inside the production generated input tree.'
+}
+$ObjDir = Join-Path $OutputRoot 'response'
+$GeneratedOutput = Join-Path $OutputRoot ("verification.pending-" + [guid]::NewGuid().ToString('N'))
 $EffectiveResponse = Join-Path $ObjDir 'GDK.Net.effective.rsp'
 
 function Resolve-RequiredDirectory {
@@ -61,6 +72,7 @@ function Resolve-MsvcIncludeDirectory {
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
     if (Test-Path -LiteralPath $vswhere) {
         $installPath = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+        if ($LASTEXITCODE -ne 0) { throw "vswhere failed (exit $LASTEXITCODE)." }
         if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($installPath)) {
             $toolsRoot = Join-Path $installPath.Trim() 'VC\Tools\MSVC'
             $toolsVersion = Resolve-LatestChildDirectory -Root $toolsRoot -Name 'MSVC tools' -RequiredChildren @('include\type_traits')
@@ -73,12 +85,7 @@ function Resolve-MsvcIncludeDirectory {
     return Resolve-RequiredDirectory -Path (Join-Path $fallbackVersion 'include') -Name 'MSVC include directory'
 }
 
-if ([string]::IsNullOrWhiteSpace($env:GameDKCoreLatest)) {
-    throw 'GameDKCoreLatest is not set. Install the Microsoft GDK and ensure the edition root environment variable is available.'
-}
-
-$gdkRoot = Resolve-RequiredDirectory -Path $env:GameDKCoreLatest.TrimEnd('\') -Name 'GameDKCoreLatest'
-$gdkInclude = Resolve-RequiredDirectory -Path (Join-Path $gdkRoot 'windows\include') -Name 'GDK windows include directory'
+$gdkInclude = Resolve-RequiredDirectory -Path $IncludeRoot -Name "GDK $Edition Windows include directory"
 
 $windowsSdkRoot = Resolve-RequiredDirectory -Path (Join-Path ${env:ProgramFiles(x86)} 'Windows Kits\10\Include') -Name 'Windows SDK Include root'
 $windowsSdkVersion = Resolve-LatestChildDirectory -Root $windowsSdkRoot -Name 'Windows SDK version' -RequiredChildren @('shared\winerror.h', 'um\Windows.h', 'ucrt\corecrt.h')
@@ -101,13 +108,16 @@ Write-Host "MSVC include: $msvcInclude"
 Write-Host "Output: $GeneratedOutput"
 
 if (-not $NoInstall) {
-    Push-Location $RepoRoot
+    Push-Location $ToolRoot
     try {
         if ($PSCmdlet.ShouldProcess($RepoRoot, "restore/install local .NET tool $ToolPackageId $ToolVersion")) {
             dotnet tool restore
+            if ($LASTEXITCODE -ne 0) { throw "dotnet tool restore failed (exit $LASTEXITCODE)." }
             $toolList = dotnet tool list --local
+            if ($LASTEXITCODE -ne 0) { throw "dotnet tool list failed (exit $LASTEXITCODE)." }
             if ($toolList -notmatch '(?im)^clangsharppinvokegenerator\s+') {
                 dotnet tool install $ToolPackageId --version $ToolVersion
+                if ($LASTEXITCODE -ne 0) { throw "ClangSharp tool installation failed (exit $LASTEXITCODE)." }
             }
         }
     }
@@ -128,6 +138,8 @@ $commandPreview = "dotnet tool run ClangSharpPInvokeGenerator -- '@$EffectiveRes
 Write-Host "Command: $commandPreview"
 
 if ($PSCmdlet.ShouldProcess($GeneratedOutput, 'generate GDK raw interop bindings')) {
+    $published = Join-Path $OutputRoot 'verification'
+    if (Test-Path $published) { Remove-Item $published -Recurse -Force }
     New-Item -ItemType Directory -Force -Path $ObjDir | Out-Null
     if ($Clean -and (Test-Path -LiteralPath $GeneratedOutput)) {
         Remove-Item -LiteralPath $GeneratedOutput -Recurse -Force
@@ -135,11 +147,15 @@ if ($PSCmdlet.ShouldProcess($GeneratedOutput, 'generate GDK raw interop bindings
 
     Set-Content -LiteralPath $EffectiveResponse -Value $responseText -Encoding UTF8
 
-    Push-Location $RepoRoot
+    Push-Location $ToolRoot
     try {
         dotnet tool run ClangSharpPInvokeGenerator -- "@$EffectiveResponse"
+        if ($LASTEXITCODE -ne 0) { throw "ClangSharp verification failed (exit $LASTEXITCODE)." }
+        if (-not (Test-Path $GeneratedOutput)) { throw 'ClangSharp produced no verification output.' }
+        Move-Item $GeneratedOutput $published
     }
     finally {
         Pop-Location
+        if (Test-Path $GeneratedOutput) { Remove-Item $GeneratedOutput -Recurse -Force }
     }
 }

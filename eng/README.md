@@ -4,21 +4,36 @@ This folder contains the checked-in tooling for generating the raw `GDK.Net.Inte
 
 ## Usage
 
+For ordinary source builds, use the current-pin orchestrator:
+
+```powershell
+pwsh eng/build.ps1 -Configuration Release -Test -Pack
+```
+
+It restores exact SDK inputs and prepares production PlayFab/Party output before
+building. See [Building](../docs/building.md) and [Releasing](../docs/releasing.md).
+The script below is separate core-interop verification, not a replacement
+production build.
+
 ```powershell
 .\eng\generate-interop.ps1 -Clean
 ```
 
-The script resolves `%GameDKCoreLatest%`, discovers the latest installed Windows SDK and MSVC include directories, restores the local `ClangSharpPInvokeGenerator` tool, expands `eng\GDK.Net.rsp` into `eng\obj\GDK.Net.effective.rsp`, and writes generated C# files to `eng\Generated\`.
+Use explicit selected SDK inputs and isolated scratch paths. Native compiler includes still
+come from the installed MSVC/Windows SDK toolchain. The local tool manifest pins ClangSharp;
+verification output must not be compiled alongside the hand-written interop.
 
 Use `-WhatIf` for a dry run, or `-NoInstall` to skip local tool restore/install.
 
-## Known-good version
+## Pinned inputs
 
-- `ClangSharpPInvokeGenerator` NuGet package: `21.1.8.4`
-- Tool output reports: `ClangSharp P/Invoke Binding Generator version 21.1.8`
-- Validated against GDK edition `260404` from `%GameDKCoreLatest%\windows\include`
-
-When the GDK edition is re-pinned, update `%GameDKCoreLatest%`, rerun the script, review the diff in `eng\Generated\`, and only then decide whether generated output should be moved into the source tree.
+The current SDK pin is [.github/gdk-version.json](../.github/gdk-version.json);
+tool versions live in the [documentation manifest](../.config/dotnet-tools.json),
+[interop manifest](../.config/interop/dotnet-tools.json) and root toolchain version files.
+Separate manifests avoid command misattribution on cold tool restores
+([dotnet/sdk#53783](https://github.com/dotnet/sdk/issues/53783)).
+See the [canonical support matrix](../README.md#supported-versions)
+and [upgrade procedure](../docs/gdk-edition.md), rather than maintaining a second version list here.
 
 ## Relationship to the checked-in interop layer
 

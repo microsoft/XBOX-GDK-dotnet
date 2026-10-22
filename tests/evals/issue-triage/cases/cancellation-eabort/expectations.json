@@ -1,0 +1,33 @@
+{
+  "case_id": "cancellation-eabort",
+  "acceptable_kinds": ["question", "bug"],
+  "evidence": [
+    {
+      "id": "completion-cancellation",
+      "required": true,
+      "locations": [{ "path": "src/GDK.Net/AsyncOperation.cs", "start_line": 205, "end_line": 223 }]
+    },
+    {
+      "id": "hresult-mapping",
+      "required": true,
+      "locations": [{ "path": "src/GDK.Net/Exceptions.cs", "start_line": 85, "end_line": 115 }]
+    }
+  ],
+  "key_facts": [
+    "Native completion E_ABORT calls TrySetCanceled, not TrySetException.",
+    "Hr.ToException maps E_ABORT to OperationCanceledException; non-cancellation failures use mapped runtime exceptions.",
+    "The supplied cancellation token is attached on completion only if it is already cancellation-requested.",
+    "Catching only GameRuntimeException does not handle the .NET cancellation idiom."
+  ],
+  "acceptable_uncertainty": [
+    "Static evidence settles the contract at this SHA, not whether a particular native operation was canceled in a title.",
+    "A bug classification is acceptable only if it explains the reported expectation rather than asserting the projection's cancellation contract is defective."
+  ],
+  "relevant_questions": [],
+  "avoid": [
+    "Claiming a live reproduction, a native E_ABORT observation, or a successful sign-in.",
+    "Changing E_ABORT to a generic runtime fault or recommending suppression of cancellation.",
+    "Claiming the cancellation exception itself preserves the native numeric HRESULT without evidence.",
+    "Demanding a stack trace for the already-answerable static contract question."
+  ]
+}

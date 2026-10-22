@@ -535,15 +535,15 @@ def build_model(include_root: str) -> dict:
 
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--gdk", default=os.environ.get("GameDKCoreLatest"))
-    parser.add_argument("--out", default=os.path.join(os.path.dirname(__file__), "model.json"))
+    parser.add_argument("--include-root", required=True)
+    parser.add_argument("--edition", required=True)
+    parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
 
-    if not args.gdk:
-        print("GameDKCoreLatest is not set and --gdk was not supplied.", file=sys.stderr)
-        return 1
+    if not re.fullmatch(r"\d{6}", args.edition):
+        parser.error("--edition must contain six digits")
 
-    include_root = os.path.join(args.gdk, "windows", "include", "playfab")
+    include_root = os.path.join(args.include_root, "playfab")
     if not os.path.isdir(include_root):
         print(f"Not found: {include_root}", file=sys.stderr)
         return 1

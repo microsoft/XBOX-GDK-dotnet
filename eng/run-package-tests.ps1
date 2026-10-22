@@ -3,9 +3,9 @@
     Runs the GDK package test tiers for tests/GDK.Net.LiveHarness.
 
 .DESCRIPTION
-    These are MANUAL, LOCAL-ONLY tests. They require an installed Microsoft GDK, a signed-in Xbox
-    account, and a dev-unlocked machine; a hosted CI runner can do none of that, which is why the
-    repo's ci.yml only builds and unit-tests.
+    These are MANUAL, LOCAL-ONLY tests. Layout/Msixvc use the prepared, exactly pinned SDK packages.
+    Register/Install additionally require Gaming Runtime, a signed-in Xbox account and a
+    dev-unlocked machine. CI does not register, install or execute the title.
 
     Tiers, in increasing order of invasiveness:
 
@@ -63,13 +63,16 @@ param(
     [switch] $Aot,
     [switch] $Restore,
     [string] $PriorPackage,
-    [int] $LaunchTimeoutSeconds = 120
+    [int] $LaunchTimeoutSeconds = 120,
+    [string] $NuGetConfig,
+    [string] $PackagesDirectory
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'packaging\Resolve-GdkTool.ps1')
 $packageRoot = Join-Path $repoRoot 'artifacts\package'
 $layoutDir = Join-Path $packageRoot 'layout'
 $outDir = Join-Path $packageRoot 'out'
@@ -95,16 +98,7 @@ function Add-Result {
 }
 
 function Resolve-WdApp {
-    if (-not $env:GameDK) {
-        throw "The Microsoft GDK is not installed: %GameDK% is not set. Package tests are local-only."
-    }
-
-    $wdApp = Join-Path $env:GameDK 'bin\wdapp.exe'
-    if (-not (Test-Path $wdApp)) {
-        throw "wdapp.exe was not found at '$wdApp'. Reinstall the Microsoft GDK."
-    }
-
-    return $wdApp
+    return (Resolve-GdkTool 'wdapp')
 }
 
 function Get-ReportCandidates {
@@ -278,6 +272,8 @@ if ($Tier -contains 'Register' -or $Tier -contains 'Install' -or $Restore) {
 }
 
 $packageArgs = @{ Aot = [bool]$Aot }
+if ($NuGetConfig) { $packageArgs.NuGetConfig = $NuGetConfig }
+if ($PackagesDirectory) { $packageArgs.PackagesDirectory = $PackagesDirectory }
 
 if ($Tier -contains 'Layout') {
     & (Join-Path $PSScriptRoot 'package.ps1') -Validate @packageArgs

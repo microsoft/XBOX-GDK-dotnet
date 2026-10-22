@@ -26,6 +26,7 @@ def shape(fn: dict) -> str:
 
 
 def main() -> int:
+    pfmodel.configure()
     model = pfmodel.load()
     async_shapes: collections.Counter = collections.Counter()
     result_shapes: collections.Counter = collections.Counter()

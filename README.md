@@ -17,7 +17,7 @@
 > [!IMPORTANT]
 > **This is source, not a product.** The projection is MIT-licensed, but the Microsoft GDK and the PlayFab extension libraries it binds to are installed and licensed separately, consistent with other XBOX samples. There is no specified update cadence. We will watch the repo, monitor issues, and iterate where it makes sense. We are keen to hear your feedback and to see community PRs.
 >
-> **Windows-only, and pinned to one GDK edition.** Everything here is built and verified against Microsoft GDK edition `260404`. Building needs no GDK install at all; *running* against the Gaming Runtime needs the GDK, a dev-unlocked machine and a signed-in account. CI can only build, test and verify NativeAOT compilation - behaviour is validated by hand in a packaged title against a real sandbox.
+> **Windows-only, and pinned to one GDK version/update per ref.** See the [support matrix](#supported-versions) and [SDK pin](.github/gdk-version.json). Source builds restore the exact GDK packages and generate bindings without installing or registering the GDK. Running against Gaming Runtime still needs the appropriate runtime, a dev-unlocked machine and a signed-in account. CI does not perform live validation.
 
 ## Quick start
 
@@ -29,14 +29,15 @@
 | Ship to console, where JIT is not permitted | [**NativeAOT**](docs/native-aot.md) |
 | Draw the runtime's dialogs myself | [**Title-implemented UI**](docs/custom-game-ui.md) |
 | Move to a newer GDK edition | [**The pinned GDK edition**](docs/gdk-edition.md) |
+| Prepare packages or fix an older release | [**Releasing**](docs/releasing.md) |
+| Understand PR checks and staged automation | [**PR gates**](docs/ci/pr-gates.md) |
 | Browse the full documentation tree | [**Documentation index**](docs/README.md) |
 
-Building needs nothing but the .NET SDK:
+Build with the pinned .NET/Python toolchain, MSVC/Windows SDK and NuGet access
+described in [Building](docs/building.md):
 
 ```powershell
-dotnet restore
-dotnet build -c Release
-dotnet test -c Release --no-build
+pwsh eng/build.ps1 -Configuration Release -Test -Pack
 ```
 
 To run against the Gaming Runtime you need an installed GDK, a dev-unlocked machine and a signed-in XBOX account - but **not** a package:
@@ -72,7 +73,7 @@ The core projection is one assembly. XBOX Services and PlayFab are separate nati
 | `<GdkNetIncludePlayFabMultiplayer>` | `PlayFabMultiplayer.dll` | `GDK.Net.PlayFab.Multiplayer` - lobbies and matchmaking |
 | `<GdkNetIncludePlayFabParty>` | `Party.dll`, `PartyXboxLive.dll` | `GDK.Net.PlayFab.Party` - voice, text chat and network transport |
 
-The last two PlayFab groups import `PlayFabCore.dll`, so asking for either turns `<GdkNetIncludePlayFab>` on as well. [`eng/packaging/GdkRedist.targets`](eng/packaging/GdkRedist.targets) copies the modules you asked for next to the executable on every build.
+The last two PlayFab groups import `PlayFabCore.dll`, so asking for either turns `<GdkNetIncludePlayFab>` on as well. The native staging targets copy selected modules from the exact restored SDK for the application RID, not an unrelated installed edition.
 
 ## Supported versions
 
@@ -80,9 +81,9 @@ The last two PlayFab groups import `PlayFabCore.dll`, so asking for either turns
 
 | Runtime / version | Tier | Architectures (RIDs) | GDK edition | Build toolchain | Status |
 |---|---|---|---|---|---|
-| `net8.0` | LTS, Primary tier | `win-x64` (primary), `win-arm64` | `260404` | .NET SDK 10.0.x (verified locally: 10.0.302; 9.0.316 also present), MSVC v143+ / Windows SDK, ClangSharp for binding generation | Supported |
-| `net10.0` | LTS, Primary tier | `win-x64` (primary), `win-arm64` | `260404` | .NET SDK 10.0.x (verified locally: 10.0.302; 9.0.316 also present), MSVC v143+ / Windows SDK, ClangSharp for binding generation | Supported |
-| `netstandard2.0` | Compatibility tier (MonoGame / Mono / broad reach) | `win-x64` (primary), `win-arm64` | `260404` | .NET SDK 10.0.x (verified locally: 10.0.302; 9.0.316 also present), MSVC v143+ / Windows SDK, ClangSharp for binding generation | Supported |
+| `net8.0` | LTS, Primary tier | `win-x64` (primary), `win-arm64` | `260404` | Pinned .NET SDK (`global.json`) and Python (`.python-version`), MSVC v143+ / Windows SDK; pinned ClangSharp for interop verification | Supported |
+| `net10.0` | LTS, Primary tier | `win-x64` (primary), `win-arm64` | `260404` | Pinned .NET SDK (`global.json`) and Python (`.python-version`), MSVC v143+ / Windows SDK; pinned ClangSharp for interop verification | Supported |
+| `netstandard2.0` | Compatibility tier (MonoGame / Mono / broad reach) | `win-x64` (primary), `win-arm64` | `260404` | Pinned .NET SDK (`global.json`) and Python (`.python-version`), MSVC v143+ / Windows SDK; pinned ClangSharp for interop verification | Supported |
 
 ### Table B: Supported engines / frameworks
 
@@ -96,6 +97,11 @@ The last two PlayFab groups import `PlayFabCore.dll`, so asking for either turns
 
 Only Microsoft-supported .NET LTS releases are targeted; the window moves as LTS releases ship and go EOL. `netstandard2.0` exists solely for MonoGame/Mono reach. This projection is Windows-only (no Linux/macOS), and the GDK edition is pinned at `260404`.
 
+`main` follows the latest GDK adopted after validation, not every upstream publication.
+Historical packages and source/API docs remain associated with immutable release tags.
+Older fixes use on-demand maintenance branches; there is no ongoing all-edition CI
+matrix or automatic backport policy. [Release preparation](docs/releasing.md) does
+not imply that packages have been published to NuGet; publishing automation is deferred.
 
 ## Documentation
 
@@ -114,6 +120,9 @@ Reference:
 - [**API reference**](docs/api/) - every public type and member, generated from the XML doc comments, indexed by area
 - [**Repository layout**](docs/repository-layout.md) - where things live, and what is generated rather than authored
 - [**The pinned GDK edition**](docs/gdk-edition.md) - minimum version and the full re-pin procedure
+- [**Releasing**](docs/releasing.md) - exact SDK dependencies, retained binaries and maintenance
+- [**PR gates**](docs/ci/pr-gates.md), [**issue triage**](docs/ci/issue-triage.md) and
+  [**GDK release watch**](docs/ci/gdk-release-watch.md) - deterministic checks and staged advisories
 
 ## Additional Documentation
 

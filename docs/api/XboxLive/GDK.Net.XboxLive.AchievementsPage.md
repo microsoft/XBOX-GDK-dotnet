@@ -89,7 +89,7 @@ public Task<AchievementsPage> GetNextAsync(uint maxItems = 0, CancellationToken 
 
 `maxItems` [uint](https://learn.microsoft.com/dotnet/api/system.uint32)
 
-Maximum achievements to return. 0: the default: lets the service choose.
+Maximum achievements to return. 0 (the default) lets the service choose.
 
 `cancellationToken` [CancellationToken](https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken)
 

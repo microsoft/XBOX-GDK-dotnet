@@ -5,6 +5,7 @@ import pfmodel
 
 
 def main() -> int:
+    pfmodel.configure()
     model = pfmodel.load()
     shapes: collections.Counter = collections.Counter()
     examples: dict[str, str] = {}

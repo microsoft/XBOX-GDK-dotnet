@@ -1,0 +1,14 @@
+{
+  "number": 900003,
+  "synthetic": true,
+  "url": "https://github.com/microsoft/XBOX-GDK-dotnet/tree/8ae3563d2fcd9ecffd45ec15c436bacf3ee44033#synthetic-native-aot-question",
+  "title": "[Synthetic] Is NativeAOT mandatory for a Windows .NET title?",
+  "body": "Invented docs/feature question at source SHA 8ae3563d2fcd9ecffd45ec15c436bacf3ee44033: I see net8.0, net10.0 and netstandard2.0 in the projection. Must I enable PublishAot to use it in an ordinary Windows title, and is netstandard2.0 itself an AOT publish target? Is the CI ILC compilation sufficient evidence that user sign-in works in a packaged sandbox? Please point to the existing project settings and documentation before proposing new APIs.",
+  "state": "open",
+  "labels": [{ "name": "question" }],
+  "user": { "login": "synthetic-reporter", "type": "User" },
+  "created_at": "2026-10-20T14:00:00Z",
+  "captured_at": "2026-10-21T20:00:00Z",
+  "discussion_cutoff": "2026-10-21T20:00:00Z",
+  "comments": []
+}

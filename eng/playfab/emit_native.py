@@ -161,6 +161,7 @@ def emit_functions(model: pfmodel.Model) -> None:
 
 
 def main() -> int:
+    pfmodel.configure()
     model = pfmodel.load()
     os.makedirs(pfmodel.INTEROP_DIR, exist_ok=True)
     emit_types(model)

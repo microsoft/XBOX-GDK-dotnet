@@ -27,3 +27,11 @@ Full documentation tree for the .NET projection of the Microsoft GDK.
   AOT-publish a title
 - [**Title-implemented UI**](custom-game-ui.md): drawing the runtime's dialogs yourself, and the
   threading rules that come with it
+- [**Releasing**](releasing.md): exact SDK dependencies, immutable package/tag releases,
+  baseline artifact retention, and on-demand maintenance
+
+## Automation
+
+- [**PR gates**](ci/pr-gates.md): path routing, deterministic checks and branch-protection rollout
+- [**Issue triage**](ci/issue-triage.md): maintainer requests, synthetic evaluations and staged activation
+- [**GDK release watch**](ci/gdk-release-watch.md): advisory discovery, assessment and safe queue policy

@@ -1,6 +1,6 @@
 """Developer aid: dump parsed declarations matching a filter."""
 import re
-import sys
+import argparse
 
 import pfmodel
 
@@ -12,9 +12,13 @@ def sig(fn: dict) -> str:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("pattern")
+    parser.add_argument("kinds", nargs="?", default="fsec")
+    args = pfmodel.configure(parser)
     model = pfmodel.load()
-    pattern = re.compile(sys.argv[1], re.IGNORECASE)
-    kinds = sys.argv[2] if len(sys.argv) > 2 else "fsec"
+    pattern = re.compile(args.pattern, re.IGNORECASE)
+    kinds = args.kinds
     if "f" in kinds:
         for fn in model.functions.values():
             if pattern.search(fn["name"]):

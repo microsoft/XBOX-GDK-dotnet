@@ -1,0 +1,23 @@
+{
+  "edition": "260404",
+  "windowsVersion": "2604.4.7897",
+  "coreVersion": "2604.4.7897",
+  "windowsSha512": "NQ0AHyNt1cCyWp+m/BMoHUietfTigOVfxa2U1hbNCoDLiPGDkFm3bcDjk9jzBJswAqgcC+79wZnViQ68Ix3zQw==",
+  "coreSha512": "DtC+96jjBvUFFP2MGAkchDYMrgl8+9wWa9Z1aXeBIGey++/YAt1RCTcWwJJJ7urU8Lb7aY402EOmbnDJsDsMSg==",
+  "provenance": {
+    "windows": "https://www.nuget.org/packages/Microsoft.GDK.Windows/2604.4.7897",
+    "core": "https://www.nuget.org/packages/Microsoft.GDK.Core/2604.4.7897",
+    "release": "https://github.com/microsoft/GDK"
+  },
+  "library": {
+    "major": 1,
+    "minor": 0
+  },
+  "minimum": {
+    "edition": "260404",
+    "windowsVersion": "2604.4.7897",
+    "coreVersion": "2604.4.7897"
+  },
+  "upgradePolicy": "reviewed-pin-pr",
+  "maintenancePolicy": "branch-from-release-tag"
+}

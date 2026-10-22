@@ -1,146 +1,94 @@
-# The pinned GDK edition
+# The pinned GDK version/update
 
-GDK.Net is pinned to **one** Microsoft GDK edition at a time. This page explains what "pinned"
-means, what the minimum version is, and the exact procedure for moving to a new edition.
+Each source ref targets **one exact Windows/Core NuGet pair**. `main` follows the
+latest SDK adopted after validation, not automatically the latest publication.
+The [support matrix](../README.md#supported-versions) describes current support;
+[Releasing](releasing.md) covers immutable packages/tags and on-demand maintenance.
 
-## Minimum and supported versions
+## Pin and minimum policy
 
-The supported runtime, architecture, engine and toolchain matrix is declared in
-[`../README.md`](../README.md#supported-versions), which is the single canonical source. Do not
-restate it elsewhere, per `AGENTS.md` rule 6, any change to that matrix must update the README
-table in the same change.
+[.github/gdk-version.json](../.github/gdk-version.json) is the build input:
+edition, full Windows/Core package versions, verified SDK archive hashes and
+release provenance. MSBuild metadata and generator banners derive from it rather
+than independent defaults or a machine's installed edition.
 
-In summary: the GDK edition is both the minimum and the pinned version. There is no "minimum
-supported edition" range: the projection is generated from one edition's headers and validated
-against that edition's redistributables. An older GDK will be missing exports the projection binds;
-a newer one is untested until it is re-pinned by the procedure below.
+The original baseline is the minimum onboarding policy, not a promise that current
+wrappers compile or run against every later SDK. A package depends on its exact
+pair, including the full build component. A newer build within the same update
+still requires validation. Historical source/docs and binaries belong to their
+release refs; ordinary main CI does not build them.
 
-## Where the edition actually comes from
+## Restored path rules
 
-Three things pin the edition **functionally**:
+Resolve actual package roots from restore outputs. Do not assume a particular
+global cache, that transitive consumers get direct-reference path properties, or
+that an outer multi-targeting build imports inner-TFM properties.
 
-| Location | Role |
-|---|---|
-| `Directory.Build.props` → `<GdkEdition>` | The single build-level source of truth. Emitted into the assembly as an `AssemblyMetadataAttribute` named `GdkEdition`, so a built binary reports the edition it was generated against. |
-| `eng/playfab/pfmodel.py` → `banner(tool, family, edition=...)` | The default edition stamped into every generated PlayFab/interop file banner. |
-| `%GameDKCoreLatest%` (machine environment) | The **edition root** the headers, import libraries and redistributable DLLs are read from. Set by the GDK installer; not stored in the repo. |
+- Windows headers, import libraries and native modules are under the Windows
+  package's `native\<edition>\windows\{include,lib,bin}` tree.
+- Core packaging tools are in the separate Core package's `native\bin` tree.
+  Do not synthesize a combined installed directory.
+- Use the Windows `include\playfab` / `bin\<arch>` stack, not the ABI-incompatible
+  `GRDK\ExtensionLibraries` Party stack.
+- Never use `GRDK\GameKit`, `%GRDKLatest%` or `%GXDKLatest%`. Do not silently
+  fall back to `%GameDKCoreLatest%`; an installed edition can disagree with the pin.
 
-Everything else: roughly 200 files: carries the edition only as banner or prose text
-(`// GDK edition 260404`). Those are documentation, but they must still be swept so the repo does
-not claim two editions at once.
+Standard NuGet restore acquires files, not runtime installation, title
+registration or sandbox configuration. Keep mirror URLs/authentication in
+explicit local configuration, not public sources or package metadata.
 
-### Path rules
+## Upgrade procedure
 
-`AGENTS.md` rule 3 is strict about this, and getting it wrong produces a projection that silently
-omits half the surface:
+1. Verify the last validated release has an immutable source tag and durably
+   retained packages/evidence. An expiring Actions artifact or source-only tag
+   does not satisfy this prerequisite.
+2. Propose the new exact pair and verified archive hashes in an upgrade PR.
+   Change the library revision as needed; do not retarget an older maintenance
+   branch incidentally.
+3. Restore and generate clean production inputs through `eng/build.ps1`. Extract
+   exports from the selected binaries; do not reuse committed/test-only export
+   fixtures with `-SkipExports` for a different SDK.
+4. Inspect generator/model differences and actual compiled native imports,
+   signatures, enums, layouts and calling conventions against the selected
+   headers and both native architectures. Preserve intentional omission tests.
+   Update an expectation only for an evidenced SDK difference, never to hide a
+   failed check.
+5. Validate all library TFMs, unit/native contracts, package contents and clean
+   direct/transitive consumers, exact-version conflicts, native staging, real
+   x64 NativeAOT compilation and full API-doc comparison. Cross-compilation is
+   not runtime execution. Regenerate current API docs normally.
+6. Perform manual live validation using the actual candidate packages. Bind
+   sanitized evidence to source/generator/dependency inputs and package digests.
+   Missing or stale evidence blocks adoption; rebuilt/different packages require
+   fresh evidence, not an edited success claim.
+7. Update the canonical support matrix and review compatibility/release notes.
+   Merge only after required deterministic and manual evidence is accepted.
+   Tag/retain the resulting release through its separate approval checkpoint;
+   publishing remains a separate action.
 
-- Headers come from `%GameDKCoreLatest%windows\include`, import libraries from
-  `%GameDKCoreLatest%windows\lib\{x64,arm64}`.
-- **Never** use the `GRDK\GameKit\*` paths. They omit the XBOX Live and PlayFab stack entirely and
-  ship no `arm64` libraries.
-- Derive every path from `%GameDKCoreLatest%`, never `%GRDKLatest%` or `%GXDKLatest%`.
-- The GDK ships two mutually ABI-incompatible PlayFab stacks. The projection binds the
-  `windows\bin\x64` one (the stack `windows\include\playfab` describes), **not**
-  `GRDK\ExtensionLibraries`. See the comment block at the top of `eng/generate-playfab.ps1`.
+ClangSharp generation remains verification scratch: do not compile its duplicate
+declarations beside hand-written core/XSAPI interop. Production PlayFab/Party
+changes belong in emitters, not generated C#.
 
-## Re-pinning to a new edition
+## Export gaps are not text-search counts
 
-> Your shell's `%GameDKCoreLatest%` is inherited at process start. After installing a new GDK,
-> **open a new shell**, an existing one still points at the old edition and every generator will
-> silently reproduce the old surface.
+`eng/unexported-apis.md` records declarations that are absent from redistributable
+thunks or compiled out. Re-derive changes using actual exports and native header
+preprocessing with the platform's real defines, including `_GAMING_DESKTOP`.
+Naive header searches also count non-GDK and internal-only XSAPI declarations.
+Account for export aliases when interpreting `dumpbin` output.
 
-### 1. Install the edition and confirm the root
+`eng/api-coverage.ps1` is useful coverage reporting, not proof of signatures or
+ABI compatibility. Native probes must state which contracts remain unverified.
+Do not initialize GDK/PlayFab merely to inspect metadata or layouts.
 
-```powershell
-$env:GameDKCoreLatest
-Get-ChildItem "$env:GameDKCoreLatest\windows\include" | Select-Object -First 5
-```
-
-### 2. Update the contract test *first*
-
-`tests/GDK.Net.Tests/ThunksBindingContractTests.cs` pins which entry points the thunks DLL exports
-and, deliberately, which ones remain unreachable: "so a future edition that exports them is
-noticed rather than assumed". Run the suite before changing anything else: the failures tell you
-what the new edition changed.
-
-### 3. Re-generate
-
-```powershell
-pwsh eng/generate-interop.ps1 -Clean     # ClangSharp -> eng/Generated/ (review, not compiled)
-pwsh eng/generate-playfab.ps1            # regenerates the committed PlayFab projection
-```
-
-`generate-playfab.ps1` runs `dumpbin` over the redist DLLs, re-parses the headers into
-`eng/playfab/model.json`, and re-emits the C#. Review `model.json`'s diff: SAL annotation changes
-there are normal between editions and often produce no C# change at all.
-
-Use `-SkipExports` to reuse the committed `exports.json` on a machine without the MSVC tools.
-
-### 4. Re-verify the export gap: by preprocessing, not grep
-
-`eng/unexported-apis.md` records the APIs that are declared in the headers but not exported by the
-redistributable thunks DLLs. **Regenerate this by actually preprocessing the headers**, not by
-text-scanning them.
-
-This matters. A naive `grep` over the XSAPI headers counts declarations that are compiled out on
-GDK: 11 are gated by `HC_PLATFORM` (they exist only on non-GDK platforms) and 6 more by
-`#ifdef XSAPI_INTERNAL_EVENTS_SERVICE` (internal-only). A text scan reports an 18-API gap where the
-real GDK-visible gap is **one** (`XblSetApiType`). Preprocess with the platform defines the GDK
-actually compiles under:
-
-```powershell
-cl /EP /D_GAMING_DESKTOP /I"$env:GameDKCoreLatest\windows\include" <header>
-```
-
-`eng/api-coverage.ps1` diffs each DLL's export table against the entry points bound in
-`src/GDK.Net/Interop`, and is the cheapest way to see what moved:
-
-```powershell
-pwsh -NoProfile -File eng/api-coverage.ps1
-pwsh -NoProfile -File eng/api-coverage.ps1 -Module XboxLive
-```
-
-When reading `dumpbin` output directly, note that the export regex must tolerate the ` = alias`
-suffix.
-
-### 5. Sweep the edition string
-
-```powershell
-git grep -l '<old edition>'
-```
-
-Update `Directory.Build.props`, `eng/playfab/pfmodel.py`, then every banner and prose reference.
-This is mechanical but large: the 260400 → 260404 move touched 196 files.
-
-### 6. Update the documentation that states the edition
-
-- `README.md`: the supported-versions tables and the status section (canonical).
-- `AGENTS.md` rule 3.
-- `eng/README.md`: the "Known-good version" block.
-- `eng/unexported-apis.md`: both gap tables.
-- This page, if the procedure changed.
-
-### 7. Validate
-
-```powershell
-dotnet build -c Release
-dotnet test -c Release --no-build
-pwsh eng/generate-docs.ps1               # the API reference banner carries the edition
-```
-
-Then run the live harness on a dev-unlocked machine: CI cannot do this:
-
-```powershell
-pwsh eng/run-local.ps1
-```
-
-## Known exception
-
-`eng/repro/pfmp-uninitialize-hang` is deliberately left at edition `260400`. The hang it reproduces
-has never been re-tested on a newer edition, so pinning it forward would destroy the reproduction.
-Leave it alone during a sweep.
+Historical repros such as `eng/repro/pfmp-uninitialize-hang` intentionally retain
+their original pin until explicitly revalidated; do not sweep their version
+strings as part of a current-main upgrade.
 
 ## Related guides
 
-- [Building](building.md): prerequisites and the build/test/package commands.
-- [Architecture](architecture.md): why the interop layer is checked in rather than generated at build time.
+- [Building](building.md): source acquisition, generation, checks and local execution.
+- [Architecture](architecture.md): hand-written interop, generation and AOT constraints.
+- [Releasing](releasing.md): baseline retention, immutable tags and older-release fixes.
+- [GDK release watch](ci/gdk-release-watch.md): advisory discovery, not automatic adoption.

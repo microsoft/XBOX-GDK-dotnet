@@ -903,6 +903,7 @@ def emit_service(model: pfmodel.Model, family: str, apis: list[Api], type_names:
 
 
 def main() -> int:
+    pfmodel.configure()
     model = pfmodel.load()
     families = service_functions(model)
 
