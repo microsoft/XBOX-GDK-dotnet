@@ -14,6 +14,7 @@ Set-StrictMode -Version 3.0
 $ToolPackageId = 'ClangSharpPInvokeGenerator'
 $ToolVersion = '21.1.8.4'
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
+$ToolRoot = Join-Path $RepoRoot '.config\interop'
 $ResponseTemplate = Join-Path $PSScriptRoot 'GDK.Net.rsp'
 $OutputRoot = [IO.Path]::GetFullPath($OutputRoot)
 if (-not $OutputRoot.StartsWith(([IO.Path]::GetFullPath((Join-Path $RepoRoot 'artifacts')) + '\'), [StringComparison]::OrdinalIgnoreCase)) {
@@ -107,7 +108,7 @@ Write-Host "MSVC include: $msvcInclude"
 Write-Host "Output: $GeneratedOutput"
 
 if (-not $NoInstall) {
-    Push-Location $RepoRoot
+    Push-Location $ToolRoot
     try {
         if ($PSCmdlet.ShouldProcess($RepoRoot, "restore/install local .NET tool $ToolPackageId $ToolVersion")) {
             dotnet tool restore
@@ -146,7 +147,7 @@ if ($PSCmdlet.ShouldProcess($GeneratedOutput, 'generate GDK raw interop bindings
 
     Set-Content -LiteralPath $EffectiveResponse -Value $responseText -Encoding UTF8
 
-    Push-Location $RepoRoot
+    Push-Location $ToolRoot
     try {
         dotnet tool run ClangSharpPInvokeGenerator -- "@$EffectiveResponse"
         if ($LASTEXITCODE -ne 0) { throw "ClangSharp verification failed (exit $LASTEXITCODE)." }

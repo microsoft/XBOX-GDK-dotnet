@@ -28,8 +28,11 @@ Use `-WhatIf` for a dry run, or `-NoInstall` to skip local tool restore/install.
 ## Pinned inputs
 
 The current SDK pin is [.github/gdk-version.json](../.github/gdk-version.json);
-tool versions live in [the tool manifest](../.config/dotnet-tools.json) and the
-root toolchain version files. See the [canonical support matrix](../README.md#supported-versions)
+tool versions live in the [documentation manifest](../.config/dotnet-tools.json),
+[interop manifest](../.config/interop/dotnet-tools.json) and root toolchain version files.
+Separate manifests avoid command misattribution on cold tool restores
+([dotnet/sdk#53783](https://github.com/dotnet/sdk/issues/53783)).
+See the [canonical support matrix](../README.md#supported-versions)
 and [upgrade procedure](../docs/gdk-edition.md), rather than maintaining a second version list here.
 
 ## Relationship to the checked-in interop layer
