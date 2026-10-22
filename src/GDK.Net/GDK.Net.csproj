@@ -5,7 +5,14 @@
     <RootNamespace>GDK.Net</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PackageId>GDK.Net</PackageId>
-    <Description>Idiomatic .NET projection of the Microsoft GDK flat C API.</Description>
+    <Description>Idiomatic .NET projection of the Microsoft GDK flat C API. Requires the exact Microsoft.GDK.Windows and Microsoft.GDK.Core SDK versions declared by this release; native redistributables are selected from those restored packages.</Description>
+    <PackageProjectUrl>https://github.com/microsoft/XBOX-GDK-dotnet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/microsoft/XBOX-GDK-dotnet</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>GDK;Xbox;GameDev;PlayFab</PackageTags>
+    <!-- NuGet's "true" uses the current time; a fixed RFC3339 ZIP epoch makes archives repeatable. -->
+    <DeterministicTimestamp>1980-01-01T00:00:00Z</DeterministicTimestamp>
 
     <!--
       Ships XML docs beside the assembly, so consumers get IntelliSense on the projected surface,
@@ -76,6 +83,32 @@
   </Target>
 
   <ItemGroup>
+    <Compile Include="$(GdkGeneratedSourceRoot)**\*.cs" />
+    <PackageReference Include="Microsoft.GDK.Windows" Version="[$(GdkWindowsVersion)]" GeneratePathProperty="true" />
+    <PackageReference Include="Microsoft.GDK.Core" Version="[$(GdkCoreVersion)]" GeneratePathProperty="true" />
     <InternalsVisibleTo Include="GDK.Net.Tests" />
+    <None Include="..\..\eng\packaging\PACKAGE-README.md" Pack="true" PackagePath="README.md" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+    <None Include="..\..\eng\packaging\GDK.Net.targets;..\..\eng\packaging\GdkRedist.targets;..\..\eng\packaging\GdkNet.ResolveNativeAssets.cs"
+          Pack="true" PackagePath="buildTransitive\" />
+    <None Include="$(BaseIntermediateOutputPath)GDK.Net.props" Pack="true" PackagePath="buildTransitive\" />
   </ItemGroup>
+
+  <Target Name="GenerateGdkNetPackageProperties" BeforeTargets="_GetPackageFiles">
+    <ItemGroup>
+      <_GdkNetPackagePropertyLine Include="&lt;Project&gt;" />
+      <_GdkNetPackagePropertyLine Include="  &lt;PropertyGroup&gt;" />
+      <_GdkNetPackagePropertyLine Include="    &lt;_GdkNetPackageEdition&gt;$(GdkEdition)&lt;/_GdkNetPackageEdition&gt;" />
+      <_GdkNetPackagePropertyLine Include="    &lt;_GdkNetPackageWindowsVersion&gt;$(GdkWindowsVersion)&lt;/_GdkNetPackageWindowsVersion&gt;" />
+      <_GdkNetPackagePropertyLine Include="    &lt;_GdkNetPackageCoreVersion&gt;$(GdkCoreVersion)&lt;/_GdkNetPackageCoreVersion&gt;" />
+      <_GdkNetPackagePropertyLine Include="  &lt;/PropertyGroup&gt;" />
+      <_GdkNetPackagePropertyLine Include="&lt;/Project&gt;" />
+    </ItemGroup>
+    <WriteLinesToFile File="$(BaseIntermediateOutputPath)GDK.Net.props"
+                      Lines="@(_GdkNetPackagePropertyLine)" Overwrite="true" WriteOnlyWhenDifferent="true" />
+  </Target>
+
+  <Target Name="ValidateGdkGeneratedInputs" BeforeTargets="PrepareForBuild">
+    <Exec Command="pwsh -NoProfile -File &quot;$(GdkRepositoryRoot)eng\gdk.ps1&quot; -CheckPrepared" />
+  </Target>
 </Project>

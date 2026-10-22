@@ -21,12 +21,12 @@ Please do not report security vulnerabilities through public GitHub issues. See 
 
 ## Building and testing
 
-No GDK installation is required to build or to run the unit tests:
+Use the pinned source-build toolchain and configured NuGet sources. The build restores
+the exact GDK packages and generates production bindings; it does not install or register
+the GDK:
 
 ```powershell
-dotnet restore
-dotnet build -c Release
-dotnet test -c Release --no-build
+pwsh eng/build.ps1 -Configuration Release -Test -Pack
 ```
 
 [`docs/building.md`](docs/building.md) covers the prerequisites, running against the Gaming Runtime,
@@ -61,13 +61,20 @@ its output.
 **Keep the support matrix honest.** Any change to the supported runtime, architecture, engine, or
 toolchain matrix must update the tables in [`README.md`](README.md) in the same change.
 
-**The GDK edition is pinned** to `260404`. See [`docs/gdk-edition.md`](docs/gdk-edition.md) for the
-re-pin procedure.
+**The GDK version/update is pinned per ref** in
+[`.github/gdk-version.json`](.github/gdk-version.json). See
+[`docs/gdk-edition.md`](docs/gdk-edition.md) for upgrades and
+[`docs/releasing.md`](docs/releasing.md) for exact package dependencies and fixes from release tags.
+Do not retarget an older maintenance branch incidentally.
+
+**Report actual validation.** [PR gates](docs/ci/pr-gates.md) route deterministic work by path.
+Use the PR template to distinguish unit/build/package checks, NativeAOT compilation and manual
+live execution. Keep secrets, private feed URLs and account/title/sandbox identifiers out of reports.
 
 ## Testing is live
 
 CI builds, runs the unit tests, and verifies that NativeAOT compilation succeeds. It cannot validate
-behaviour: hosted runners have no GDK and no signed-in account. The pilot is validated in a packaged
+behaviour: restoring SDK inputs does not provide a registered title or signed-in account. The pilot is validated in a packaged
 GDK app against a real sandbox on a dev-unlocked machine:
 
 ```powershell

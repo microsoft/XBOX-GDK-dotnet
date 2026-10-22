@@ -10,7 +10,7 @@
       artifacts/package/layout.xml  mapping file from `makepkg genmap`
       artifacts/package/out/      `makepkg validate` log and the packed .msixvc
 
-    Requires an installed Microsoft GDK. This cannot run on a hosted CI runner.
+    Requires the prepared, exactly pinned GDK packages. Does not install or register the SDK.
 
 .PARAMETER Project
     Which app to package.
@@ -46,13 +46,16 @@ param(
     [switch] $Aot,
     [switch] $Pack,
     [switch] $Validate,
-    [switch] $Clean
+    [switch] $Clean,
+    [string] $NuGetConfig,
+    [string] $PackagesDirectory
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'packaging\Resolve-GdkTool.ps1')
 
 # The assembly name doubles as the executable name MicrosoftGame.config declares, so both are
 # derived from one place and the layout check below stays honest.
@@ -66,16 +69,7 @@ $mappingFile = Join-Path $packageRoot 'layout.xml'
 $outDir = Join-Path $packageRoot 'out'
 
 function Resolve-MakePkg {
-    if (-not $env:GameDK) {
-        throw "The Microsoft GDK is not installed: %GameDK% is not set. Package builds require a local GDK install and cannot run on a hosted CI runner."
-    }
-
-    $makePkg = Join-Path $env:GameDK 'bin\makepkg.exe'
-    if (-not (Test-Path $makePkg)) {
-        throw "makepkg.exe was not found at '$makePkg'. Reinstall the Microsoft GDK."
-    }
-
-    return $makePkg
+    return (Resolve-GdkTool 'makepkg')
 }
 
 function Invoke-Tool {
@@ -120,6 +114,8 @@ $publishArgs = @(
     '--self-contained', 'true',
     '-o', $layoutDir
 )
+if ($NuGetConfig) { $publishArgs += "-p:RestoreConfigFile=$((Resolve-Path $NuGetConfig).Path)" }
+if ($PackagesDirectory) { $publishArgs += "-p:RestorePackagesPath=$([IO.Path]::GetFullPath($PackagesDirectory))" }
 
 # The sample multi-targets, so publish must name one framework. NativeAOT uses net10.0 because the
 # NativeAOT runtime pack is only published from 9.0 onward; the IL publish stays on net8.0, the
@@ -145,26 +141,20 @@ if ($Aot) {
 Invoke-Tool -FilePath 'dotnet' -Activity "Publishing $projectName ($RuntimeIdentifier, $(if ($Aot) { 'NativeAOT' } else { 'self-contained' }))" -Arguments $publishArgs
 
 if ($Aot) {
-    # A NativeAOT publish must leave a single native executable behind. If any managed assembly or
-    # the runtime host is still there, something silently fell back to an IL publish and the
-    # packaged run would not be testing what it claims to.
-    $strays = Get-ChildItem $layoutDir -Filter '*.dll' -File |
-        Where-Object { $_.Name -notlike 'xgameruntime.*' }
-    if ($strays) {
-        throw "The NativeAOT publish left managed assemblies in the layout ($($strays.Name -join ', ')), so it fell back to an IL publish."
+    # Selected SDK redistributables are native DLLs, not evidence of an IL fallback.
+    $binaries = @((Get-Item (Join-Path $layoutDir "$projectName.exe"))) +
+        @(Get-ChildItem $layoutDir -Filter '*.dll' -File)
+    foreach ($binary in $binaries) {
+        $stream = [IO.File]::OpenRead($binary.FullName)
+        $reader = [Reflection.PortableExecutable.PEReader]::new($stream)
+        try {
+            if ($reader.HasMetadata -or $reader.PEHeaders.CorHeader) {
+                throw "The NativeAOT layout contains a managed binary: $($binary.Name)."
+            }
+        }
+        finally { $reader.Dispose(); $stream.Dispose() }
     }
 }
-
-# xgameruntime.thunks.dll is the module every P/Invoke binds to (see src/GDK.Net/Interop/Native.cs).
-# It is NOT installed system-wide -- only XGameRuntime.dll is in System32, and that exports nothing
-# useful -- so it must be redistributed next to the game executable or the title fails to launch.
-$thunksArch = if ($RuntimeIdentifier -eq 'win-arm64') { 'arm64' } else { 'x64' }
-$thunks = Join-Path $env:GameDKCoreLatest "windows\bin\$thunksArch\xgameruntime.thunks.dll"
-if (-not (Test-Path $thunks)) {
-    throw "xgameruntime.thunks.dll was not found at '$thunks'. The package would build but could not launch."
-}
-
-Copy-Item $thunks $layoutDir -Force
 
 # MicrosoftGame.config and the ShellVisuals must sit at the layout root next to the executable.
 # The publish already copies them there -- the config from the project directory, the PNGs linked

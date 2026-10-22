@@ -1,0 +1,41 @@
+{
+  "case_id": "native-aot-question",
+  "acceptable_kinds": ["question", "feature"],
+  "evidence": [
+    {
+      "id": "aot-policy",
+      "required": true,
+      "locations": [{ "path": "docs/native-aot.md", "start_line": 8, "end_line": 33 }]
+    },
+    {
+      "id": "project-contract",
+      "required": true,
+      "locations": [
+        { "path": "src/GDK.Net/GDK.Net.csproj", "start_line": 42, "end_line": 54 },
+        { "path": "src/GDK.Net/GDK.Net.csproj", "start_line": 56, "end_line": 75 }
+      ]
+    },
+    {
+      "id": "live-validation-boundary",
+      "required": true,
+      "locations": [{ "path": "docs/native-aot.md", "start_line": 35, "end_line": 50 }]
+    }
+  ],
+  "key_facts": [
+    "Ordinary build/publish is not forced to use AOT; AOT is opt-in for a Windows title while the page explains console JIT restrictions.",
+    "The AOT analyzers exclude netstandard2.0, and the project clears AOT-related global properties for that target.",
+    "Source-generated marshalling and unmanaged callbacks support the modern .NET AOT contract.",
+    "CI ILC compilation is not a packaged live sandbox/sign-in test; live validation remains manual."
+  ],
+  "acceptable_uncertainty": [
+    "Answer from this pinned revision, not a claim to have published or exercised a title.",
+    "A feature classification is acceptable only when it explains that the requested behavior/documentation already exists."
+  ],
+  "relevant_questions": [],
+  "avoid": [
+    "Saying netstandard2.0 is AOT-published or AOT is mandatory for every Windows build.",
+    "Claiming CI proves live sign-in, console certification, or all runtime behavior.",
+    "Suggesting reflection/dynamic marshalling as an AOT workaround or a new API without need.",
+    "Requesting generic reproduction information for an answerable documentation question."
+  ]
+}

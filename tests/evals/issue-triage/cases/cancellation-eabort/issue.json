@@ -1,0 +1,22 @@
+{
+  "number": 900001,
+  "synthetic": true,
+  "url": "https://github.com/microsoft/XBOX-GDK-dotnet/tree/8ae3563d2fcd9ecffd45ec15c436bacf3ee44033#synthetic-cancellation-eabort",
+  "title": "[Synthetic] E_ABORT bypasses my GameRuntimeException catch",
+  "body": "This is an invented diagnostic scenario, not a reproduction. I am reading source at 8ae3563d2fcd9ecffd45ec15c436bacf3ee44033 for net10.0/win-x64, GDK edition 260404. My title catches GameRuntimeException around an awaited operation. If native completion returns E_ABORT, should the task fault with that exception, or use .NET cancellation? Please identify the result-reading path and the HRESULT mapping; I have not run a live packaged test.",
+  "state": "open",
+  "labels": [{ "name": "question" }],
+  "user": { "login": "synthetic-reporter", "type": "User" },
+  "created_at": "2026-10-20T12:00:00Z",
+  "captured_at": "2026-10-21T20:00:00Z",
+  "discussion_cutoff": "2026-10-21T20:00:00Z",
+  "comments": [
+    {
+      "id": 900011,
+      "user": { "login": "synthetic-reporter", "type": "User" },
+      "author_association": "NONE",
+      "body": "I only need static analysis. No stack trace or observed native result exists for this invented example.",
+      "created_at": "2026-10-20T12:05:00Z"
+    }
+  ]
+}

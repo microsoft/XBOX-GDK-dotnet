@@ -16,8 +16,6 @@ import emit_native
 import pfmodel
 from pfmodel import managed_name
 
-PARTY_DIR = os.path.join(pfmodel.PLAYFAB_DIR, "Party")
-
 HEADERS = {
     "party/Party_c.h": "Party",
     "party/PartyXboxLive_c.h": "PartyXboxLive",
@@ -45,8 +43,10 @@ def emit_enum(model: pfmodel.Model, entry: dict) -> str:
 
 
 def main() -> int:
+    pfmodel.configure()
+    party_dir = os.path.join(pfmodel.PLAYFAB_DIR, "Party")
     model = pfmodel.load()
-    os.makedirs(PARTY_DIR, exist_ok=True)
+    os.makedirs(party_dir, exist_ok=True)
 
     total = 0
     for header, family in HEADERS.items():
@@ -65,7 +65,7 @@ def main() -> int:
             + "\n\n".join(blocks)
             + "\n"
         )
-        path = os.path.join(PARTY_DIR, f"{family}Enums.cs")
+        path = os.path.join(party_dir, f"{family}Enums.cs")
         with open(path, "w", encoding="utf-8", newline="\r\n") as handle:
             handle.write(text)
         print(f"{path}: {len(blocks)} enums")

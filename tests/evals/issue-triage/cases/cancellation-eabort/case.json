@@ -1,0 +1,13 @@
+{
+  "id": "cancellation-eabort",
+  "synthetic": true,
+  "repository": "microsoft/XBOX-GDK-dotnet",
+  "target_sha": "8ae3563d2fcd9ecffd45ec15c436bacf3ee44033",
+  "source_url": "https://github.com/microsoft/XBOX-GDK-dotnet/commit/8ae3563d2fcd9ecffd45ec15c436bacf3ee44033",
+  "sha_justification": "Synthetic question grounded in the publicly verified initial main commit. No real issue, reproduction, or released-package claim is represented.",
+  "fixture_digest": "bf675d7e325d4f56e44c9c98032e956d027e1344d0603f19e83a039150ebcfae",
+  "source_files": [
+    { "path": "src/GDK.Net/AsyncOperation.cs", "sha256": "f4f916a300c92abd1c746086a5c0518d9f289006b3032c931cdce352931350a8" },
+    { "path": "src/GDK.Net/Exceptions.cs", "sha256": "800c3250895d11df0492bf83d6db55a9122ab7927576181be62c7c67dcb0b0f4" }
+  ]
+}

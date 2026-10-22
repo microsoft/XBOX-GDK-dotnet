@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GDK.Net;
 using GDK.Net.Interop;
@@ -142,5 +145,46 @@ public sealed unsafe class InteropContractTests
     public void InfiniteTimeoutBecomesTheNativeInfiniteSentinel()
     {
         Assert.Equal(uint.MaxValue, GameTaskQueue.ToTimeoutMilliseconds(System.Threading.Timeout.InfiniteTimeSpan));
+    }
+
+    [Fact]
+    public void PilotImportsPreserveNativePointerDepthAndScalarWidths()
+    {
+        // Paired with eng/verify-native.ps1's compiled-header signatures. A bool marshalling stub
+        // or one missing pointer level can otherwise survive an import/export name check.
+        AssertSignature(typeof(Native), "XAsyncGetStatus", typeof(int), typeof(XAsyncBlock*), typeof(byte));
+        AssertSignature(typeof(Native), "XUserGetId", typeof(int), typeof(IntPtr), typeof(ulong*));
+        AssertSignature(typeof(NativePlayFab), "PFMultiplayerStartProcessingLobbyStateChanges",
+            typeof(int), typeof(IntPtr), typeof(uint*), typeof(PFLobbyStateChange***));
+        AssertSignature(typeof(NativePlayFab), "PFMultiplayerFinishProcessingLobbyStateChanges",
+            typeof(int), typeof(IntPtr), typeof(uint), typeof(PFLobbyStateChange**));
+        AssertSignature(typeof(NativePlayFab), "PartyStartProcessingStateChanges",
+            typeof(uint), typeof(IntPtr), typeof(uint*), typeof(PARTY_STATE_CHANGE***));
+        AssertSignature(typeof(NativePlayFab), "PartyFinishProcessingStateChanges",
+            typeof(uint), typeof(IntPtr), typeof(uint), typeof(PARTY_STATE_CHANGE**));
+    }
+
+    [Fact]
+    public void PilotCallbacksPreserveTheNativeStdcallBoundary()
+    {
+        foreach (string name in new[] { "OnAsyncCompleted", "OnUserChanged" })
+        {
+            MethodInfo method = typeof(Trampolines).GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static)!;
+            Assert.NotNull(method);
+            var callback = method.GetCustomAttribute<UnmanagedCallersOnlyAttribute>();
+            Assert.NotNull(callback);
+            Assert.Equal(new[] { typeof(CallConvStdcall) }, callback.CallConvs);
+        }
+    }
+
+    private static void AssertSignature(Type declaringType, string name, Type result, params Type[] parameters)
+    {
+        MethodInfo method = declaringType.GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static)!;
+        Assert.NotNull(method);
+        Assert.Equal(result, method.ReturnType);
+        Assert.Equal(parameters, method.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
+        DllImportAttribute import = method.GetCustomAttribute<DllImportAttribute>()!;
+        Assert.NotNull(import);
+        Assert.Contains(import.CallingConvention, new[] { CallingConvention.Winapi, CallingConvention.StdCall });
     }
 }

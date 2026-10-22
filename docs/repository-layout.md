@@ -25,5 +25,12 @@ Where things live, and which directories are generated rather than authored by h
   generated `README.md` index.
 - `docs/building.md`, `docs/getting-started.md`, `docs/architecture.md`, `docs/gdk-edition.md`:
   authored guides.
-- `.github/workflows/ci.yml`: Windows CI for restore, build, and tests.
-
+- `docs/releasing.md`: package/tag identity, durable retention, upgrades and on-demand maintenance.
+- `docs/ci/`: PR routing/gates and staged triage/evaluation/GDK advisory runbooks.
+- `.github/gdk-version.json`: one exact SDK pin for the checked-out ref, not a support catalog.
+- `artifacts/gdk/`: isolated restored-input/generation/build/package diagnostics for the current
+  pin. Generated production PlayFab/Party C# is not a committed per-edition snapshot.
+- `eng/ci/`: deterministic scope, aggregate, triage/evaluation, release-watch and assessment helpers.
+- `.github/workflows/ci.yml`: scoped static, build/package, NativeAOT, docs and automation checks.
+- `.github/workflows/*.md`: agentic workflow sources; their `.lock.yml` files and
+  `.github/aw/actions-lock.json` are compiler outputs.

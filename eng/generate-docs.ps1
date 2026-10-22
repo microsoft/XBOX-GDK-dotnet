@@ -38,7 +38,8 @@
 [CmdletBinding()]
 param(
     [switch] $Check,
-    [switch] $NoRestore
+    [switch] $NoRestore,
+    [string] $NuGetConfig
 )
 
 $ErrorActionPreference = 'Stop'
@@ -47,6 +48,10 @@ Set-StrictMode -Version Latest
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $config = Join-Path $PSScriptRoot 'docfx.json'
 $committed = Join-Path $repoRoot 'docs\api'
+. (Join-Path $PSScriptRoot 'gdk.ps1')
+$pin = Read-GdkPin
+Test-GdkPrepared $pin
+$temporary = $null
 
 # The folder layout, the per-area indexes and the Microsoft Learn cross-links.
 . (Join-Path $PSScriptRoot 'api-layout.ps1')
@@ -54,7 +59,9 @@ $committed = Join-Path $repoRoot 'docs\api'
 Push-Location $repoRoot
 try {
     if (-not $NoRestore) {
-        dotnet tool restore
+        $restoreOptions = @()
+        if ($NuGetConfig) { $restoreOptions += @('--configfile', (Resolve-Path $NuGetConfig).Path) }
+        dotnet tool restore @restoreOptions
         if ($LASTEXITCODE -ne 0) {
             throw 'dotnet tool restore failed. docfx could not be resolved; see docs/building.md.'
         }
@@ -66,7 +73,7 @@ try {
     $generated = $committed
     $temporary = $null
     if ($Check) {
-        $temporary = Join-Path ([System.IO.Path]::GetTempPath()) ("gdknet-docs-" + [guid]::NewGuid().ToString('N'))
+        $temporary = Join-Path $pin.artifactRoot ("docs-check-" + [guid]::NewGuid().ToString('N'))
         $outputBase = $temporary
         $generated = Join-Path $temporary 'api'
     }
@@ -132,11 +139,14 @@ try {
         if ($differences.Count -gt 25) {
             Write-Host "  ... and $($differences.Count - 25) more"
         }
-        exit 1
+        throw 'API documentation drift detected.'
     }
 
     Write-Host "docs/api is up to date ($($expectedNames.Count) files)."
 }
 finally {
+    if ($Check -and $temporary -and (Test-Path $temporary)) {
+        Remove-Item $temporary -Recurse -Force
+    }
     Pop-Location
 }

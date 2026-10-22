@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>$(ConsumerFramework)</TargetFramework>
+    <OutputType Condition="'$(ConsumerFramework)' != 'netstandard2.0'">Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>GdkNet.PackageConsumer</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="$(ConsumerPackageId)" Version="[$(ConsumerPackageVersion)]" />
+    <PackageReference Include="Microsoft.GDK.Windows" Version="[$(DirectWindowsVersion)]"
+                      Condition="'$(DirectWindowsVersion)' != ''" />
+    <PackageReference Include="Microsoft.GDK.Core" Version="[$(DirectCoreVersion)]"
+                      Condition="'$(DirectCoreVersion)' != ''" />
+  </ItemGroup>
+</Project>

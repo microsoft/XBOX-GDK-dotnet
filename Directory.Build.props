@@ -1,5 +1,29 @@
 <Project>
   <PropertyGroup>
+    <GdkRepositoryRoot>$(MSBuildThisFileDirectory)</GdkRepositoryRoot>
+    <_GdkPinJson>$([System.IO.File]::ReadAllText('$(GdkRepositoryRoot).github\gdk-version.json'))</_GdkPinJson>
+    <_GdkPinPropertiesJson>$([System.Text.RegularExpressions.Regex]::Replace('$(_GdkPinJson)', '"minimum"\s*:\s*\{[^}]*\}', ''))</_GdkPinPropertiesJson>
+    <_GdkPinnedEdition>$([System.Text.RegularExpressions.Regex]::Match('$(_GdkPinPropertiesJson)', '"edition"\s*:\s*"([^"]+)"').Groups[1].Value)</_GdkPinnedEdition>
+    <_GdkPinnedWindowsVersion>$([System.Text.RegularExpressions.Regex]::Match('$(_GdkPinPropertiesJson)', '"windowsVersion"\s*:\s*"([^"]+)"').Groups[1].Value)</_GdkPinnedWindowsVersion>
+    <_GdkPinnedCoreVersion>$([System.Text.RegularExpressions.Regex]::Match('$(_GdkPinPropertiesJson)', '"coreVersion"\s*:\s*"([^"]+)"').Groups[1].Value)</_GdkPinnedCoreVersion>
+    <GdkWindowsVersion>$(_GdkPinnedWindowsVersion)</GdkWindowsVersion>
+    <GdkCoreVersion>$(_GdkPinnedCoreVersion)</GdkCoreVersion>
+    <_GdkLibraryMajor>$([System.Text.RegularExpressions.Regex]::Match('$(_GdkPinJson)', '"major"\s*:\s*(\d+)').Groups[1].Value)</_GdkLibraryMajor>
+    <_GdkLibraryMinor>$([System.Text.RegularExpressions.Regex]::Match('$(_GdkPinJson)', '"minor"\s*:\s*(\d+)').Groups[1].Value)</_GdkLibraryMinor>
+    <GdkEdition Condition="'$(GdkEdition)' == ''">$(_GdkPinnedEdition)</GdkEdition>
+    <_GdkPinnedArtifactRoot>$(GdkRepositoryRoot)artifacts\gdk\$(_GdkPinnedEdition)\$(_GdkPinnedWindowsVersion)\</_GdkPinnedArtifactRoot>
+    <GdkArtifactRoot>$(_GdkPinnedArtifactRoot)</GdkArtifactRoot>
+    <GdkGeneratedSourceRoot>$(GdkArtifactRoot)generated\src\</GdkGeneratedSourceRoot>
+    <BaseIntermediateOutputPath>$(GdkArtifactRoot)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(GdkArtifactRoot)bin\$(MSBuildProjectName)\</BaseOutputPath>
+    <!-- Do not pick up this project's old default obj sources after moving intermediates. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)\obj\**;$(MSBuildProjectDirectory)\bin\**</DefaultItemExcludes>
+    <Version>$(_GdkPinnedEdition).$(_GdkLibraryMajor).$(_GdkLibraryMinor)</Version>
+    <AssemblyVersion>$(_GdkLibraryMajor).$(_GdkLibraryMinor).0.0</AssemblyVersion>
+    <FileVersion>$(_GdkLibraryMajor).$(_GdkLibraryMinor).0.0</FileVersion>
+    <InformationalVersion>$(Version)+gdk.$(GdkWindowsVersion)</InformationalVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -9,14 +33,24 @@
     <PackageProjectUrl>https://github.com/</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <GdkEdition>260404</GdkEdition>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
+
+  <Target Name="ValidateGdkEdition" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(GdkEdition)' != '$(_GdkPinnedEdition)'"
+           Text="GdkEdition overrides are unsupported. Build the checked-out pin; use a reviewed pin PR for upgrades or a release tag for older maintenance." />
+    <Error Condition="'$(GdkWindowsVersion)' != '$(_GdkPinnedWindowsVersion)' Or '$(GdkCoreVersion)' != '$(_GdkPinnedCoreVersion)'"
+           Text="SDK version overrides are unsupported; use the checked-out release pin." />
+    <Error Condition="'$(GdkArtifactRoot)' != '$(_GdkPinnedArtifactRoot)' Or '$(GdkGeneratedSourceRoot)' != '$(_GdkPinnedArtifactRoot)generated\src\'"
+           Text="Generated input overrides are unsupported. Run eng\build.ps1 to prepare the checked-out pin." />
+  </Target>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
       <_Parameter1>GdkEdition</_Parameter1>
       <_Parameter2>$(GdkEdition)</_Parameter2>
     </AssemblyAttribute>
+    <AssemblyMetadata Include="GdkWindowsVersion" Value="$(GdkWindowsVersion)" />
+    <AssemblyMetadata Include="GdkCoreVersion" Value="$(GdkCoreVersion)" />
   </ItemGroup>
 </Project>

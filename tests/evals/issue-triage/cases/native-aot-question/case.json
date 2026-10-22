@@ -1,0 +1,13 @@
+{
+  "id": "native-aot-question",
+  "synthetic": true,
+  "repository": "microsoft/XBOX-GDK-dotnet",
+  "target_sha": "8ae3563d2fcd9ecffd45ec15c436bacf3ee44033",
+  "source_url": "https://github.com/microsoft/XBOX-GDK-dotnet/commit/8ae3563d2fcd9ecffd45ec15c436bacf3ee44033",
+  "sha_justification": "Synthetic documentation/feature question uses the public initial main SHA, whose project and authored NativeAOT page distinguish supported target frameworks, opt-in AOT and manual live validation.",
+  "fixture_digest": "2c93fb3fd9e92475fc89c8fe8342936a4b56c02933f2924be95626d30f8c24fc",
+  "source_files": [
+    { "path": "src/GDK.Net/GDK.Net.csproj", "sha256": "bb748fd0c76c34f32008cb7e2912c7539cc412dc461bd26c12be52d99d96584a" },
+    { "path": "docs/native-aot.md", "sha256": "49a6fbbade452183fc8ee21bfe2e04bdf3d48241846e52f6fe7959414db52744" }
+  ]
+}

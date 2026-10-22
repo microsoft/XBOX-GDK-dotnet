@@ -23,8 +23,9 @@ def managed(name: str) -> str:
 
 
 def main() -> int:
+    pfmodel.configure()
     header = os.path.join(
-        os.environ["GameDKCoreLatest"], "windows", "include", "playfab", "core", "PFErrors.h")
+        pfmodel.INCLUDE_ROOT, "playfab", "core", "PFErrors.h")
     with open(header, "r", encoding="utf-8-sig") as handle:
         text = handle.read()
 

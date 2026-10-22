@@ -3,3 +3,5 @@
 # every page as out of date because it compares the files byte for byte.
 docs/api/*.md text eol=lf
 docs/api/toc.yml text eol=lf
+
+.github/workflows/*.lock.yml linguist-generated=true

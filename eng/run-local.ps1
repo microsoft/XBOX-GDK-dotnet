@@ -64,7 +64,9 @@ param(
     [string] $RuntimeIdentifier = 'win-x64',
     [switch] $Aot,
     [string[]] $Arguments = @(),
-    [switch] $NoRun
+    [switch] $NoRun,
+    [string] $NuGetConfig,
+    [string] $PackagesDirectory
 )
 
 Set-StrictMode -Version Latest
@@ -105,6 +107,8 @@ $publishArgs = @(
     '--self-contained', 'true',
     '-o', $outputDir
 )
+if ($NuGetConfig) { $publishArgs += "-p:RestoreConfigFile=$((Resolve-Path $NuGetConfig).Path)" }
+if ($PackagesDirectory) { $publishArgs += "-p:RestorePackagesPath=$([IO.Path]::GetFullPath($PackagesDirectory))" }
 
 # Both apps multi-target, so publish must name one framework. NativeAOT uses net10.0 because the
 # NativeAOT runtime pack is only published from 9.0 onward; the IL publish stays on net8.0, the
