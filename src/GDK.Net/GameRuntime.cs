@@ -197,7 +197,9 @@ public sealed class GameRuntime : IDisposable
         int hr = Invoke(static () => Native.XGameRuntimeInitialize());
         Hr.ThrowIfFailed(hr);
 
-        return new GameRuntime();
+        var runtime = new GameRuntime();
+        Telemetry.InitializationTelemetry.Runtime.RecordSuccess(false, GameRuntimeGameConfigSource.Default, null);
+        return runtime;
     }
 
     /// <summary>
@@ -210,18 +212,20 @@ public sealed class GameRuntime : IDisposable
     public static unsafe GameRuntime Initialize(GameRuntimeOptions? options)
     {
         int hr;
+        GameRuntimeGameConfigSource configSource = options?.GameConfigSource ?? GameRuntimeGameConfigSource.Default;
+        string? config = options?.GameConfig;
         if (options is null)
         {
             hr = Invoke(static () => Native.XGameRuntimeInitialize());
         }
         else
         {
-            IntPtr gameConfigPtr = Utf8.Allocate(options.GameConfig);
+            IntPtr gameConfigPtr = Utf8.Allocate(config);
             try
             {
                 var nativeOptions = new XGameRuntimeOptions
                 {
-                    GameConfigSource = (XGameRuntimeGameConfigSource)options.GameConfigSource,
+                    GameConfigSource = (XGameRuntimeGameConfigSource)configSource,
                     GameConfig = gameConfigPtr,
                 };
                 // Cannot use Invoke() here because a lambda cannot capture the address of a local.
@@ -252,7 +256,9 @@ public sealed class GameRuntime : IDisposable
 
         Hr.ThrowIfFailed(hr);
 
-        return new GameRuntime();
+        var runtime = new GameRuntime();
+        Telemetry.InitializationTelemetry.Runtime.RecordSuccess(options is not null, configSource, config);
+        return runtime;
     }
 
     /// <summary>

@@ -77,5 +77,6 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="GDK.Net.Tests" />
+    <InternalsVisibleTo Include="GDK.Net.TelemetryProbe" />
   </ItemGroup>
 </Project>

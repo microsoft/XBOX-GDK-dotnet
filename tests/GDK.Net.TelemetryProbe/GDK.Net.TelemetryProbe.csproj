@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
+    <EventSourceSupport>true</EventSourceSupport>
+    <EnableAotAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableAotAnalyzer>
+    <EnableTrimAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableTrimAnalyzer>
+    <EnableSingleFileAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableSingleFileAnalyzer>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GDK.Net\GDK.Net.csproj" />
+  </ItemGroup>
+</Project>
