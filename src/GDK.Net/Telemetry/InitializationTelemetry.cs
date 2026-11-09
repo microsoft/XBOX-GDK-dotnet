@@ -7,36 +7,12 @@ using GDK.Net.Interop;
 
 namespace GDK.Net.Telemetry;
 
-internal sealed class InitializationTelemetry
+internal static class InitializationTelemetry
 {
-    internal static readonly InitializationTelemetry Runtime = new(
-        () => Native.XPackageIsPackagedProcess() != 0,
-        InitializationTelemetryWriter.IsEnabled,
-        InitializationTelemetryMetadata.Collect,
-        InitializationTelemetryWriter.Write);
+    private static long _sequence;
+    private static int _reportedFailure;
 
-    private readonly Func<bool> _isPackaged;
-    private readonly Func<bool> _isEnabled;
-    private readonly Func<GameRuntimeGameConfigSource, string?, ulong, InitializationTelemetryPayload> _collect;
-    private readonly Action<InitializationTelemetryPayload> _write;
-    private long _sequence;
-    private int _reportedFailure;
-
-    internal InitializationTelemetry(
-        Func<bool> isPackaged,
-        Func<bool> isEnabled,
-        Func<GameRuntimeGameConfigSource, string?, ulong, InitializationTelemetryPayload> collect,
-        Action<InitializationTelemetryPayload> write)
-    {
-        _isPackaged = isPackaged;
-        _isEnabled = isEnabled;
-        _collect = collect;
-        _write = write;
-    }
-
-    internal ulong Sequence => unchecked((ulong)Interlocked.Read(ref _sequence));
-
-    internal void RecordSuccess(bool withOptions, GameRuntimeGameConfigSource configSource, string? config)
+    internal static void RecordSuccess(bool withOptions, GameRuntimeGameConfigSource configSource, string? config)
     {
         ulong sequence = unchecked((ulong)Interlocked.Increment(ref _sequence));
         try
@@ -47,19 +23,19 @@ internal sealed class InitializationTelemetry
                 return;
             }
 
-            if (!withOptions || _isPackaged() || !_isEnabled())
+            if (!withOptions || Native.XPackageIsPackagedProcess() != 0 || !InitializationTelemetryWriter.IsEnabled())
             {
                 return;
             }
 
-            InitializationTelemetryPayload payload = _collect(configSource, config, sequence);
+            InitializationTelemetryPayload payload = InitializationTelemetryMetadata.Collect(configSource, config, sequence);
             if (!payload.IsValid())
             {
                 ReportFailure();
                 return;
             }
 
-            _write(payload);
+            InitializationTelemetryWriter.Write(payload);
         }
         catch (Exception exception) when (exception is SecurityException
             or DllNotFoundException or EntryPointNotFoundException
@@ -69,7 +45,7 @@ internal sealed class InitializationTelemetry
         }
     }
 
-    private void ReportFailure()
+    private static void ReportFailure()
     {
         if (Interlocked.Exchange(ref _reportedFailure, 1) == 0)
         {

@@ -25,10 +25,8 @@ internal static class InitializationTelemetryWriter
         return source;
     });
 
-    internal static EventSource Source => Provider.Value;
-
     internal static bool IsEnabled() =>
-        Source.IsEnabled(EventLevel.Informational, TelemetryEventSource.CriticalDataKeyword);
+        Provider.Value.IsEnabled(EventLevel.Informational, TelemetryEventSource.CriticalDataKeyword);
 
 #if NET5_0_OR_GREATER
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicProperties, typeof(InitializationTelemetryPayload))]

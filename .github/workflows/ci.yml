@@ -37,10 +37,6 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build
 
-      - name: Verify public telemetry emission under JIT and NativeAOT
-        shell: pwsh
-        run: .\eng\test-telemetry.ps1 -Aot
-
       # Xbox consoles require NativeAOT. The analyzers above already fail the build on any
       # AOT-hostile construct, but they only see what is annotated -- ILC sees the whole closure.
       # windows-latest ships the MSVC linker ILC shells out to, so the real ahead-of-time

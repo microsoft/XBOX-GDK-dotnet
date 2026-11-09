@@ -198,7 +198,7 @@ public sealed class GameRuntime : IDisposable
         Hr.ThrowIfFailed(hr);
 
         var runtime = new GameRuntime();
-        Telemetry.InitializationTelemetry.Runtime.RecordSuccess(false, GameRuntimeGameConfigSource.Default, null);
+        Telemetry.InitializationTelemetry.RecordSuccess(false, GameRuntimeGameConfigSource.Default, null);
         return runtime;
     }
 
@@ -257,7 +257,7 @@ public sealed class GameRuntime : IDisposable
         Hr.ThrowIfFailed(hr);
 
         var runtime = new GameRuntime();
-        Telemetry.InitializationTelemetry.Runtime.RecordSuccess(options is not null, configSource, config);
+        Telemetry.InitializationTelemetry.RecordSuccess(options is not null, configSource, config);
         return runtime;
     }
 
