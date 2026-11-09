@@ -23,7 +23,7 @@
     <EnableSingleFileAnalyzer Condition="'$(GdkNetEnableAotAnalyzers)' != 'false'">true</EnableSingleFileAnalyzer>
 
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
-    <EventSourceSupport>false</EventSourceSupport>
+    <EventSourceSupport>true</EventSourceSupport>
 
     <!-- The whole point of this sample. Party and Multiplayer both import PlayFabCore.dll, so
          either one already implies <GdkNetIncludePlayFab>; it is set here anyway to document the
