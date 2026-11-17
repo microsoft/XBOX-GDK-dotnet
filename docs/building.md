@@ -79,7 +79,7 @@ pwsh eng/run-local.ps1                          # the live harness
 pwsh eng/run-local.ps1 -Project Sample          # the readable XUser demo
 pwsh eng/run-local.ps1 -Project PlayFabSample   # the readable PlayFab demo
 pwsh eng/run-local.ps1 -Project MultiplayerHarness
-pwsh eng/run-local.ps1 -Aot                     # the NativeAOT build a console title ships
+pwsh eng/run-local.ps1 -Aot                     # the NativeAOT build
 pwsh eng/run-local.ps1 -NoRun                   # publish only, to copy to a test machine
 ```
 
@@ -95,7 +95,7 @@ is for.
 ```powershell
 pwsh eng/package.ps1                    # layout + genmap + validate
 pwsh eng/package.ps1 -Pack              # also produce the .msixvc (slow)
-pwsh eng/package.ps1 -Aot -Clean        # the configuration a console title ships in
+pwsh eng/package.ps1 -Aot -Clean        # the NativeAOT configuration
 ```
 
 Output lands in `artifacts/package/`: `layout/` (publish output plus `MicrosoftGame.config` and

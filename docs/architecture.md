@@ -102,7 +102,7 @@ types this introduces are `internal`, which is why the split does not reach the 
 
 ## The AOT contract
 
-XBOX consoles require NativeAOT, so the library must be usable from an AOT-published title. Three
+The library must be usable from an AOT-published title. Three
 things enforce that:
 
 1. **The analyzers.** `EnableAotAnalyzer`, `EnableTrimAnalyzer` and `EnableSingleFileAnalyzer` are
