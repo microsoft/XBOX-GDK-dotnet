@@ -45,7 +45,7 @@
     <!-- Keep an AOT-published binary honest: no reflection fallback silently papering over a
          missing JsonSerializerContext. -->
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
-    <EventSourceSupport>false</EventSourceSupport>
+    <EventSourceSupport>true</EventSourceSupport>
 
     <!-- The harness exercises GameRuntime.XboxLive, so it needs the XSAPI redistributables
          alongside the Gaming Runtime thunks. See eng/packaging/GdkRedist.targets. -->

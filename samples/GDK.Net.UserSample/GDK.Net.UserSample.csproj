@@ -36,7 +36,7 @@
       <!-- The sample writes a plain text log, not JSON, so it needs no JsonSerializerContext.
            Reflection-based serialization stays off so an AOT publish cannot silently depend on it. -->
       <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
-      <EventSourceSupport>false</EventSourceSupport>
+      <EventSourceSupport>true</EventSourceSupport>
     </PropertyGroup>
 
     <ItemGroup>

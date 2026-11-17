@@ -51,6 +51,10 @@ Family managers hang off the runtime instance: `runtime.Users`, `runtime.Activat
 `Initialize(GameRuntimeOptions)` overrides where the game config is read from, via
 `GameConfigSource` and `GameConfig`.
 
+GDK.Net can emit local initialization telemetry only in development scenarios: successful
+unpackaged initialization with non-null options, never packaged games. Public builds do not upload
+telemetry.
+
 ## Signing in a user
 
 The silent path is what a title does at startup: it succeeds when an account is already signed in

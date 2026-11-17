@@ -24,7 +24,7 @@
     <!-- The wire protocol is serialised through a source-generated context, and leaving reflection
          off is what proves it. -->
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
-    <EventSourceSupport>false</EventSourceSupport>
+    <EventSourceSupport>true</EventSourceSupport>
 
     <!-- Lobby, matchmaking and Party. No Xbox Live: participants authenticate with
          LoginWithCustomID precisely so the harness needs no signed-in account per process. -->
