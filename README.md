@@ -26,7 +26,7 @@
 | Add the projection to an existing .NET game | [**Getting started**](docs/getting-started.md) |
 | Clone, build and run the samples from source | [**Building**](docs/building.md) |
 | See exactly what is projected, and what is not | [**Projection status**](docs/status.md) |
-| Ship to console, where JIT is not permitted | [**NativeAOT**](docs/native-aot.md) |
+| Ship my .NET title on XBOX consoles | [**Request access**](https://developer.microsoft.com/en-us/games/support/request-gdkx-middleware) as a licensed XBOX developer |
 | Draw the runtime's dialogs myself | [**Title-implemented UI**](docs/custom-game-ui.md) |
 | Move to a newer GDK edition | [**The pinned GDK edition**](docs/gdk-edition.md) |
 | Browse the full documentation tree | [**Documentation index**](docs/README.md) |
@@ -54,7 +54,7 @@ GDK.Net projects the GDK surface a .NET title actually needs, generated and veri
 - **Gaming Runtime** - users and sign-in, game invites and protocol activation, storage, packages and DLC, game saves, game UI, networking, capture and broadcast, the Store, game streaming, accessibility, speech, and system metadata
 - **XBOX Services** - profile, achievements, social, presence, privacy, leaderboards, real-time activity, user and title-managed statistics, title storage, string verification, events, multiplayer activity, plus the social and achievements manager layers
 - **PlayFab** - Core and the full generated Services surface, Game Saves, Multiplayer (Lobby and Matchmaking), and Party including PartyXboxLive
-- **NativeAOT** - AOT-safe on `net8.0` and `net10.0`, enforced by analyzers, warnings-as-errors and a real ILC compilation in CI, because consoles do not permit JIT
+- **NativeAOT** - AOT-safe on `net8.0` and `net10.0`, enforced by analyzers, warnings-as-errors and a real ILC compilation in CI
 
 Coverage is measured, not asserted: **349 of 355** Gaming Runtime exports and **1,006 of 1,008** PlayFab exports are bound, the remainder being deliberately out of scope. Run [`eng/api-coverage.ps1`](eng/api-coverage.ps1) for the current tally, and see [**Projection status**](docs/status.md) for what is excluded and why.
 

@@ -5,8 +5,12 @@ own. For the design rationale behind the contract, see
 [`architecture.md`](architecture.md#the-aot-contract).
 
 
-**XBOX consoles do not permit JIT compilation, so a .NET title that ships to console must be
-NativeAOT-compiled.** `GDK.Net` is AOT-safe on `net8.0` and `net10.0`, and the repository enforces
+> [!IMPORTANT]
+> **This page covers Windows only.** A `win-x64` NativeAOT publish is not an XBOX console build.
+> XBOX console support for .NET titles is available to licensed XBOX developers through the
+> [middleware access request form](https://developer.microsoft.com/en-us/games/support/request-gdkx-middleware).
+
+`GDK.Net` is AOT-safe on `net8.0` and `net10.0`, and the repository enforces
 that at three levels rather than asserting it once.
 
 **AOT is opt-in, not required.** Nothing here forces it on you: `dotnet build`, `dotnet test`,
@@ -15,7 +19,7 @@ harness defaults to a self-contained `net8.0` JIT layout. `eng/package.ps1 -Aot`
 job are the only AOT paths. Both modes are verified against a real signed-in account in a real
 package: the harness's `runtime.compilation` step reports `Running JIT-compiled (X64)` or
 `Running NativeAOT-compiled (X64)`, and both give the same 23 passed / 1 skipped. Consume this
-library however suits your title; AOT is what console requires, not what this repo imposes.
+library however suits your title.
 
 **1. Analyzers, on every build.** `GDK.Net.csproj`, the harness and the sample set `EnableAotAnalyzer`,
 `EnableTrimAnalyzer` and `EnableSingleFileAnalyzer`, so any construct requiring dynamic code or
@@ -30,7 +34,7 @@ time) and every callback the runtime invokes is a `static` method with
 `delegate* unmanaged[Stdcall]<...>`. Nothing calls `Marshal.GetFunctionPointerForDelegate` on
 `net8.0`+; the delegate-based path exists only inside `netstandard2.0` `#if` branches, which no AOT
 publish ever compiles. `tests/GDK.Net.Tests/AotCompatibilityTests.cs` locks all of this in place, so
-a regression fails the ordinary test run rather than surfacing on console months later.
+a regression fails the ordinary test run rather than surfacing months later.
 
 **2. A real ILC compilation, in CI.** Analyzers only see what is annotated; ILC sees the whole
 closure. The `Verify NativeAOT compilation` job AOT-publishes the harness (which transitively

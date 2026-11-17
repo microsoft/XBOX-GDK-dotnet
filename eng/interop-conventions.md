@@ -141,7 +141,7 @@ These are the .NET-specific decisions that shape leaves open.
 
 ## NativeAOT
 
-XBOX consoles forbid JIT, so every line added here must survive ahead-of-time compilation. The
+Every line added here must survive ahead-of-time compilation. The
 analyzers are on (`EnableAotAnalyzer`, `EnableTrimAnalyzer`, `EnableSingleFileAnalyzer`) and
 warnings are errors, so most violations stop the build, but the analyzers cannot see everything, so
 follow these rules directly:

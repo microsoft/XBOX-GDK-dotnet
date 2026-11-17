@@ -23,7 +23,7 @@ Full documentation tree for the .NET projection of the Microsoft GDK.
 
 ## Guides
 
-- [**NativeAOT**](native-aot.md): why console requires it, how it is enforced, and how to
+- [**NativeAOT**](native-aot.md): how AOT safety is enforced, and how to
   AOT-publish a title
 - [**Title-implemented UI**](custom-game-ui.md): drawing the runtime's dialogs yourself, and the
   threading rules that come with it
